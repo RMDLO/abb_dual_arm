@@ -8,7 +8,7 @@
        - Update with joint names for your robot (in order expected by rbt controller)
        - and uncomment the following line: -->
 
-  <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
+  <!-- <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" /> -->
  
   <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
   <!--  - if sim=false, a robot_ip argument is required -->
@@ -42,6 +42,22 @@
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+  <group ns="mp">
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+      <arg name="publish_monitored_planning_scene" value="true" />
+    </include>
+
+    <remap from="/FollowJointTrajectory" to="mp_joint_trajectory_action/FollowJointTrajectory"/>
+  </group>
+
+  <group ns="mp_m">
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+      <arg name="publish_monitored_planning_scene" value="true" />
+    </include>
+
+    <remap from="/FollowJointTrajectory" to="mp_m_joint_trajectory_action/FollowJointTrajectory"/>
+  </group>
+
    <!-- <remap if="$(arg sim)" from="left/left_vel_based_pos_traj_controller/follow_joint_trajectory" to="fake_left_manipulator_controller/follow_joint_trajectory"/>
   <remap if="$(arg sim)" from="right/right_vel_based_pos_traj_controller/follow_joint_trajectory" to="fake_right_manipulator_controller/follow_joint_trajectory"/> -->
   
@@ -58,9 +74,9 @@
 
   <remap from="/joint_trajectory_action" to="/mp_m_controller/joint_trajectory_action"/> -->
 
-  <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+  <!-- <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
-  </include>
+  </include> -->
 
   <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
