@@ -9,8 +9,8 @@
 
 # Uncomment below lines when connecting with the physical robot
 
-# /mp/controller_joint_names: ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7']
+/mp/controller_joint_names: ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7']
 
-# /mp_m/controller_joint_names: ['joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
+/mp_m/controller_joint_names: ['joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
 
-controller_joint_names: ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7', 'joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
+# controller_joint_names: ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7', 'joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
