@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>abb_driver</name>
+  <version>1.4.0</version>
+  <description>
+   <p>
+     ROS-Industrial nodes for interfacing with ABB robot controllers.
+   </p>
+   <p>
+     This package is part of the ROS-Industrial program and contains nodes 
+     for interfacing with ABB industrial robot controllers.
+   </p>
+  </description>
+  <author>Edward Venator</author>
+  <author>Jeremy Zoss</author>
+  <author>Shaun Edwards</author>
+  <maintainer email="levi.armstrong@swri.org">Levi Armstrong (Southwest Research Institute)</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/abb_driver</url>
+  <url type="bugtracker">https://github.com/ros-industrial/abb_driver/issues</url>
+  <url type="repository">https://github.com/ros-industrial/abb_driver</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>simple_message</build_depend>
+  <depend>industrial_robot_client</depend>
+
+</package>
