@@ -42,22 +42,6 @@
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-   <!-- <remap if="$(arg sim)" from="left/left_vel_based_pos_traj_controller/follow_joint_trajectory" to="fake_left_manipulator_controller/follow_joint_trajectory"/>
-  <remap if="$(arg sim)" from="right/right_vel_based_pos_traj_controller/follow_joint_trajectory" to="fake_right_manipulator_controller/follow_joint_trajectory"/> -->
-  
-  <!-- <remap from="/FollowJointTrajectory" to="mp_joint_trajectory_action/FollowJointTrajectory"/>
-  <remap from="/FollowJointTrajectory" to="mp_m_joint_trajectory_action/FollowJointTrajectory"/> -->
-
-  <!-- <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="spawn joint_state_controller position_trajectory_controller" /> -->
-
-<!--   <remap from="joint_states" to="mp/joint_states"/>
- 
-  <remap from="joint_states" to="mp_m/joint_states"/>
-
-  <remap from="/joint_trajectory_action" to="/mp_controller/joint_trajectory_action"/>
-
-  <remap from="/joint_trajectory_action" to="/mp_m_controller/joint_trajectory_action"/> -->
-
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
