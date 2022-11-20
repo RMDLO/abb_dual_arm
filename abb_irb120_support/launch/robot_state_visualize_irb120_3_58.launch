@@ -20,9 +20,9 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
-  <node name="robot_state" pkg="industrial_robot_client" type="robot_state" ns="mp"/>
-  <node name="robot_state" pkg="industrial_robot_client" type="robot_state" ns="mp_m"/>
-
+  
+  <node name="robot_state" pkg="abb_driver" type="robot_state" ns="mp"/>
+  <node name="robot_state" pkg="abb_driver" type="robot_state" ns="mp_m"/>
 
   <include file="$(find abb_irb120_support)/launch/load_irb120_3_58.launch" />
 
