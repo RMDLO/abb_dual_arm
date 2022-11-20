@@ -1,0 +1,62 @@
+digraph G {
+node [shape=box];
+"dummy" [label="dummy"];
+"base" [label="base"];
+"base_link" [label="base_link"];
+"link_1" [label="link_1"];
+"link_2" [label="link_2"];
+"link_3" [label="link_3"];
+"link_4" [label="link_4"];
+"link_5" [label="link_5"];
+"link_6" [label="link_6"];
+"flange" [label="flange"];
+"tool0" [label="tool0"];
+"base_link_m" [label="base_link_m"];
+"link_1_m" [label="link_1_m"];
+"link_2_m" [label="link_2_m"];
+"link_3_m" [label="link_3_m"];
+"link_4_m" [label="link_4_m"];
+"link_5_m" [label="link_5_m"];
+"link_6_m" [label="link_6_m"];
+"flange_m" [label="flange_m"];
+"tool0_m" [label="tool0_m"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"dummy" -> "dummy-base" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"dummy-base" -> "base"
+"dummy" -> "joint_1" [label="xyz: 0.5 0 0 \nrpy: 0 -0 0"]
+"joint_1" -> "base_link"
+"base_link" -> "joint_2" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint_2" -> "link_1"
+"link_1" -> "joint_3" [label="xyz: 0 0 0.29 \nrpy: 0 -0 0"]
+"joint_3" -> "link_2"
+"link_2" -> "joint_4" [label="xyz: 0 0 0.27 \nrpy: 0 -0 0"]
+"joint_4" -> "link_3"
+"link_3" -> "joint_5" [label="xyz: 0 0 0.07 \nrpy: 0 -0 0"]
+"joint_5" -> "link_4"
+"link_4" -> "joint_6" [label="xyz: 0.302 0 0 \nrpy: 0 -0 0"]
+"joint_6" -> "link_5"
+"link_5" -> "joint_7" [label="xyz: 0.072 0 0 \nrpy: 0 -0 0"]
+"joint_7" -> "link_6"
+"link_6" -> "joint_8-flange" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint_8-flange" -> "flange"
+"flange" -> "link_7-tool0" [label="xyz: 0 0 0 \nrpy: 0 1.5708 -0"]
+"link_7-tool0" -> "tool0"
+"dummy" -> "joint_1_m" [label="xyz: 1.5 0 0 \nrpy: 0 -0 0"]
+"joint_1_m" -> "base_link_m"
+"base_link_m" -> "joint_2_m" [label="xyz: 1 0 0 \nrpy: 0 -0 0"]
+"joint_2_m" -> "link_1_m"
+"link_1_m" -> "joint_3_m" [label="xyz: 0 0 0.29 \nrpy: 0 -0 0"]
+"joint_3_m" -> "link_2_m"
+"link_2_m" -> "joint_4_m" [label="xyz: 0 0 0.27 \nrpy: 0 -0 0"]
+"joint_4_m" -> "link_3_m"
+"link_3_m" -> "joint_5_m" [label="xyz: 0 0 0.07 \nrpy: 0 -0 0"]
+"joint_5_m" -> "link_4_m"
+"link_4_m" -> "joint_6_m" [label="xyz: 0.302 0 0 \nrpy: 0 -0 0"]
+"joint_6_m" -> "link_5_m"
+"link_5_m" -> "joint_7_m" [label="xyz: 0.072 0 0 \nrpy: 0 -0 0"]
+"joint_7_m" -> "link_6_m"
+"link_6_m" -> "joint_8_m-flange_m" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint_8_m-flange_m" -> "flange_m"
+"flange_m" -> "link_7_m-tool0_m" [label="xyz: 0 0 0 \nrpy: 0 1.5708 -0"]
+"link_7_m-tool0_m" -> "tool0_m"
+}
