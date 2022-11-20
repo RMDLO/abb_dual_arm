@@ -41,6 +41,9 @@
     
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+    <remap from="/mp_controller/follow_joint_trajectory" to="/mp/joint_trajectory_action/joint_trajectory_action" />
+    <remap from="/mp_controller/state" to="/mp/feedback_states" />
+    <remap from="/mp_controller/command" to="/mp/joint_path_command"/>
     <node pkg="topic_tools" type="relay" name="mp_joints_relay" args="/mp/joint_states /joint_states"/>
   </group>
 
@@ -65,6 +68,9 @@
     
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+    <remap from="/mp_m_controller/follow_joint_trajectory" to="/mp_m/joint_trajectory_action/joint_trajectory_action" />
+    <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
+    <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/>
     <node pkg="topic_tools" type="relay" name="mp_joints_relay" args="/mp_m/joint_states /joint_states"/>
   </group>
 
