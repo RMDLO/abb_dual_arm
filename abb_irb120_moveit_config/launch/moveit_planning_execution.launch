@@ -41,11 +41,14 @@
 
   <!-- <include file="$(find abb_irb120_support)/launch/robot_interface_download_irb120_3_58.launch" > -->
 
+  <group unless="$(arg sim)">
+    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch" >
+      <arg name="robot_ip" value="$(arg robot_ip)"/>
+    </include>
+  </group>
+
   <!-- publish the robot state (tf transforms) -->
   <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
 
   <!-- The 6 lines below doesn't seem to make any difference -->
 
@@ -56,6 +59,9 @@
   <remap from="/mp_m_controller/follow_joint_trajectory" to="/mp_m/joint_trajectory_action" />
   <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
   <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
 
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
