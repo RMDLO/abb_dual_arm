@@ -18,9 +18,9 @@
     <arg name="J23_coupled" value="$(arg J23_coupled)" />
   </include>
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
-    <remap from="robot_state_publisher" to="mp/robot_state_publisher" />
-  </node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="robot_state" pkg="industrial_robot_client" type="robot_state" />
+
 
   <include file="$(find abb_irb120_support)/launch/load_irb120_3_58.launch" />
 
