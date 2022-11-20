@@ -47,13 +47,15 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
 
-  <remap from="/mp/mp_controller/follow_joint_trajectory" to="/mp/joint_trajectory_action" />
-  <remap from="/mp/mp_controller/state" to="/mp/feedback_states" />
-  <remap from="/mp/mp_controller/command" to="/mp/joint_path_command"/>
+  <!-- The 6 lines below doesn't seem to make any difference -->
 
-  <remap from="/mp_m/mp_m_controller/follow_joint_trajectory" to="/mp_m/joint_trajectory_action" />
-  <remap from="/mp_m/mp_m_controller/state" to="/mp_m/feedback_states" />
-  <remap from="/mp_m/mp_m_controller/command" to="/mp_m/joint_path_command"/>
+  <remap from="/mp_controller/follow_joint_trajectory" to="/mp/joint_trajectory_action" />
+  <remap from="/mp_controller/state" to="/mp/feedback_states" />
+  <remap from="/mp_controller/command" to="/mp/joint_path_command"/>
+
+  <remap from="/mp_m_controller/follow_joint_trajectory" to="/mp_m/joint_trajectory_action" />
+  <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
+  <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/>
 
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
