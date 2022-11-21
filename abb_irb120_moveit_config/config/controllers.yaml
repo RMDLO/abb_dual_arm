@@ -1,7 +1,7 @@
-moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+# moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
 
-moveit_simple_controller_manager:
-  controller_list:
+# moveit_simple_controller_manager:
+controller_list:
 
   - name: mp_controller
     action_ns: joint_trajectory_action
