@@ -3,7 +3,7 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 moveit_simple_controller_manager:
   controller_list: [mp_controller, mp_m_controller]
 
-  mp_controller:
+  - name: mp_controller
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
     default: true
@@ -15,7 +15,7 @@ moveit_simple_controller_manager:
       - joint_6 
       - joint_7 
 
-  mp_m_controller:
+  - name: mp_m_controller
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
     default: true
