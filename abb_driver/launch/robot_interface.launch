@@ -47,10 +47,7 @@
 
     <remap from="/mp_controller/state" to="/mp/feedback_states" />
     <remap from="/mp_controller/command" to="/mp/joint_path_command"/> - -->
-
-    <node pkg="moveit_ros_move_group" type="move_group" name="mp" output="screen">
-    <remap from="joint_states" to="mp/joint_states"/>
-    </node>
+    
   </group>
 
   <group ns="mp_m">
@@ -81,9 +78,9 @@
     <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
     <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/> -->
 
-    <node pkg="moveit_ros_move_group" type="move_group" name="mp_m" output="screen">
+   <!--  <node pkg="moveit_ros_move_group" type="move_group" name="mp_m" output="screen">
     <remap from="joint_states" to="mp_m/joint_states"/>
-    </node>
+    </node> -->
   </group>
 
 </launch>

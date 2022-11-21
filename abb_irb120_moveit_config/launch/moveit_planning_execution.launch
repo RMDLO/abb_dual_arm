@@ -72,6 +72,14 @@
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
 
+  <!-- <node pkg="moveit_ros_move_group" type="move_group" name="mp" ns="mp" output="screen">
+    <remap from="joint_states" to="mp/joint_states"/>
+  </node>
+
+  <node pkg="moveit_ros_move_group" type="move_group" name="mp_m" ns="mp_m" output="screen">
+    <remap from="joint_states" to="mp_m/joint_states"/>
+  </node> -->
+
     <!-- The 6 lines below doesn't seem to make any difference -->
 
   <!-- <remap from="/joint_trajectory_action" to="/mp_controller/joint_trajectory_action" /> -->
