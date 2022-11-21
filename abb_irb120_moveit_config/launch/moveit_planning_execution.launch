@@ -44,7 +44,7 @@
   <!-- rosparam get /controller_list - this was solved by adding the below file -->
 
   <group unless="$(arg sim)">
-    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch.xml" >
+    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch" >
     </include>
   </group>
 
@@ -53,18 +53,18 @@
 
   <!-- The 6 lines below doesn't seem to make any difference -->
 
-  <remap from="/mp_controller/follow_joint_trajectory" to="/mp/joint_trajectory_action/joint_trajectory_action" />
+<!--   <remap from="/mp_controller/follow_joint_trajectory" to="/mp/joint_trajectory_action/joint_trajectory_action" />
   <remap from="/mp_controller/state" to="/mp/feedback_states" />
   <remap from="/mp_controller/command" to="/mp/joint_path_command"/>
 
   <remap from="/mp_m_controller/follow_joint_trajectory" to="/mp_m/joint_trajectory_action/joint_trajectory_action" />
   <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
-  <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/>
+  <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/> -->
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
 
-  <group ns="mp">
+<!--   <group ns="mp">
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
@@ -74,7 +74,11 @@
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
-  </group>
+  </group> -->
+
+  <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+  </include>
 
   <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
