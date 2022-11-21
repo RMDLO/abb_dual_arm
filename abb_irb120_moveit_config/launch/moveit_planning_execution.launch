@@ -8,6 +8,10 @@
        - Update with joint names for your robot (in order expected by rbt controller)
        - and uncomment the following line: -->
 
+  <remap from="/joint_trajectory_action" to="/mp/joint_trajectory_action"/>
+  
+  <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
+
   <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
  
   <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
