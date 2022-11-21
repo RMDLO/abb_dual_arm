@@ -64,9 +64,17 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
 
-  <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+  <group ns="mp">
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
+  </group>
+
+  <group ns="mp_m">
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+  </include>
+  </group>
 
   <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
