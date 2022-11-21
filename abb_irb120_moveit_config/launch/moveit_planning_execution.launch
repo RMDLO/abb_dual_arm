@@ -52,7 +52,7 @@
     </include>
   </group>
 
-  <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/controllers.yaml" />
+  <!-- <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/controllers.yaml" /> -->
 
   <!-- publish the robot state (tf transforms) -->
   <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
