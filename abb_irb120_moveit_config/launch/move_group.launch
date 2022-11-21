@@ -69,12 +69,12 @@
     <param name="planning_scene_monitor/publish_transforms_updates" value="$(arg publish_monitored_planning_scene)" />
   </node>
 
-  <node pkg="moveit_ros_move_group" type="move_group" name="mp" ns="mp" output="screen">
+  <!-- <node pkg="moveit_ros_move_group" type="move_group" name="mp" ns="mp" output="screen">
     <remap from="joint_states" to="mp/joint_states"/>
   </node>
 
   <node pkg="moveit_ros_move_group" type="move_group" name="mp_m" ns="mp_m" output="screen">
     <remap from="joint_states" to="mp_m/joint_states"/>
-  </node>
+  </node> -->
 
 </launch>

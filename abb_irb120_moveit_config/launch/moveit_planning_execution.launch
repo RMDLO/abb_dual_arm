@@ -51,7 +51,7 @@
   <!-- publish the robot state (tf transforms) -->
   <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
 
-
+  <rosparam file="$(find abb_irb120_moveit_config)/config/controllers.yaml" command="load" />
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m"/>
