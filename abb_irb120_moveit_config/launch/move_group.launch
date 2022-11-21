@@ -77,8 +77,6 @@
     <remap from="joint_states" to="mp_m/joint_states"/>
   </node> -->
 
-  <node pkg="moveit_ros_move_group" type="move_group" name="any_name" output="screen">
-    <remap from="joint_states" to="robot/joint_states"/>
-  </node>
+  
 
 </launch>
