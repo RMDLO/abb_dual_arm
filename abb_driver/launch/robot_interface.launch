@@ -25,7 +25,7 @@
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
 
-    <!-- <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp.yaml" /> -->
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp.yaml" />
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
@@ -42,12 +42,6 @@
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
     <node pkg="topic_tools" type="relay" name="mp_joints_relay" args="/mp/joint_states /joint_states"/>
-
-<!--     <remap from="/joint_trajectory_action" to="/mp_controller/joint_trajectory_action" />
-
-    <remap from="/mp_controller/state" to="/mp/feedback_states" />
-    <remap from="/mp_controller/command" to="/mp/joint_path_command"/> - -->
-    
   </group>
 
   <group ns="mp_m">
@@ -55,7 +49,7 @@
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
 
-    <!-- <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" /> -->
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" />
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
@@ -72,15 +66,7 @@
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
     <node pkg="topic_tools" type="relay" name="mp_joints_relay" args="/mp_m/joint_states /joint_states"/>
-  
- <!--    <remap from="/joint_trajectory_action" to="/mp_m_controller/joint_trajectory_action" />
 
-    <remap from="/mp_m_controller/state" to="/mp_m/feedback_states" />
-    <remap from="/mp_m_controller/command" to="/mp_m/joint_path_command"/> -->
-
-   <!--  <node pkg="moveit_ros_move_group" type="move_group" name="mp_m" output="screen">
-    <remap from="joint_states" to="mp_m/joint_states"/>
-    </node> -->
   </group>
 
 </launch>
