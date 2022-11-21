@@ -1,6 +1,6 @@
 controller_list:
-  - name: mp_controller
-    action_ns: joint_trajectory_action
+  - name: ""
+    action_ns: mp_controller/joint_trajectory_action
     type: FollowJointTrajectory
     default: true
     joints: 
@@ -10,9 +10,8 @@ controller_list:
       - joint_5
       - joint_6 
       - joint_7 
-
-  - name: mp_m_controller
-    action_ns: joint_trajectory_action
+  - name: ""
+    action_ns: mp_m_controller/joint_trajectory_action
     type: FollowJointTrajectory
     default: true
     joints: 
