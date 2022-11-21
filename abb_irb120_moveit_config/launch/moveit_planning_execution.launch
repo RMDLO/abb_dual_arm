@@ -8,10 +8,6 @@
        - Update with joint names for your robot (in order expected by rbt controller)
        - and uncomment the following line: -->
 
-  
-  
-  <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
-
   <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
  
   <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
@@ -42,10 +38,6 @@
       <arg name="robot_ip" value="$(arg robot_ip)"/>
     </include>
   </group>
-
-  <!-- <include file="$(find abb_irb120_support)/launch/robot_interface_download_irb120_3_58.launch" > -->
-
-  <!-- rosparam get /controller_list - this was solved by adding the below file -->
 
   <group unless="$(arg sim)">
     <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch" >
