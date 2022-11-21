@@ -1,7 +1,7 @@
 <launch>
   
   <arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager"/>
-  <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
+  <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)" args="controller_list/joint_trajectory_action">/>
 
   <rosparam file="$(find abb_irb120_moveit_config)/config/controllers.yaml" ns="move_group/controller_list"/>
 
