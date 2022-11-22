@@ -25,7 +25,7 @@
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
 
-    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp.yaml" />
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
@@ -50,7 +50,7 @@
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
 
-    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" />
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
