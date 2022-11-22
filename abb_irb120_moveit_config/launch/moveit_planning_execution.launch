@@ -48,10 +48,10 @@
   <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp" >
-    <remap from="/joint_trajectory_action" to="/mp/joint_trajectory_action"/>
+    <!-- <remap from="joint_trajectory_action" to="/mp/joint_trajectory_action"/> -->
   </node>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m" >
-    <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
+    <!-- <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/> -->
   </node>
 
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
