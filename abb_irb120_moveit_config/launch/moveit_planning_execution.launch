@@ -54,6 +54,10 @@
     <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
   </node>
 
+  <remap from="/follow_joint_trajectory" to="/mp_controller/follow_joint_trajectory"/>
+
+  <remap from="/follow_joint_trajectory" to="/mp_m_controller/follow_joint_trajectory"/>
+
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
