@@ -9,6 +9,8 @@
   <arg name="use_controller_manager" default="false" />
   <param name="use_controller_manager" value="$(arg use_controller_manager)" / -->>
 
-  <rosparam file="$(find abb_irb120_moveit_config)/config/controllers.yaml" ns="move_group/controller_list" command="load"/>
+  <!-- <rosparam file="$(find abb_irb120_moveit_config)/config/controllers.yaml" ns="move_group/[controller_list]"/> -->
+  <rosparam file="$(find abb_irb120_moveit_config)/config/controllers.yaml" param="/controller_list" ns="move_group/controller_list">[/move_group/controller_list]
+  </rosparam>
 
 </launch>
