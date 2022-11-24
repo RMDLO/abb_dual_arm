@@ -13,7 +13,7 @@
 
   <!-- <arg name="controller" default="fs100"/> -->
 
-  <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
+  <!-- <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" /> -->
 
   <rosparam command="load" file="$(find abb_irb120_support)/config/abb_irb120_3_58_motion_interface.yaml" />
 
@@ -25,7 +25,7 @@
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" />
   </group> -->
 
-  <include file="$(find abb_driver)/launch/robot_interface_$(arg controller).launch">
+  <include file="$(find abb_driver)/launch/robot_interface.launch">
     <arg name="robot_ip"    value="$(arg robot_ip)" />
     <arg name="J23_coupled" value="$(arg J23_coupled)" />
   </include>
