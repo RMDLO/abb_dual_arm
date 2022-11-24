@@ -45,23 +45,14 @@
   </group>
 
   <!-- publish the robot state (tf transforms) -->
-  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp" >
-    <!-- <remap from="joint_trajectory_action" to="/mp/joint_trajectory_action"/> -->
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp" >
+    <remap from="joint_trajectory_action" to="/mp/joint_trajectory_action"/>
   </node>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m" >
-    <!-- <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/> -->
-  </node>
-
-  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="/use_gui" value="false"/>
-    <rosparam param="/source_list">[/move_group/fake_controller_joint_states]</rosparam>
+    <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
   </node> -->
-
-  <!-- <remap from="/follow_joint_trajectory" to="/mp_controller/follow_joint_trajectory"/> -->
-
-  <!-- <remap from="/follow_joint_trajectory" to="/mp_m_controller/follow_joint_trajectory"/> -->
 
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
@@ -70,6 +61,10 @@
   <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
   </include>
+
+  <group if="$(arg robot_enable)">
+    <include file="$(find abb_irb120_support)/launch/robot_enable.launch" />
+  </group>
   
   <!-- If database loading was enabled, start mongodb as well -->
   <include file="$(find abb_irb120_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
