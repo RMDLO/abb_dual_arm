@@ -11,6 +11,8 @@
   <arg name="robot_ip" doc="IP of the controller" />
   <arg name="J23_coupled" default="false" doc="If true, compensate for J2-J3 parallel linkage" />
 
+  <!-- <arg name="controller" default="fs100"/> -->
+
   <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
 
   <!-- <group ns="mp">
@@ -26,3 +28,7 @@
     <arg name="J23_coupled" value="$(arg J23_coupled)" />
   </include>
 </launch>
+
+<!-- <include file="$(find abb_driver)/launch/robot_interface_$(arg controller).launch">
+    <arg name="robot_ip"   value="$(arg robot_ip)" />
+  </include> -->
