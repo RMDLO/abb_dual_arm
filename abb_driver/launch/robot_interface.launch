@@ -33,8 +33,6 @@
       <param name="port" value="11002"/>
     </node>
     
-    <remap from="mp/feedback_states" to="feedback_states"/>
-
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
     <node pkg="abb_driver" type="motion_download_interface" name="motion_download_interface">
@@ -43,6 +41,10 @@
 
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp/joint_states /joint_states"/>
     <remap from="joint_states" to="mp/joint_states"/>
+
+    <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp/feedback_states/feedback_states"/>
+    <remap from="feedback_states" to="mp/feedback_states"/>
+    
   </group>
 
   <group ns="mp_m">
@@ -58,8 +60,6 @@
       <param name="port" value="12002"/>
     </node>
 
-    <remap from="mp_m/feedback_states" to="feedback_states"/>
-    
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
     <node pkg="abb_driver" type="motion_download_interface" name="motion_download_interface">
@@ -68,9 +68,16 @@
     
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp_m/joint_states /joint_states"/>
     <remap from="joint_states" to="mp_m/joint_states"/>
+
+    <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp_m/feedback_states/feedback_states"/>
+    <remap from="feedback_states" to="mp_m/feedback_states"/>
+
   </group>
   
   <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
   <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+
+  <!-- <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp/feedback_states/feedback_states"/>
+    <remap from="feedback_states" to="mp_m/feedback_states"/> -->
 
 </launch>
