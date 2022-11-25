@@ -78,7 +78,7 @@
   <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
 
   <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp/feedback_states/feedback_states mux:=feedback_mux" />
-    <remap from="feedback_states" to="mp/feedback_states"/>
+    <!-- <remap from="feedback_states" to="mp/feedback_states"/> -->
     <!-- <remap from="feedback_states" to="mp_m/feedback_states"/> -->
 
 </launch>
