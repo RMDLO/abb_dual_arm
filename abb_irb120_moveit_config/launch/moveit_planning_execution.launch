@@ -49,27 +49,16 @@
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp" >
-    <remap from="joint_trajectory_action" to="/mp/joint_trajectory_action"/>
-  </node>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="mp_m" >
-    <remap from="/joint_trajectory_action" to="/mp_m/joint_trajectory_action"/>
-  </node> -->
-
   <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
-  <!--   <arg name="fake_execution" if="$(arg sim)" value="true"/>
-    <arg name="planner" value="ompl" / -->>
   </include>
 
   <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
   </include>
 
- 
   <include file="$(find abb_irb120_support)/launch/robot_enable.launch" />
 
-  
   <!-- If database loading was enabled, start mongodb as well -->
   <include file="$(find abb_irb120_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
     <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
