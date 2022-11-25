@@ -30,12 +30,12 @@
         <joint name="joint_7_m" />
     </group>
 
-    <!-- <group name="dual_arm">
+    <group name="dual_arm">
         <group name="mp" />
         <group name="mp_m" />
-    </group> -->
+    </group>
 
-    <group name="dual_arm">
+    <!-- <group name="dual_arm">
         <joint name="joint_2" />
         <joint name="joint_3" />
         <joint name="joint_4" />
@@ -48,7 +48,7 @@
         <joint name="joint_5_m" />
         <joint name="joint_6_m" />
         <joint name="joint_7_m" />
-    </group>
+    </group> -->
 
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     
