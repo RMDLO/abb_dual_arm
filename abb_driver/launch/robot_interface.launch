@@ -33,7 +33,7 @@
       <param name="port" value="11002"/>
     </node>
     
-    <remap from="feedback_states" to="mp/feedback_states"/>
+    <remap from="mp/feedback_states" to="feedback_states"/>
 
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
@@ -58,7 +58,7 @@
       <param name="port" value="12002"/>
     </node>
 
-    <remap from="feedback_states" to="mp_m/feedback_states"/>
+    <remap from="mp_m/feedback_states" to="feedback_states"/>
     
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
