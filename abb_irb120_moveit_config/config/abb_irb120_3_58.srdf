@@ -52,13 +52,16 @@
 
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     
-    <group_state name="all_zero" group="dual_arm">
+    <group_state name="all_zero" group="mp">
         <joint name="joint_2" value="0" />
         <joint name="joint_3" value="0" />
         <joint name="joint_4" value="0" />
         <joint name="joint_5" value="0" />
         <joint name="joint_6" value="0" />
         <joint name="joint_7" value="0" />
+    </group_state>
+    
+    <group_state name="all_zero" group="mp_m">
         <joint name="joint_2_m" value="0" />
         <joint name="joint_3_m" value="0" />
         <joint name="joint_4_m" value="0" />
