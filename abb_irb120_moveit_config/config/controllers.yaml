@@ -1,7 +1,7 @@
 # moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
 
 # moveit_simple_controller_manager:
-# controller_manager_ns: /move_group/moveit_simple_controller_manager
+controller_manager_ns: controller_manager
 controller_list:
   - name: ""
     action_ns: joint_trajectory_action
@@ -20,7 +20,7 @@ controller_list:
       - joint_5_m 
       - joint_6_m 
       - joint_7_m
-  - name: abb_irb120/mp_controller
+  - name: abb_irb120_3_58/mp_controller
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
     default: true
@@ -31,7 +31,7 @@ controller_list:
       - joint_5
       - joint_6 
       - joint_7 
-  - name: abb_irb120/mp_m_controller
+  - name: abb_irb120_3_58/mp_m_controller
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
     default: true
