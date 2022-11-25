@@ -39,6 +39,8 @@
       <param name="port" value="11000"/>
     </node>
 
+    <!-- the space here is very important - /mp/joint_states /joint_states -->
+
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp/joint_states /joint_states"/>
     <remap from="joint_states" to="mp/joint_states"/>
 
