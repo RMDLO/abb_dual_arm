@@ -40,7 +40,7 @@
     </node>
     
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
-    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" />
+    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" ns="move_group"/>
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp/joint_states /joint_states"/>
     <remap from="mp/joint_states" to="joint_states"/>
   </group>
@@ -65,7 +65,7 @@
     </node>
     
     <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
-    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" ns="move_group"/>
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp_m/joint_states /joint_states"/>
     <remap from="mp_m/joint_states" to="joint_states"/>
   </group>
