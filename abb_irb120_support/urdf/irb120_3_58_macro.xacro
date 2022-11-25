@@ -408,19 +408,19 @@
       <parent link="${prefix}link_3_m"/>
       <child link="${prefix}link_4_m"/>
       <limit effort="0" lower="-2.79253" upper="2.79253" velocity="5.58505"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}joint_6_m" type="revolute">
-      <origin rpy="0 0 0" xyz="0.302 0 0"/>
+      <origin rpy="0 0 0" xyz="-0.302 0 0"/>
       <parent link="${prefix}link_4_m"/>
       <child link="${prefix}link_5_m"/>
       <limit effort="0" lower="-2.094395" upper="2.094395" velocity="5.58505"/>
-      <axis xyz="0 1 0"/>
+      <axis xyz="0 -1 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}joint_7_m" type="revolute">
-      <origin rpy="0 0 0" xyz="0.072 0 0"/>
+      <origin rpy="0 0 0" xyz="-0.072 0 0"/>
       <parent link="${prefix}link_5_m"/>
       <child link="${prefix}link_6_m"/>
       <limit effort="0" lower="-6.98132" upper="6.98132" velocity="7.33038"/>
