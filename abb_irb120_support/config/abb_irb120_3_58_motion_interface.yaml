@@ -1,9 +1,5 @@
 # Ordering from 0 to 4 is required due to real controller configuration.
 topic_list:
-    - name: 
-      ns: abb_irb120_3_58
-      group: 0
-      joints: ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7', 'joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
     - name: mp_controller
       ns: abb_irb120_3_58
       group: 0
