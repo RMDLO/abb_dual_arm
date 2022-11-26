@@ -33,8 +33,8 @@
       <param name="port" value="11002"/>
     </node>
 
-    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp/robot_state /robot_status"/>
-    <remap from="robot_status" to="mp/robot_state"/>
+    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp/robot_status /robot_status"/>
+    <remap from="robot_status" to="mp/robot_status"/>
 
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp/feedback_states /feedback_states"/>
     <remap from="feedback_states" to="mp/feedback_states"/>
@@ -68,8 +68,8 @@
       <param name="port" value="12002"/>
     </node>
 
-    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp_m/robot_state /robot_status"/>
-    <remap from="robot_status" to="mp_m/robot_state"/>
+    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp_m/robot_status /robot_status"/>
+    <remap from="robot_status" to="mp_m/robot_status"/>
 
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp_m/feedback_states /feedback_states"/>
     <remap from="feedback_states" to="mp_m/feedback_states"/>
