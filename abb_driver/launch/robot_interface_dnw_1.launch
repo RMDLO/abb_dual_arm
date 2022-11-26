@@ -50,6 +50,11 @@
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp/joint_states /joint_states"/>
     <remap from="joint_states" to="mp/joint_states"/>
 
+    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+
+    <node pkg="topic_tools" type="relay" name="jta_relay" args="/mp/controller /joint_trajectory_action"/>
+    <remap from="joint_trajectory_action" to="mp/controller"/>
+
     <!-- <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp/feedback_states feedback_states mux:=feedback_mux"/> -->
     <!-- <remap from="feedback_states" to="mp/feedback_states"/> -->
 
@@ -83,20 +88,15 @@
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp_m/joint_states /joint_states"/>
     <remap from="joint_states" to="mp_m/joint_states"/>
 
+    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
+
+    <node pkg="topic_tools" type="relay" name="jta_relay" args="/mp_m/controller /joint_trajectory_action"/>
+    <remap from="joint_trajectory_action" to="mp_m/controller"/>
+
     <!-- <node pkg="topic_tools" type="mux" name="feedback_mux" args="/mp_m/feedback_states feedback_states mux:=feedback_mux"/> -->
     <!-- <remap from="feedback_states" to="mp_m/feedback_states"/> -->
 
   </group>
-
-  <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" ns="mp"/>
-
-  <node pkg="topic_tools" type="relay" name="jta_relay" args="/mp/controller /joint_trajectory_action"/>
-  <remap from="joint_trajectory_action" to="mp/controller"/>
-
-  <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" ns="mp_m"/>
-
-  <node pkg="topic_tools" type="relay" name="jta_relay" args="/mp_m/controller /joint_trajectory_action"/>
-  <remap from="joint_trajectory_action" to="mp_m/controller"/>
   
   <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
   <!-- <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/> -->
