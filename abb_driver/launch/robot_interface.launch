@@ -29,9 +29,7 @@
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
-    <node pkg="abb_driver" type="robot_state" name="robot_state">
-      <param name="port" value="11002"/>
-    </node>
+    
 
     <node pkg="topic_tools" type="relay" name="robot_status_relay" args="/mp/robot_status /robot_status"/>
     <remap from="robot_status" to="mp/robot_status"/>
@@ -64,9 +62,7 @@
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
-    <node pkg="abb_driver" type="robot_state" name="robot_state">
-      <param name="port" value="12002"/>
-    </node>
+    
 
     <node pkg="topic_tools" type="relay" name="robot_status_relay" args="/mp_m/robot_status /robot_status"/>
     <remap from="robot_status" to="mp_m/robot_status"/>
@@ -87,6 +83,14 @@
     <!-- <remap from="feedback_states" to="mp_m/feedback_states"/> -->
 
   </group>
+
+  <node pkg="abb_driver" type="robot_state" name="robot_state">
+      <param name="port" value="11002"/>
+  </node>
+
+  <node pkg="abb_driver" type="robot_state" name="robot_state_m">
+      <param name="port" value="12002"/>
+  </node>
   
   <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
   <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
