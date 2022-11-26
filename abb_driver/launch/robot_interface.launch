@@ -32,6 +32,9 @@
     <node pkg="abb_driver" type="robot_state" name="robot_state">
       <param name="port" value="11002"/>
     </node>
+
+    <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp_m/feedback_states /feedback_states"/>
+    <remap from="feedback_states" to="mp_m/feedback_states"/>
     
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
@@ -61,6 +64,9 @@
     <node pkg="abb_driver" type="robot_state" name="robot_state">
       <param name="port" value="12002"/>
     </node>
+
+    <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp_m/feedback_states /feedback_states"/>
+    <remap from="feedback_states" to="mp_m/feedback_states"/>
 
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
