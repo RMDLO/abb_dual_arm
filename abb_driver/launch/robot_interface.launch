@@ -33,6 +33,9 @@
       <param name="port" value="11002"/>
     </node>
 
+    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp/robot_state /robot_state"/>
+    <remap from="robot_state" to="mp/robot_state"/>
+
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp/feedback_states /feedback_states"/>
     <remap from="feedback_states" to="mp/feedback_states"/>
     
@@ -64,6 +67,9 @@
     <node pkg="abb_driver" type="robot_state" name="robot_state">
       <param name="port" value="12002"/>
     </node>
+
+    <node pkg="topic_tools" type="relay" name="robot_state_relay" args="/mp_m/robot_state /robot_state"/>
+    <remap from="robot_state" to="mp_m/robot_state"/>
 
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp_m/feedback_states /feedback_states"/>
     <remap from="feedback_states" to="mp_m/feedback_states"/>
