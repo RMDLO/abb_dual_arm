@@ -95,7 +95,7 @@
 
   <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" ns="mp_m"/>
 
-  <node pkg="topic_tools" type="relay" name="jta_relay" args="/mp_m/controller /joint_trajectory_action"/>
+  <node pkg="topic_tools" type="relay" name="jta_m_relay" args="/mp_m/controller /joint_trajectory_action"/>
   <remap from="joint_trajectory_action" to="mp_m/controller"/>
   
   <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
