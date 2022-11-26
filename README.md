@@ -21,7 +21,7 @@ ROS drivers for ABB robots
 - Is able to receive and read current joint states of the physical arm (at the moment - one way communication is established). 
 - Pending: need to establish two way communication. 
 
-<img src="/home/documents/pictures/a.png" alt="Alt text" title="Dual-Arm Setup (MoveIt)">
+![Dual-Arm Setup (MoveIt)](images/a.png)
 
 ## Installation of ABB Workspace for the first time
 ```bash
