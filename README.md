@@ -16,10 +16,9 @@ ROS drivers for ABB robots
 
 ### Current status - 
 
-- Use MoveIt to plan for dual-arm coordinated motion. 
-- Collision checking works. 
-- Is able to receive and read current joint states of the physical arm (at the moment - one way communication is established). 
-- Pending: need to establish two way communication. 
+- Dual-arm coordinated (synchronous) motion planning can be carried out using MoveIt.
+- Hardware interface - works as expected.
+- Collision checking works.  
 
 ### Coordinated Motion - Dual-Arm Setup
 
