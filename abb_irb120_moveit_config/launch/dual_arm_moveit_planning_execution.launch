@@ -1,0 +1,17 @@
+<launch>
+  
+  <group ns="manipulator">
+    <remap from="/follow_joint_trajectory" to="abb_irb120_3_58/mp_controller/follow_joint_trajectory"/>
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+      <arg name="debug" default="false" />
+    </include>
+  </group>
+
+  <group ns="manipulator_m">
+    <remap from="/follow_joint_trajectory" to="abb_irb120_3_58/mp_m_controller/follow_joint_trajectory"/>
+    <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
+      <arg name="debug" default="false" />
+    </include>
+  </group>
+
+</launch>

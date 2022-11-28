@@ -9,7 +9,9 @@
        - and uncomment the following line: -->
 
   <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
- 
+
+  <!-- <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" ns="mp_m" /> -->
+
   <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
   <!--  - if sim=false, a robot_ip argument is required -->
   <arg name="sim" default="true" />
@@ -35,14 +37,14 @@
   <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
   <!--   - replace these calls with appropriate robot-specific calls or launch files -->
   <group unless="$(arg sim)">
-    <include file="$(find abb_irb120_support)/launch/robot_interface_download_irb120_3_58.launch" >
+    <include file="$(find abb_driver)/launch/robot_interface.launch" >
       <arg name="robot_ip" value="$(arg robot_ip)"/>
-      <!-- <arg name="controller" value="$(arg controller)"/> -->
+      <!-- <arg name="controller" value="$(arg controller)"/> robot_interface_download_irb120_3_58 -->
     </include>
   </group>
 
   <group unless="$(arg sim)">
-    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch" >
+    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch">
     </include>
   </group>
 
@@ -57,7 +59,7 @@
     <arg name="config" value="true"/>
   </include>
 
-  <include file="$(find abb_irb120_support)/launch/robot_enable.launch" />
+  <!-- <include file="$(find abb_irb120_support)/launch/robot_enable.launch" /> -->
 
   <!-- If database loading was enabled, start mongodb as well -->
   <include file="$(find abb_irb120_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
