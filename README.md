@@ -1,6 +1,6 @@
 # RMDLO ABB Robot Workspace for Dual-Arm Setup
 
-Building dual-arm robot motion planning framework
+Building dual-arm robot coordinated motion planning framework.
 
 Currently using ABB IRB120 industrial robot.
 
