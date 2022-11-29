@@ -6,7 +6,7 @@ Currently using ABB IRB120 industrial robot.
 
 ROS drivers for ABB robots
 
-### For comprehensive guide refer the tutorial.pdf above. The document includes:
+### For comprehensive guide refer the howto.pdf above, this document includes:
 
 - Building a template repo for multi-arm robotics.
 - Steps for adding models such as additional arms, sensors and cameras into ROS/MoveIt environment.
