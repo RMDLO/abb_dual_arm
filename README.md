@@ -22,7 +22,9 @@ ROS drivers for ABB robots
 
 ### Coordinated Motion - Dual-Arm Setup
 
-https://user-images.githubusercontent.com/93821405/204172896-e4cfaeb9-4eeb-4013-9db9-88399d4c3a16.mp4
+https://user-images.githubusercontent.com/93821405/205412434-5ec18dfc-8c36-49a5-9855-a32c7595761e.mp4
+
+<!-- https://user-images.githubusercontent.com/93821405/204172896-e4cfaeb9-4eeb-4013-9db9-88399d4c3a16.mp4 -->
 
 ## Installation of ABB Workspace for the first time
 ```bash
@@ -51,7 +53,7 @@ $ cd abb_ws && source devel/setup.bash
 # Launch MoveIt! planning and execution using the robot's IP address.
 ~abb_ws$ roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.125.1
 ```
-![Dual-Arm Setup (MoveIt)](images/a.png)
+<!-- ![Dual-Arm Setup (MoveIt)](images/a.png) -->
 
 ## License
 
