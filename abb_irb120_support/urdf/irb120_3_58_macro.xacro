@@ -311,6 +311,23 @@
         <xacro:material_abb_yellow />
       </collision>
     </link>
+
+    <!-- gripper assembly -->
+    <link name="${prefix}gripper_assembly">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/gripper_assembly.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/gripper_collision_cube.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
     <!-- end of link list -->
 
     <!-- joint list 
@@ -492,5 +509,12 @@
       <parent link="${prefix}flange_m" />
       <child link="${prefix}tool0_m" />
     </joint>
+
+    <joint name="${prefix}gripper_joint" type="fixed">
+      <origin rpy="0 ${radians(-90)} 0" xyz="0 0 0"/>
+      <parent link="${prefix}flange_m"/>
+      <child link="${prefix}gripper_assembly"/>
+    </joint>
+
   </xacro:macro>
 </robot>

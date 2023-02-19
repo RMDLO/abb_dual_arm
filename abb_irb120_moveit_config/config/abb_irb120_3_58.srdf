@@ -107,4 +107,6 @@
     <disable_collisions link1="link_4_m" link2="link_5_m" reason="Adjacent" />
     <disable_collisions link1="link_4_m" link2="link_6_m" reason="Default" />
     <disable_collisions link1="link_5_m" link2="link_6_m" reason="Adjacent" />
+    <disable_collisions link1="link_5_m" link2="gripper_assembly" reason="Adjacent" />
+    <disable_collisions link1="gripper_assembly" link2="link_6_m" reason="Adjacent" />
 </robot>
