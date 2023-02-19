@@ -328,6 +328,23 @@
         </geometry>
       </collision>
     </link>
+
+    <!-- ground plane -->
+    <link name="${prefix}ground">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ground_plane.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ground_plane.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
     <!-- end of link list -->
 
     <!-- joint list 
@@ -505,7 +522,7 @@
     <!-- mirror -->
     <link name="${prefix}tool0_m" />
     <joint name="${prefix}link_7_m-tool0_m" type="fixed">
-      <origin xyz="-0.01 0 0" rpy="0 ${radians(90)} 0" />
+      <origin xyz="-0.16 0 0" rpy="0 ${radians(90)} 0" />
       <parent link="${prefix}flange_m" />
       <child link="${prefix}tool0_m" />
     </joint>
@@ -514,6 +531,12 @@
       <origin rpy="0 ${radians(-90)} 0" xyz="0 0 0"/>
       <parent link="${prefix}flange_m"/>
       <child link="${prefix}gripper_assembly"/>
+    </joint>
+
+    <joint name="${prefix}ground_joint" type="fixed">
+      <origin rpy="${radians(90)} 0 0" xyz="0.5 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}ground"/>
     </joint>
 
   </xacro:macro>
