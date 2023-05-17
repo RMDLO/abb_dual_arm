@@ -32,10 +32,12 @@ https://user-images.githubusercontent.com/93821405/205412434-5ec18dfc-8c36-49a5-
 $ rosdep update
 # Clone the ABB robot catkin workspace.
 $ git clone git@github.com:RMDLO/abb_dual_arm.git --recurse-submodules
+# Switch to noetic branch
+$ cd abb_dual_arm && git checkout noetic
 # Change to the root of the ABB catkin workspace.
-$ cd abb_ws
+$ cd ../..
 # Use rosdep to install any missing dependencies.
-~abb_ws$ sudo rosdep install --from-paths src --ignore-packages-from-source --rosdistro melodic
+$ sudo rosdep install --from-paths src --ignore-packages-from-source --rosdistro noetic
 # Build the workspace (using catkin_tools).
 ~abb_ws$ catkin build
 ```
