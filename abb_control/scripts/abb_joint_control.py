@@ -21,7 +21,7 @@ def functional():
 
     joint_start = group.get_current_joint_values()
     print("Starting joint values: ", joint_start)
-    joint_goal = [0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, pi/4, 0.0, 0.0, 0.0]
+    joint_goal = [0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0, 0.0, 0.0, 0.0]
     print("Goal joint values: ", joint_goal)
 
     joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \

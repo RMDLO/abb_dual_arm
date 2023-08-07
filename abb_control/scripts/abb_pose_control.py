@@ -9,7 +9,7 @@ from geometry_msgs.msg import Pose, Quaternion
 
 def functional():
 
-    rospy.init_node('dual_arm_cartesian_planning')
+    rospy.init_node('mp_m_cartesian_planning')
     group_name = "mp_m"
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
