@@ -11,7 +11,7 @@ from control_msgs.msg import FollowJointTrajectoryActionGoal
 
 def functional():
 
-    rospy.init_node('dual_arm_planning')
+    rospy.init_node('dual_arm_joint_planning')
     
     group= moveit_commander.MoveGroupCommander("dual_arm")
     group.set_start_state_to_current_state()
@@ -21,7 +21,7 @@ def functional():
 
     joint_start = group.get_current_joint_values()
     print("Starting joint values: ", joint_start)
-    joint_goal = [pi/4, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, pi/4, 0.0, 0.0, 0.0]
+    joint_goal = [0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, pi/4, 0.0, 0.0, 0.0]
     print("Goal joint values: ", joint_goal)
 
     joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \
@@ -44,11 +44,6 @@ def functional():
 
     message = FollowJointTrajectoryActionGoal()
     message.goal.trajectory = traj
-    # print(rospy.get_param('/abb_control/sim'))
-    # if rospy.get_param('/abb_control/sim') == True:
-    #     header = Header()
-    #     header.stamp = rospy.Time.now()
-    #     message.goal.trajectory.header = header
 
     pub.publish(message)
     display_pub.publish(display_trajectory)

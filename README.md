@@ -52,7 +52,7 @@ cd abb_ws && source devel/setup.bash
 ```
 Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
 ```bash
-roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=False
+roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=True
 ```
 The robots can be controlled through click-and-dragging within the RViz interface.
 
