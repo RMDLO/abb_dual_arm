@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>shapedlo</name>
+  <name>abb_control</name>
   <version>0.0.0</version>
-  <description>The shapedlo package</description>
+  <description>ROS package for joint angle control of two ABB IRB120 robots with Python</description>
   <maintainer email="hdinkel2@illinois.edu">Holly Dinkel</maintainer>
   <license>MIT</license>
-  <url type="website">https://github.com/RMDLO/shapedlo</url>
+  <url type="website">https://github.com/RMDLO/abb_dual_arm</url>
   <author email="hdinkel2@illinois.edu">Holly Dinkel</author>
 
   <buildtool_depend>catkin</buildtool_depend>
