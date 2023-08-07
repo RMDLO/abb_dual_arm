@@ -84,7 +84,7 @@ cd abb_ws && source devel/setup.bash
 ```
 Run the robot control node.
 ```bash
-rosrun abb_irb120_moveit_config abb_control.py
+rosrun abb_control abb_control.py
 ```
 
 ## License
