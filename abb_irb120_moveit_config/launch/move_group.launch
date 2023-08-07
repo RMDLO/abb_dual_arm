@@ -32,11 +32,6 @@
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
   </include>
 
-  <!-- Sensors Functionality -->
-  <include ns="move_group" file="$(find abb_irb120_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_sensor_manager" value="abb_irb120_3_58" />
-  </include>
-
   <!-- Start the actual move_group node/action server -->
   <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
     <!-- <remap from="joint_states" to="mp/joint_states"/> -->
