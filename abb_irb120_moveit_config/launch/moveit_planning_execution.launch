@@ -1,6 +1,6 @@
 <launch>
 
-  <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58.yaml" />
+  <rosparam command="load" file="$(find abb_irb120_support)/config/dual_arm.yaml" />
   
   <arg name="sim" default="true" />
   <arg name="robot_ip" default="192.168.125.1" unless="$(arg sim)" />
@@ -29,7 +29,7 @@
     <arg name="robot_ip" value="$(arg robot_ip)"/>
     <!-- <arg name="controller" value="$(arg controller)"/> robot_interface_download_irb120_3_58 -->
     </include>
-    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch">
+    <include file="$(find abb_irb120_moveit_config)/launch/manipulator_moveit_controller_manager.launch">
     </include>
   </group>
 

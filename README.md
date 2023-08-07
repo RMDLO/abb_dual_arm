@@ -29,7 +29,7 @@ git clone git@github.com:RMDLO/abb_dual_arm.git --recurse-submodules
 Change directories to the root of the ABB catkin workspace and use rosdep to install any missing ROS dependencies.
 
 ```bash
-cd ../.. && sudo rosdep install --from-paths src --ignore-packages-from-source --rosdistro noetic
+cd .. && sudo rosdep install --from-paths src --ignore-packages-from-source --rosdistro noetic
 ```
 Use catkin_tools to build the workspace:
 
@@ -45,10 +45,10 @@ catkin build
 
 ## Move the Robots with RViz
 
-After setting up the hardware for ROS control, open a new terminal. First, source the workspace to access the built packages.
+After setting up the hardware for ROS control, open a new terminal. First, navigate into the root of the workspace and source the workspace to access the built packages.
 
 ```bash
-cd abb_ws && source devel/setup.bash
+source devel/setup.bash
 ```
 Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
 ```bash
@@ -58,13 +58,13 @@ The robots can be controlled through click-and-dragging within the RViz interfac
 
 ## Move a Robot to Specified Joint Angles
 
-After setting up the robot controller for ROS control, open two new terminals and perform the below commands to move the robots to specified joint angles.
+After setting up the robot controller for ROS control, open two new terminals and perform the below commands in the root of the workspace to move the robots to specified joint angles.
 
 #### Terminal 1:
 
 Source the workspace to access the built packages.
 ```bash
-cd abb_ws && source devel/setup.bash
+source devel/setup.bash
 ```
 Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
 ```bash
@@ -75,7 +75,7 @@ roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=True
 
 Change desired joint angle values in `abb_control.py` first. Then source the workspace.
 ```bash
-cd abb_ws && source devel/setup.bash
+source devel/setup.bash
 ```
 Run the robot control node.
 ```bash
