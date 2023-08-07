@@ -45,7 +45,7 @@ catkin build
 
 1. Turn on the robot IRC5 controller by turning the top left power switch to on. Wait until the teach pendant is on, and then switch the IRC5 controller to [automatic mode from manual mode](!http://wiki.ros.org/abb_driver/Tutorials/RunServer) by turning the key on the cabinet counterclockwise until the white status light turns off. On the robot teach pendant, verify it is okay to switch to automatic mode when prompted. Press the status light on the IRC5 control cabinet again until it turns on.
 2.  On the teach pendant, select settings and verify the mode is continuous. Then select PP to Main. Then click the play button on the teach pendant. The play button signals the teach pendant to run the loaded RAPID module.
-3. On the desktop computer, in Wired Settings, ensure the ethernet connection to the IRC5 controller is set to "Automatic (DHCP)" in the IPv4 setting. 
+3. On the desktop computer, in Wired Settings, ensure the ethernet connection to the IRC5 controller is set to "Automatic (DHCP)" in the IPv4 setting.
 
 ## Move the Robots with RViz
 
@@ -75,7 +75,7 @@ Launch MoveIt! planning and execution using the robot controller's IP address.
 roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.125.1
 ```
 
-#### Terminal 2 
+#### Terminal 2
 
 Change desired joint angle values in `abb_control.py` first. Then source the workspace.
 ```bash
