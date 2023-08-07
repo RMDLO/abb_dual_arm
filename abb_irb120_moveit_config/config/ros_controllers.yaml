@@ -1,6 +1,6 @@
 # Simulation settings for using moveit_sim_controllers
 moveit_sim_hw_interface:
-  joint_model_group: mp
+  joint_model_group: dual_arm
   joint_model_group_pose: all_zero
 # Settings for ros_control_boilerplate control loop
 generic_hw_control_loop:
@@ -67,9 +67,3 @@ controller_list:
       - joint_5_m
       - joint_6_m
       - joint_7_m
-  - name: ros_control
-    action_ns: follow_joint_trajectory
-    default: True
-    type: FollowJointTrajectory
-    joints:
-      []

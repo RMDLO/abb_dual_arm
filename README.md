@@ -10,7 +10,6 @@ Current Development Status:
 
 https://user-images.githubusercontent.com/93821405/205412434-5ec18dfc-8c36-49a5-9855-a32c7595761e.mp4
 
-
 ## Install the ABB Dual Arm ROS Package
 
 First, update the local rosdep database:
@@ -25,8 +24,8 @@ Clone the ABB robot ROS package into a catkin workspace.
 git clone git@github.com:RMDLO/abb_dual_arm.git --recurse-submodules
 ```
 
-Switch to noetic branch
-
+## Set up the hardware for ROS control
+=======
 ```bash
 cd abb_dual_arm && git checkout noetic
 ```
@@ -84,7 +83,27 @@ cd abb_ws && source devel/setup.bash
 ```
 Run the robot control node.
 ```bash
-rosrun abb_irb120_moveit_config abb_control.py
+rosrun abb_control abb_control.py
+```
+
+## Move a robot by specifying joint angles
+
+After setting up the hardware for ROS control, open two new terminals and perform the below commands.
+
+Terminal 1:
+
+```bash
+# First activate the workspace to gain access to the built packages.
+$ cd abb_ws && source devel/setup.bash
+# Launch MoveIt! planning and execution using the robot's IP address.
+$ roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.125.1
+```
+Terminal 2 (change desired joint angle values in `abb_control.py` first)
+```bash
+# First activate the workspace to gain access to the built packages.
+$ cd abb_ws && source devel/setup.bash
+# Launch MoveIt! planning and execution using the robot's IP address.
+$ rosrun abb_irb120_moveit_config abb_control.py
 ```
 
 ## License
