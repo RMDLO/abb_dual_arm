@@ -50,9 +50,9 @@ After setting up the hardware for ROS control, open a new terminal. First, sourc
 ```bash
 cd abb_ws && source devel/setup.bash
 ```
-Next, launch MoveIt! planning and execution using the robot controller's IP address.
+Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
 ```bash
-roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.125.1
+roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=False
 ```
 The robots can be controlled through click-and-dragging within the RViz interface.
 
@@ -66,9 +66,9 @@ Source the workspace to access the built packages.
 ```bash
 cd abb_ws && source devel/setup.bash
 ```
-Launch MoveIt! planning and execution using the robot controller's IP address.
+Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
 ```bash
-roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.125.1
+roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=True
 ```
 
 #### Terminal 2
