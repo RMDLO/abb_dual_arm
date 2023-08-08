@@ -4,7 +4,6 @@ from numpy import pi
 
 import rospy
 import moveit_commander
-from std_msgs.msg import Header
 from sensor_msgs.msg import JointState
 from moveit_msgs.msg import DisplayTrajectory
 from control_msgs.msg import FollowJointTrajectoryActionGoal
