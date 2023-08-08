@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find abb_resources)/urdf/common_materials.xacro"/>
 
-  <xacro:macro name="abb_irb120_3_58" params="prefix">
+  <xacro:macro name="dual_arm" params="prefix">
     <!-- link list -->
     <link name="${prefix}world">
         <origin xyz="0.5 0 0" rpy="0 0 0"/>

@@ -29,7 +29,7 @@
     <arg name="robot_ip" value="$(arg robot_ip)"/>
     <!-- <arg name="controller" value="$(arg controller)"/> robot_interface_download_irb120_3_58 -->
     </include>
-    <include file="$(find abb_irb120_moveit_config)/launch/abb_irb120_3_58_moveit_controller_manager.launch">
+    <include file="$(find abb_irb120_moveit_config)/launch/dual_arm_moveit_controller_manager.launch">
     </include>
   </group>
 

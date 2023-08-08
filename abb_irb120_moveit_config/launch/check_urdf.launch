@@ -1,7 +1,7 @@
 <launch>
   <!-- To run joint_state_publisher package -->
 
-    <arg name="model" default="$(find abb_irb120_support)/urdf/irb120_18.urdf" />
+    <arg name="model" default="$(find abb_irb120_support)/urdf/dual_arm.urdf" />
 
     <param name="robot_description" command="cat $(arg model)" />
 
