@@ -1,24 +1,18 @@
 <!--
   Manipulator specific version of abb_driver's 'robot_interface.launch'.
 
-  Defaults provided for IRB 120:
-   - J23_coupled = false
-
   Usage:
     robot_interface_download_irb120.launch robot_ip:=<value>
 -->
 <launch>
   <arg name="robot_ip" doc="IP of the controller" />
-  <arg name="J23_coupled" default="false" doc="If true, compensate for J2-J3 parallel linkage" />
-
-  <!-- <arg name="controller" default="fs100"/> -->
 
   <group ns="mp">
-    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp.yaml" />
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_mp.yaml" />
   </group>
 
   <group ns="mp_m">
-    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_irb120_3_58_mp_m.yaml" />
+    <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_mp_m.yaml" />
   </group>
   
   <rosparam command="load" file="$(find abb_irb120_support)/config/dual_arm_motion_interface.yaml" />
