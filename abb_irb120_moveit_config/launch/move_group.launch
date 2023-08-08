@@ -2,6 +2,12 @@
 
   <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" />
 
+  <!-- GDB Debug Option -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix"
+	   value="gdb -x $(find abb_irb120_moveit_config)/launch/gdb_settings.gdb --ex run --args" />
+
   <!-- Verbose Mode Option -->
   <arg name="info" default="$(arg debug)" />
   <arg unless="$(arg info)" name="command_args" value="" />

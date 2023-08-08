@@ -4,17 +4,8 @@
 
   <xacro:macro name="abb_irb120_3_58" params="prefix">
     <!-- link list -->
-    <link name="${prefix}dummy">
-      <visual>
+    <link name="${prefix}world">
         <origin xyz="0.5 0 0" rpy="0 0 0"/>
-      </visual>
-      <!--<collision>
-        <origin xyz="0.5 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/base_link.stl"/>
-        </geometry>
-        <xacro:material_abb_yellow />
-      </collision> -->
     </link>
     <link name="${prefix}base_link">
       <inertial>
@@ -350,7 +341,7 @@
     <!-- joint list 
     <joint name="${prefix}joint_1" type="revolute">
       <origin rpy="0 0 0" xyz="0.5 0 0"/>
-      <parent link="${prefix}dummy"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
       <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
       <axis xyz="0 0 1"/>
@@ -407,7 +398,7 @@
     <!-- joint list - mirror 
     <joint name="${prefix}joint_1_m" type="revolute">
       <origin rpy="0 0 0" xyz="1.5 0 0"/>
-      <parent link="${prefix}dummy"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
       <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
       <axis xyz="0 0 1"/>
@@ -466,36 +457,23 @@
     <!-- ROS-Industrial 'base' frame: base_link to ABB World Coordinates transform -->
 
     <link name="${prefix}base" />
-    <joint name="${prefix}dummy-base" type="fixed">
+    <joint name="${prefix}world-base" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}dummy"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}base"/>
     </joint>
 
-    <joint name="${prefix}dummy-base_link" type="fixed">
+    <joint name="${prefix}world-base_link" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}dummy"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
     </joint>
 
-    <joint name="${prefix}dummy-base_link_m" type="fixed">
+    <joint name="${prefix}world-base_link_m" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}dummy"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
     </joint>
-
-    <!--<link name="${prefix}base_1" />
-    <joint name="${prefix}base_link-base" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}base"/>
-      <child link="${prefix}base_link"/>
-    </joint>
-    <link name="${prefix}base_m" />
-    <joint name="${prefix}base_link-base" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}base"/>
-      <child link="${prefix}base_link_m"/>
-    </joint> -->
 
     <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
     <link name="${prefix}flange"/>

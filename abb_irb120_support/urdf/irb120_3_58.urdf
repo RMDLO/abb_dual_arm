@@ -7,17 +7,10 @@
   <!-- Conversion were obtained from http://www.e-paint.co.uk/Lab_values.asp
        unless otherwise stated. -->
   <!-- link list -->
-  <link name="dummy">
-    <visual>
+  <link name="world">
+    <inertial>
       <origin rpy="0 0 0" xyz="0.5 0 0"/>
-    </visual>
-    <!--<collision>
-        <origin xyz="0.5 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/base_link.stl"/>
-        </geometry>
-        <xacro:material_abb_yellow />
-      </collision> -->
+    </inertial>
   </link>
   <link name="base_link">
     <inertial>
@@ -407,15 +400,7 @@
     </collision>
   </link>
   <!-- end of link list -->
-  <!-- joint list 
-    <joint name="${prefix}joint_1" type="revolute">
-      <origin rpy="0 0 0" xyz="0.5 0 0"/>
-      <parent link="${prefix}dummy"/>
-      <child link="${prefix}base_link"/>
-      <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 1"/>
-      <dynamics damping="0.0" friction="0.0"/>
-    </joint> -->
+  <!-- joint list -->
   <joint name="joint_2" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
@@ -464,15 +449,6 @@
     <axis xyz="1 0 0"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
-  <!-- joint list - mirror 
-    <joint name="${prefix}joint_1_m" type="revolute">
-      <origin rpy="0 0 0" xyz="1.5 0 0"/>
-      <parent link="${prefix}dummy"/>
-      <child link="${prefix}base_link_m"/>
-      <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 1"/>
-      <dynamics damping="0.0" friction="0.0"/>
-    </joint> -->
   <joint name="joint_2_m" type="revolute">
     <origin rpy="0 0 0" xyz="1.09 0 0"/>
     <parent link="base_link_m"/>
@@ -524,33 +500,21 @@
   <!-- end of joint list -->
   <!-- ROS-Industrial 'base' frame: base_link to ABB World Coordinates transform -->
   <link name="base"/>
-  <joint name="dummy-base" type="fixed">
+  <joint name="world-base" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="dummy"/>
+    <parent link="world"/>
     <child link="base"/>
   </joint>
-  <joint name="dummy-base_link" type="fixed">
+  <joint name="world-base_link" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="dummy"/>
+    <parent link="world"/>
     <child link="base_link"/>
   </joint>
-  <joint name="dummy-base_link_m" type="fixed">
+  <joint name="world-base_link_m" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="dummy"/>
+    <parent link="world"/>
     <child link="base_link_m"/>
   </joint>
-  <!--<link name="${prefix}base_1" />
-    <joint name="${prefix}base_link-base" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}base"/>
-      <child link="${prefix}base_link"/>
-    </joint>
-    <link name="${prefix}base_m" />
-    <joint name="${prefix}base_link-base" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}base"/>
-      <child link="${prefix}base_link_m"/>
-    </joint> -->
   <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
   <link name="flange"/>
   <joint name="joint_8-flange" type="fixed">
@@ -558,7 +522,6 @@
     <parent link="link_6"/>
     <child link="flange"/>
   </joint>
-  <!-- mirror -->
   <link name="flange_m"/>
   <joint name="joint_8_m-flange_m" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -572,7 +535,6 @@
     <parent link="flange"/>
     <child link="tool0"/>
   </joint>
-  <!-- mirror -->
   <link name="tool0_m"/>
   <joint name="link_7_m-tool0_m" type="fixed">
     <origin rpy="0 1.5707963267948966 0" xyz="-0.16 0 0"/>
