@@ -204,7 +204,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 3.14159" xyz="1.09 0 0"/>
+      <origin rpy="0 0 ${radians(360)}" xyz="1.09 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/base_link.stl"/>
       </geometry>
@@ -220,7 +220,7 @@
       <inertia ixx="0.0142175" ixy="-1.28579E-05" ixz="-2.31364E-05" iyy="0.0144041" iyz="1.93404E-05" izz="0.0104533"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 3.14159" xyz="0 0 0"/>
+      <origin rpy="0 0 ${radians(360)}" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_1.stl"/>
       </geometry>
@@ -229,7 +229,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 3.14159" xyz="0 0 0"/>
+      <origin rpy="0 0 ${radians(360)}" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_1.stl"/>
       </geometry>
@@ -270,7 +270,7 @@
       <inertia ixx="0.00835606" ixy="-8.01545E-05" ixz="0.00142884" iyy="0.016713" iyz="-0.000182227" izz="0.0126984"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 3.14159" xyz="0 0 0"/>
+      <origin rpy="0 0 ${radians(360)}" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_3.stl"/>
       </geometry>
@@ -279,7 +279,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 3.14159" xyz="0 0 0"/>
+      <origin rpy="0 0 ${radians(360)}" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_3.stl"/>
       </geometry>
@@ -295,7 +295,7 @@
       <inertia ixx="0.00284661" ixy="-2.12765E-05" ixz="-1.6435E-05" iyy="0.00401346" iyz="1.31336E-05" izz="0.0052535"/>
     </inertial>
     <visual>
-      <origin rpy="3.14159 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="${radians(360)} ${radians(360)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_4.stl"/>
       </geometry>
@@ -304,7 +304,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="3.14159 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="${radians(3600)} ${radians(3600)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_4.stl"/>
       </geometry>
@@ -320,7 +320,7 @@
       <inertia ixx="0.000404891" ixy="1.61943E-06" ixz="8.46805E-07" iyy="0.000892825" iyz="-1.51792E-08" izz="0.000815468"/>
     </inertial>
     <visual>
-      <origin rpy="3.14159 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="${radians(360)} ${radians(360)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_5.stl"/>
       </geometry>
@@ -329,7 +329,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="3.14159 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="${radians(360)} ${radians(360)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_5.stl"/>
       </geometry>
@@ -345,7 +345,7 @@
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
     <visual>
-      <origin rpy="0 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="0 ${radians(360)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_6.stl"/>
       </geometry>
@@ -354,7 +354,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 3.14159 0" xyz="0 0 0"/>
+      <origin rpy="0 ${radians(360)} 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_6.stl"/>
       </geometry>
@@ -498,13 +498,7 @@
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <!-- end of joint list -->
-  <!-- ROS-Industrial 'base' frame: base_link to ABB World Coordinates transform -->
-  <link name="base"/>
-  <joint name="world-base" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="world"/>
-    <child link="base"/>
-  </joint>
+  <!-- ROS-Industrial: base_link to ABB World Coordinates transform -->
   <joint name="world-base_link" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="world"/>
@@ -531,23 +525,23 @@
   <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
   <link name="tool0"/>
   <joint name="link_7-tool0" type="fixed">
-    <origin rpy="0 1.5707963267948966 0" xyz="0 0 0"/>
+    <origin rpy="0 ${radians(90)} 0" xyz="0 0 0"/>
     <parent link="flange"/>
     <child link="tool0"/>
   </joint>
   <link name="tool0_m"/>
   <joint name="link_7_m-tool0_m" type="fixed">
-    <origin rpy="0 1.5707963267948966 0" xyz="-0.16 0 0"/>
+    <origin rpy="0 ${radians(90)} 0" xyz="0 0 0"/>
     <parent link="flange_m"/>
     <child link="tool0_m"/>
   </joint>
   <joint name="gripper_joint" type="fixed">
-    <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
+    <origin rpy="0 ${radians(-90)} 0" xyz="0 0 0"/>
     <parent link="flange_m"/>
     <child link="gripper_assembly"/>
   </joint>
   <joint name="ground_joint" type="fixed">
-    <origin rpy="1.5707963267948966 0 0" xyz="0.5 0 0"/>
+    <origin rpy="${radians(90)} 0 0" xyz="0.5 0 0"/>
     <parent link="base_link"/>
     <child link="ground"/>
   </joint>

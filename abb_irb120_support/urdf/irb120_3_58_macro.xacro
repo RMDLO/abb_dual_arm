@@ -337,16 +337,7 @@
       </collision>
     </link>
     <!-- end of link list -->
-
-    <!-- joint list 
-    <joint name="${prefix}joint_1" type="revolute">
-      <origin rpy="0 0 0" xyz="0.5 0 0"/>
-      <parent link="${prefix}world"/>
-      <child link="${prefix}base_link"/>
-      <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 1"/>
-      <dynamics damping="0.0" friction="0.0"/>
-    </joint> -->
+    <!-- joint list -->
     <joint name="${prefix}joint_2" type="revolute">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <parent link="${prefix}base_link"/>
@@ -395,15 +386,6 @@
       <axis xyz="1 0 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
-    <!-- joint list - mirror 
-    <joint name="${prefix}joint_1_m" type="revolute">
-      <origin rpy="0 0 0" xyz="1.5 0 0"/>
-      <parent link="${prefix}world"/>
-      <child link="${prefix}base_link_m"/>
-      <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 1"/>
-      <dynamics damping="0.0" friction="0.0"/>
-    </joint> -->
     <joint name="${prefix}joint_2_m" type="revolute">
       <origin rpy="0 0 0" xyz="1.09 0 0"/>
       <parent link="${prefix}base_link_m"/>
@@ -454,15 +436,7 @@
     </joint>
     <!-- end of joint list -->
 
-    <!-- ROS-Industrial 'base' frame: base_link to ABB World Coordinates transform -->
-
-    <link name="${prefix}base" />
-    <joint name="${prefix}world-base" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <parent link="${prefix}world"/>
-      <child link="${prefix}base"/>
-    </joint>
-
+    <!-- ROS-Industrial: base_link to ABB World Coordinates transform -->
     <joint name="${prefix}world-base_link" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
@@ -482,7 +456,6 @@
       <parent link="${prefix}link_6"/>
       <child link="${prefix}flange"/>
     </joint>
-    <!-- mirror -->
     <link name="${prefix}flange_m"/>
     <joint type="fixed" name="${prefix}joint_8_m-flange_m">
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -497,10 +470,9 @@
       <parent link="${prefix}flange" />
       <child link="${prefix}tool0" />
     </joint>
-    <!-- mirror -->
     <link name="${prefix}tool0_m" />
     <joint name="${prefix}link_7_m-tool0_m" type="fixed">
-      <origin xyz="-0.16 0 0" rpy="0 ${radians(90)} 0" />
+      <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />
       <parent link="${prefix}flange_m" />
       <child link="${prefix}tool0_m" />
     </joint>
