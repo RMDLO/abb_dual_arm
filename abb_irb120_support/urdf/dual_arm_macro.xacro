@@ -432,7 +432,7 @@
     </joint>
     <!-- Gripper Joints -->
     <joint name="${prefix}gripper_joint_m" type="fixed">
-      <origin rpy="0 ${radians(-90)} 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <parent link="${prefix}link_6_m"/>
       <child link="${prefix}gripper_m"/>
     </joint>
