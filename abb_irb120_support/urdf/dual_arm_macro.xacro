@@ -457,7 +457,7 @@
 
     <joint name="${prefix}ground_joint" type="fixed">
       <origin rpy="${radians(90)} 0 0" xyz="0.5 0 0"/>
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}world"/>
       <child link="${prefix}ground"/>
     </joint>
 

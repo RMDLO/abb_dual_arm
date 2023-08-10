@@ -514,7 +514,7 @@
   </joint>
   <joint name="ground_joint" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.5 0 0"/>
-    <parent link="base_link"/>
+    <parent link="world"/>
     <child link="ground"/>
   </joint>
 </robot>
