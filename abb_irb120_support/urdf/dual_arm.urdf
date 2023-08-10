@@ -362,7 +362,7 @@
     </collision>
   </link>
   <!-- gripper assembly -->
-  <link name="gripper_assembly">
+  <link name="gripper_m">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -507,36 +507,10 @@
     <parent link="world"/>
     <child link="base_link_m"/>
   </joint>
-  <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
-  <link name="flange"/>
-  <joint name="joint_8-flange" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="link_6"/>
-    <child link="flange"/>
-  </joint>
-  <link name="flange_m"/>
-  <joint name="joint_8_m-flange_m" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="link_6_m"/>
-    <child link="flange_m"/>
-  </joint>
-  <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
-  <link name="tool0"/>
-  <joint name="link_7-tool0" type="fixed">
-    <origin rpy="0 1.5708 0" xyz="0 0 0"/>
-    <parent link="flange"/>
-    <child link="tool0"/>
-  </joint>
-  <link name="tool0_m"/>
-  <joint name="link_7_m-tool0_m" type="fixed">
-    <origin rpy="0 1.5708 0" xyz="0 0 0"/>
-    <parent link="flange_m"/>
-    <child link="tool0_m"/>
-  </joint>
-  <joint name="gripper_joint" type="fixed">
+  <joint name="gripper_joint_m" type="fixed">
     <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
-    <parent link="flange_m"/>
-    <child link="gripper_assembly"/>
+    <parent link="link_6_m"/>
+    <child link="gripper_m"/>
   </joint>
   <joint name="ground_joint" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.5 0 0"/>
