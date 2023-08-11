@@ -28,6 +28,9 @@
         <joint name="joint_5_m" />
         <joint name="joint_6_m" />
         <joint name="joint_7_m" />
+        <joint name="gripper_joint_m" />
+        <joint name="gripper_base_joint_m" />
+        <joint name="gripper_tcp_joint_m" />
     </group>
 
     <group name="dual_arm">
@@ -56,7 +59,7 @@
     </group_state>
 
     <!-- <end_effector name="gripper" parent_link="link_6" group="mp"/> -->
-    <end_effector name="gripper_m" parent_link="link_6_m" group="mp_m"/>
+    <end_effector name="gripper_tcp_m" parent_link="gripper_tcp_m" group="mp_m"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />
@@ -93,4 +96,8 @@
     <disable_collisions link1="link_5_m" link2="link_6_m" reason="Adjacent" />
     <disable_collisions link1="link_5_m" link2="gripper_m" reason="Adjacent" />
     <disable_collisions link1="gripper_m" link2="link_6_m" reason="Adjacent" />
+    <disable_collisions link1="gripper_m" link2="gripper_base_m" reason="Adjacent" />
+    <disable_collisions link1="gripper_m" link2="gripper_tcp_m" reason="Adjacent" />
+    <disable_collisions link1="gripper_base_m" link2="link_6_m" reason="Adjacent" />
+    <disable_collisions link1="gripper_base_m" link2="gripper_tcp_m" reason="Adjacent" />
 </robot>

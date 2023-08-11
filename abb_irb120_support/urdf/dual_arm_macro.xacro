@@ -315,7 +315,6 @@
         <xacro:material_abb_yellow />
       </collision>
     </link>
-
     <!-- Gripper Links -->
     <link name="${prefix}gripper_m">
       <visual>
@@ -331,6 +330,18 @@
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/gripper_collision_cube.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
+    </link>
+    <link name="${prefix}gripper_base_m">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="${prefix}gripper_tcp_m">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0005 0.0005 0.0005"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </visual>
     </link>
     <!-- Arm 1 Joints -->
     <joint name="${prefix}joint_2" type="revolute">
@@ -435,6 +446,17 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <parent link="${prefix}link_6_m"/>
       <child link="${prefix}gripper_m"/>
+    </joint>
+    <joint name="${prefix}gripper_base_joint_m" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.1277 0 0"/>
+      <parent link="${prefix}gripper_m"/>
+      <child link="${prefix}gripper_base_m"/>
+    </joint>
+    <joint name="${prefix}gripper_tcp_joint_m" type="fixed">
+      <!-- <origin rpy="0 0 0" xyz="-0.172 -0.0316545 0.0482436"/> -->
+      <origin rpy="${radians(-20)} 0 0" xyz="-0.045283 0 0"/>
+      <parent link="${prefix}gripper_base_m"/>
+      <child link="${prefix}gripper_tcp_m"/>
     </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">

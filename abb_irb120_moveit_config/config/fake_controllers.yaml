@@ -21,18 +21,23 @@ controller_list:
       - joint_5_m
       - joint_6_m
       - joint_7_m
+      - gripper_joint_m
+      - gripper_tcp_joint_m
   - name: dual_arm
     type: interpolate
     joints:
       - joint_2
-      - joint_2_m
       - joint_3
-      - joint_3_m
-      - joint_4
-      - joint_4_m
+      - joint_4 
       - joint_5
-      - joint_5_m
-      - joint_6
-      - joint_6_m
-      - joint_7
+      - joint_6 
+      - joint_7 
+      - joint_2_m
+      - joint_3_m 
+      - joint_4_m 
+      - joint_5_m 
+      - joint_6_m 
       - joint_7_m
+      - gripper_joint_m
+      - gripper_base_joint_m
+      - gripper_tcp_joint_m
