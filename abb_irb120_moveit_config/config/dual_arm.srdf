@@ -11,7 +11,6 @@
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
 
     <group name="mp">
-        <chain base_link="base_link" tip_link="link_6" />
         <joint name="joint_2" />
         <joint name="joint_3" />
         <joint name="joint_4" />
@@ -21,7 +20,6 @@
     </group>
 
     <group name="mp_m">
-        <chain base_link="base_link_m" tip_link="link_6_m" />
         <joint name="joint_2_m" />
         <joint name="joint_3_m" />
         <joint name="joint_4_m" />
@@ -58,7 +56,6 @@
         <joint name="joint_7_m" value="0" />
     </group_state>
 
-    <!-- <end_effector name="gripper" parent_link="link_6" group="mp"/> -->
     <end_effector name="gripper_tcp_m" parent_link="gripper_tcp_m" group="mp_m"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->

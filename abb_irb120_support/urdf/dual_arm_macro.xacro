@@ -2,7 +2,14 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find abb_resources)/urdf/common_materials.xacro"/>
 
-  <xacro:macro name="dual_arm" params="prefix">
+  <xacro:macro name="dual_arm" params="
+  prefix
+  joint_limits_parameters_file:='$(find abb_irb120_moveit_config)/config/joint_limits.yaml'
+  kinematics_parameters_file:='$(find abb_irb120_moveit_config)/config/kinematics.yaml'
+  safety_limits:=false
+  safety_pos_margin:=0.15
+  safety_k_position:=20"
+  >
     <!-- World Link -->
     <link name="${prefix}world">
       <visual>
@@ -175,14 +182,14 @@
         <inertia ixx="0.0247272" ixy="-8.0784E-05" ixz="0.00130902" iyy="0.0491285" iyz="-8.0419E-06" izz="0.0472376"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/base_link.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/base_link.stl"/>
         </geometry>
@@ -196,14 +203,14 @@
         <inertia ixx="0.0142175" ixy="-1.28579E-05" ixz="-2.31364E-05" iyy="0.0144041" iyz="1.93404E-05" izz="0.0104533"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_1.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_1.stl"/>
         </geometry>
@@ -217,14 +224,14 @@
         <inertia ixx="0.0603111" ixy="9.83431E-06" ixz="5.72407E-05" iyy="0.041569" iyz="-0.00050497" izz="0.0259548"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_2.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_2.stl"/>
         </geometry>
@@ -238,14 +245,14 @@
         <inertia ixx="0.00835606" ixy="-8.01545E-05" ixz="0.00142884" iyy="0.016713" iyz="-0.000182227" izz="0.0126984"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_3.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_3.stl"/>
         </geometry>
@@ -259,14 +266,14 @@
         <inertia ixx="0.00284661" ixy="-2.12765E-05" ixz="-1.6435E-05" iyy="0.00401346" iyz="1.31336E-05" izz="0.0052535"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="3.14159 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_4.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="3.14159 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_4.stl"/>
         </geometry>
@@ -280,14 +287,14 @@
         <inertia ixx="0.000404891" ixy="1.61943E-06" ixz="8.46805E-07" iyy="0.000892825" iyz="-1.51792E-08" izz="0.000815468"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="3.14159 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_5.stl"/>
         </geometry>
         <xacro:material_abb_orange />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="3.14159 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_5.stl"/>
         </geometry>
@@ -301,14 +308,14 @@
         <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/link_6.stl"/>
         </geometry>
         <xacro:material_abb_black />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 3.14159 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${radians(180)}"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/link_6.stl"/>
         </geometry>
@@ -342,6 +349,13 @@
         </geometry>
         <xacro:material_abb_white />
       </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.000001 0.000001 0.000001"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </collision>
     </link>
     <!-- Arm 1 Joints -->
     <joint name="${prefix}joint_2" type="revolute">
@@ -398,7 +412,7 @@
       <parent link="${prefix}base_link_m"/>
       <child link="${prefix}link_1_m"/>
       <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 1"/>
+      <axis xyz="0 0 -1"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}joint_3_m" type="revolute">
@@ -438,7 +452,7 @@
       <parent link="${prefix}link_5_m"/>
       <child link="${prefix}link_6_m"/>
       <limit effort="0" lower="-6.98132" upper="6.98132" velocity="7.33038"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <!-- Gripper Joints -->
