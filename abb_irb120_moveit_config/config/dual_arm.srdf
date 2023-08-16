@@ -57,6 +57,7 @@
     </group_state>
 
     <end_effector name="gripper_tcp_m" parent_link="gripper_tcp_m" group="mp_m"/>
+    <end_effector name="link_6" parent_link="link_6" group="mp"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />

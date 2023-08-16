@@ -412,7 +412,7 @@
       <parent link="${prefix}base_link_m"/>
       <child link="${prefix}link_1_m"/>
       <limit effort="0" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
-      <axis xyz="0 0 -1"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}joint_3_m" type="revolute">
