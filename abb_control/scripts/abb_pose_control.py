@@ -9,12 +9,12 @@ from geometry_msgs.msg import Pose, Quaternion
 
 def functional():
 
-    rospy.init_node('mp_m_cartesian_planning')
+    rospy.init_node('dual_arm_cartesian_planning')
     group_name = "mp_m"
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
 
-    pub = rospy.Publisher('/dual_arm/joint_trajectory_action/goal', FollowJointTrajectoryActionGoal, queue_size=1)
+    pub = rospy.Publisher('/mp_m/joint_trajectory_action/goal', FollowJointTrajectoryActionGoal, queue_size=1)
     display_pub = rospy.Publisher('/move_group/display_planned_path', DisplayTrajectory, queue_size=10)
 
     joint_start = group.get_current_joint_values()
