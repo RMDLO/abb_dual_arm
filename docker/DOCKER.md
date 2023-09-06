@@ -8,13 +8,12 @@ The current configuration was tested on an x86 host computer running Ubuntu 20.0
 
 1. **Download ABB_DUAL_ARM**
    ```bash
-   $ git clone https://github.com/RMDLO/abb_dual_arm.git abb_dual_arm
+   git clone https://github.com/RMDLO/abb_dual_arm.git --recurse-submodules abb_dual_arm
    ```
 
 2. **Build the Docker Image**
    ```bash
-   $ cd abb_dual_arm/docker
-   $ docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
+   cd abb_dual_arm/docker && docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
    ```
 
 This will take several minutes and require connection to the internet. This command will install all dependencies and build the `abb_dual_arm` ROS workspace within the image.
@@ -28,10 +27,14 @@ This will take several minutes and require connection to the internet. This comm
    ```
    Optional Parameters:
    - `name` specifies the name of the image. By default, it is `abb_dual_arm`. Multiple containers can be created from the same image by changing this parameter.
-   - `host dir` and `container dir` map a directory on the host machine to a location inside the container. This enables sharing code and data between the two systems. By default, the `run_docker.sh` bash script maps the directory containing trackdlo to `/root/abb_ws/src/abb_dual_arm` in the container.
+   - `host dir` and `container dir` map a directory on the host machine to a location inside the container. This enables sharing code and data between the two systems. By default, the `run_docker.sh` bash script maps the directory containing `abb_dual_arm` to `/root/abb_ws/src/abb_dual_arm` in the container.
 
     Only the first call of this script with a given name will create a container. Subsequent executions will attach to the running container to enable running multiple terminal sessions in a single container.
 
    *Note:* Since the Docker container binds directly to the host's network, it will see `roscore` even if running outside the docker container.
+
+5. **Launch**
+
+    Follow the instructions in the repository [README.md](https://github.com/RMDLO/abb_dual_arm) to launch a simulation of motion planning with the robots.
 
 For more information about using ROS with docker, see the ![ROS tutorial](http://wiki.ros.org/docker/Tutorials/Docker).

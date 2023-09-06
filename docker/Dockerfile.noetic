@@ -30,17 +30,19 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     ros-noetic-catkin \
     ros-noetic-rviz \
     ros-noetic-rospy \
+    ros-noetic-industrial-core \
     ros-noetic-robot-state-publisher \
+    ros-noetic-moveit \
     ros-noetic-moveit-planners-ompl \
+    ros-noetic-moveit-commander \
+    ros-noetic-moveit-ros-move-group \
+    ros-noetic-moveit-simple-controller-manager \
+    ros-noetic-moveit-ros-visualization \
     ros-noetic-joint-state-publisher \
     ros-noetic-abb-driver \
     ros-noetic-industrial-robot-client \
     ros-noetic-control-msgs \
     ros-noetic-industrial-robot-simulator \
-    ros-noetic-moveit-commander \
-    ros-noetic-moveit-ros-move-group \
-    ros-noetic-moveit-simple-controller-manager \
-    ros-noetic-moveit-ros-visualization \
     ros-noetic-cv-bridge \
     ros-noetic-geometry-msgs \
     ros-noetic-simple-message \
@@ -55,6 +57,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 
 # Install required Python components
 RUN python3 -m pip install -r /tmp/requirements.txt
+
+RUN rosdep install --from-paths ${SRC} --ignore-packages-from-source --rosdistro noetic
 
 # Source ROS noetic
 RUN . /opt/ros/noetic/setup.sh && \
