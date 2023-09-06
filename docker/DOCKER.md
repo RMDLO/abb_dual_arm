@@ -35,6 +35,6 @@ This will take several minutes and require connection to the internet. This comm
 
 5. **Launch**
 
-    Follow the instructions in the repository [README.md](https://github.com/RMDLO/abb_dual_arm) to launch a simulation of motion planning with the robots.
+    Follow the instructions in the repository [README.md](https://github.com/RMDLO/abb_dual_arm) to run motion planning with the robots in simulation or on hardware. Note: using the real robots assumes connecting to ports 11000/11002 (robot `mp`) and 12000/12002 (robot `mp_m`), as configured in [`abb_driver/robot_interface.launch`](https://github.com/RMDLO/abb_dual_arm/blob/master/abb_driver/launch/robot_interface.launch).
 
 For more information about using ROS with docker, see the ![ROS tutorial](http://wiki.ros.org/docker/Tutorials/Docker).
