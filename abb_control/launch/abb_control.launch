@@ -31,7 +31,7 @@
   <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
   <!--   - replace these calls with appropriate robot-specific calls or launch files -->
     <include file="$(find abb_driver)/launch/robot_interface.launch" >
-    <arg name="robot_ip" value="$(arg robot_ip)"/>
+      <arg name="robot_ip" value="$(arg robot_ip)"/>
     </include>
     <include file="$(find abb_irb120_moveit_config)/launch/dual_arm_moveit_controller_manager.launch">
     </include>

@@ -6,6 +6,7 @@ from sensor_msgs.msg import JointState
 from moveit_msgs.msg import DisplayTrajectory
 from control_msgs.msg import FollowJointTrajectoryActionGoal
 from geometry_msgs.msg import Pose, Quaternion
+import copy
 
 def functional():
 
@@ -19,16 +20,28 @@ def functional():
 
     joint_start = group.get_current_joint_values()
     waypoints = []
-    waypoints.append(group.get_current_pose().pose)
+    scale=1
 
-    pose_goal = Pose()
-    pose_goal.orientation.w = 1.0
-    pose_goal.position.x = 0
-    pose_goal.position.y = 0
-    pose_goal.position.z = 0.4
+    wpose = group.get_current_pose().pose
+    wpose.position.z -= scale * 0.1  # First move up (z)
+    wpose.position.y += scale * 0.2  # and sideways (y)
+    waypoints.append(copy.deepcopy(wpose))
 
-    waypoints.append(pose_goal)
-    (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)
+    wpose.position.x += scale * 0.1  # Second move forward/backwards in (x)
+    waypoints.append(copy.deepcopy(wpose))
+
+    wpose.position.y -= scale * 0.1  # Third move sideways (y)
+    waypoints.append(copy.deepcopy(wpose))
+
+    # retries = 5
+    # i = 0
+    # while i < retries:
+    (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)  # 0.01 is the step size, 0.0 is the jump threshold
+    #     print(fraction)
+    #     if fraction==1.0:
+    #         break
+    #     i+=1
+    # plan = group.plan(goal_pose)
 
     if group_name == "dual_arm":
         joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \
@@ -54,19 +67,22 @@ def functional():
     message = FollowJointTrajectoryActionGoal()
     message.goal.trajectory = plan
 
+    # if fraction >= 0.85:
+        # The entire path was successfully computed and can be executed.
     pub.publish(message)
     display_pub.publish(display_trajectory)
-    
-    command_input = input("Execute plan? y or n: ")
+    execution = group.execute(plan, wait=True)
+    # execution = group.go(wait=True)
+    print("Executed? ", execution)
+    # print("Fraction: ", fraction)
+    print("End Pose: ", group.get_current_pose().pose)
+    group.stop()
+    group.clear_pose_targets()
+    # else:
+    #     # Only a portion of the path was computed or it's entirely infeasible.
+    #     # You might need to adjust your parameters or waypoints.
+    #     print(f"Path computation failed. Fraction: {fraction}")
 
-    if command_input == "y":
-        group.set_pose_target(pose_goal)
-        success = group.go(wait=True)
-        group.stop()
-        group.clear_pose_targets()
-        print("Executed? ", success)
-    else:
-        print("Trajectory execution on robot aborted.")
 
 if __name__ == '__main__':
 
