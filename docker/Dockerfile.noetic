@@ -1,0 +1,67 @@
+FROM ros:noetic-robot
+
+# Copyright (c) 2023, UNIVERSITY OF ILLINOIS URBANA-CHAMPAIGN. All rights reserved.
+
+# To build:
+# docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
+
+# Set up directories and copy installation targets
+ENV HOME=/root
+ENV CATKIN_WS=${HOME}/abb_ws
+ENV SRC=${CATKIN_WS}/src
+ENV DEVEL=${CATKIN_WS}/devel
+COPY . ${SRC}/abb_dual_arm
+COPY ./docker/requirements.txt /tmp/requirements.txt
+COPY ./docker/init_workspace.sh /tmp/init_workspace.sh
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    # Install system and development components
+    apt-utils \
+    software-properties-common \
+    build-essential \
+    cmake \
+    git \
+    python3-pip \
+    python3-catkin-tools \
+    # Install required ROS components
+    ros-noetic-desktop-full \
+    ros-noetic-xacro \
+    ros-noetic-catkin \
+    ros-noetic-rviz \
+    ros-noetic-rospy \
+    ros-noetic-robot-state-publisher \
+    ros-noetic-moveit-planners-ompl \
+    ros-noetic-joint-state-publisher \
+    ros-noetic-abb-driver \
+    ros-noetic-industrial-robot-client \
+    ros-noetic-control-msgs \
+    ros-noetic-industrial-robot-simulator \
+    ros-noetic-moveit-commander \
+    ros-noetic-moveit-ros-move-group \
+    ros-noetic-moveit-simple-controller-manager \
+    ros-noetic-moveit-ros-visualization \
+    ros-noetic-cv-bridge \
+    ros-noetic-geometry-msgs \
+    ros-noetic-simple-message \
+    ros-noetic-message-filters \
+    ros-noetic-sensor-msgs \
+    ros-noetic-std-msgs \
+    ros-noetic-tf \
+    ros-noetic-vision-msgs \
+    ros-noetic-visualization-msgs \
+    && apt-get -y autoremove \
+    && apt-get clean
+
+# Install required Python components
+RUN python3 -m pip install -r /tmp/requirements.txt
+
+# Source ROS noetic
+RUN . /opt/ros/noetic/setup.sh && \
+    ./tmp/init_workspace.sh
+
+# Set Display variables
+ENV DISPLAY=:0
+ENV TERM=xterm
+# Some QT-Apps do not show controls without this
+ENV QT_X11_NO_MITSHM=1
