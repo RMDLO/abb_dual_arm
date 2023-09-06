@@ -33,15 +33,7 @@ def functional():
     wpose.position.y -= scale * 0.1  # Third move sideways (y)
     waypoints.append(copy.deepcopy(wpose))
 
-    # retries = 5
-    # i = 0
-    # while i < retries:
-    (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)  # 0.01 is the step size, 0.0 is the jump threshold
-    #     print(fraction)
-    #     if fraction==1.0:
-    #         break
-    #     i+=1
-    # plan = group.plan(goal_pose)
+    (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)
 
     if group_name == "dual_arm":
         joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \
@@ -67,22 +59,13 @@ def functional():
     message = FollowJointTrajectoryActionGoal()
     message.goal.trajectory = plan
 
-    # if fraction >= 0.85:
-        # The entire path was successfully computed and can be executed.
     pub.publish(message)
     display_pub.publish(display_trajectory)
     execution = group.execute(plan, wait=True)
-    # execution = group.go(wait=True)
     print("Executed? ", execution)
-    # print("Fraction: ", fraction)
     print("End Pose: ", group.get_current_pose().pose)
     group.stop()
     group.clear_pose_targets()
-    # else:
-    #     # Only a portion of the path was computed or it's entirely infeasible.
-    #     # You might need to adjust your parameters or waypoints.
-    #     print(f"Path computation failed. Fraction: {fraction}")
-
 
 if __name__ == '__main__':
 

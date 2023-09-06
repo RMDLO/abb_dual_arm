@@ -1,0 +1,23 @@
+name: Build, test and push docker CI
+
+on:
+  push:
+    branches: [ 'master' ]
+
+jobs:
+
+  build-focal:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout ABB_DUAL_ARM repository
+        uses: actions/checkout@v3
+      - name: Build, test, push base docker (Ubuntu 20.04)
+        run: cd docker && docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
+
+  build-jammy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout TrackDLO repository
+        uses: actions/checkout@v3
+      - name: Build, test, push base docker (Ubuntu 20.04)
+        run: cd docker && docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
