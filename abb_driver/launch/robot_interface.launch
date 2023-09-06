@@ -19,26 +19,23 @@
   
   <!-- J23_coupled: set TRUE to apply correction for J2/J3 parallel linkage -->
   <arg name="J23_coupled" default="false" doc="If true, compensate for J2-J3 parallel linkage" />
+
+  <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
+    <arg name="load_robot_description" value="true" />
+  </include>
   
   <group ns="mp">
-    <!-- copy the specified arguments to the Parameter Server, for use by nodes below -->
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
-
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_mp.yaml" />
     
     <!-- robot_state: publishes joint positions and robot-state data
                      (from socket connection to robot) -->
-    <remap from="robot_status" to="robot_state"/>
-    <node pkg="abb_driver" type="robot_state" name="robot_state">
+    <node pkg="abb_driver" type="robot_state" name="robot_status">
       <param name="port" value="11002"/>
     </node>
 
-    <!-- <node pkg="abb_driver" type="robot_state" name="robot_status" args="/mp/robot_status /robot_status"/>
-    <remap from="robot_status" to="mp/robot_status"/> -->
-
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp/feedback_states /feedback_states"/>
-    <remap from="feedback_states" to="feedback_states"/>
     
     <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                     (using socket connection to robot) -->
@@ -46,33 +43,22 @@
       <param name="port" value="11000"/>
     </node>
 
-    <!-- <node pkg="topic_tools" type="mux" name="robot_state_mux" args="/mp/robot_state robot_status mux:=robot_state_mux"/> -->
-    <remap from="robot_status" to="mp/robot_state"/>
-
     <!-- the space here is very important - /mp/joint_states /joint_states -->
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
 
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp/joint_states /joint_states"/>
-    <remap from="joint_states" to="mp/joint_states"/>
 
   </group>
 
   <group ns="mp_m">
-    <!-- copy the specified arguments to the Parameter Server, for use by nodes below -->
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="J23_coupled" type="bool" value="$(arg J23_coupled)"/>
-
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_mp_m.yaml" />
     
-    <!-- robot_state: publishes joint positions and robot-state data
-                     (from socket connection to robot) -->
-    <remap from="robot_status" to="robot_state"/>
-    <node pkg="abb_driver" type="robot_state" name="robot_state">
+    <!-- robot_state: publishes joint positions and robot-state data (from socket connection to robot) -->
+    <node pkg="abb_driver" type="robot_state" name="robot_status">
       <param name="port" value="12002"/>
     </node>
-
-    <!-- <node pkg="abb_driver" type="robot_state" name="robot_status" args="/mp_m/robot_status /robot_status"/>
-    <remap from="robot_status" to="mp_m/robot_status"/> -->
 
     <node pkg="topic_tools" type="relay" name="feedback_relay" args="/mp_m/feedback_states /feedback_states"/>
     <remap from="feedback_states" to="feedback_states"/>
@@ -86,7 +72,6 @@
     <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
 
     <node pkg="topic_tools" type="relay" name="joints_relay" args="/mp_m/joint_states /joint_states"/>
-    <remap from="joint_states" to="mp_m/joint_states"/>
 
   </group>
   
