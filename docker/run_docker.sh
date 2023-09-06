@@ -30,7 +30,7 @@ if [ -z "${TRACK_ID}" ]; then
     -v ${HOST_DIR}:${CONTAINER_DIR}:rw \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     --env="DISPLAY" \
-    --name=${CONTAINER_NAME} rmdlo-trackdlo:noetic \
+    --name=${CONTAINER_NAME} rmdlo-abb_dual_arm:noetic \
     -p 11000-12002:11000-12002/tcp \
     -p 11000-12002:11000-12002/udp \
     bash
