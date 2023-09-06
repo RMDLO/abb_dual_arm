@@ -2,7 +2,11 @@ name: Build, test and push docker CI
 
 on:
   push:
-    branches: [ 'master' ]
+    branches:
+      - ['master','develop']
+  pull_request:
+    branches:
+      - ['master','develop']
 
 jobs:
 
