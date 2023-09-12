@@ -3,13 +3,27 @@
   <arg name="multi" default="true" />
   <arg name="sim" default="true" />
   <arg name="robot_ip" default="192.168.125.1" unless="$(arg sim)"/>
-  <arg name="rviz" default="true" />
+  <arg name="camera" default="false" />
 
   <group if="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_dual_arm.yaml" />
   </group>
   <group unless="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_mp_m.yaml" />
+  </group>
+
+  <group if="$(arg camera)" >
+    <include file="$(find depthai_ros_driver)/launch/camera.launch" >
+    </include>
+    <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
+      <arg name="camera" value="true"/>
+    </include>
+  </group>
+
+  <group unless="$(arg camera)">
+    <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
+      <arg name="camera" value="false"/>
+    </include>
   </group>
 
   <!-- load the robot_description parameter before launching ROS-I nodes -->
@@ -50,12 +64,6 @@
   <group unless="$(arg sim)">
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
-    </include>
-  </group>
-
-  <group if="$(arg rviz)">
-    <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
-      <arg name="config" value="true"/>
     </include>
   </group>
 
