@@ -13,7 +13,7 @@
   </group>
 
   <group if="$(arg camera)" >
-    <include file="$(find depthai_ros_driver)/launch/camera.launch" >
+    <include file="$(find depthai_ros_driver)/launch/camera_lite.launch" >
     </include>
     <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
       <arg name="camera" value="true"/>

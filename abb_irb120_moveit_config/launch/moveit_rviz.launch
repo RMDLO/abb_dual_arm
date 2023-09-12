@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="camera" default="false" />
-  <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/>
+  <!-- <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/> -->
 
   <group unless="$(arg camera)">
     <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit.rviz"/>
