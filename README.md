@@ -43,6 +43,10 @@ catkin build
 2.  On the teach pendant, select settings and verify the mode is continuous. Then select PP to Main. Then click the play button on the teach pendant. The play button signals the teach pendant to run the loaded RAPID module.
 3. On the desktop computer, in Wired Settings, ensure the ethernet connection to the IRC5 controller is set to "Automatic (DHCP)" in the IPv4 setting.
 
+## Use Docker (Optional)
+
+To set up a docker container for running the robots in hardware and simulation, see the [DOCKER.md](https://github.com/RMDLO/abb_dual_arm/blob/master/docker/DOCKER.md) file.
+
 ## Move the Robots with RViz
 
 After setting up the hardware for ROS control, open a new terminal. First, navigate into the root of the workspace and source the workspace to access the built packages.

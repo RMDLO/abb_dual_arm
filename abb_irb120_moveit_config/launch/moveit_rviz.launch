@@ -1,16 +1,14 @@
 <launch>
 
-  <arg name="debug" default="false" />
-  <arg unless="$(arg debug)" name="launch_prefix" value="" />
-  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+  <arg name="camera" default="false" />
+  <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/>
 
-  <arg name="config" default="false" />
-  <arg unless="$(arg config)" name="command_args" value="" />
-  <arg     if="$(arg config)" name="command_args" value="-d $(find abb_irb120_moveit_config)/rviz/moveit.rviz" />
-  
-  <node name="$(anon rviz)" launch-prefix="$(arg launch_prefix)" pkg="rviz" type="rviz" respawn="false"
-	args="$(arg command_args)" output="screen">
-    <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/>
-  </node>
+  <group unless="$(arg camera)">
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit.rviz"/>
+  </group>
+
+  <group if="$(arg camera)">
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit_camera.rviz"/>
+  </group>
 
 </launch>
