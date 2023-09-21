@@ -10,7 +10,7 @@ import copy
 
 def functional():
 
-    group_name = "mp_m"
+    group_name = "mp"
     rospy.init_node(f'{group_name}_cartesian_planning')
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()

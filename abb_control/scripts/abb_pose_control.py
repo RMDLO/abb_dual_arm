@@ -9,7 +9,7 @@ from geometry_msgs.msg import Pose, Quaternion
 
 def functional():
 
-    group_name = "mp_m"
+    group_name = "mp"
     rospy.init_node(f'{group_name}_cartesian_planning')
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
@@ -24,9 +24,9 @@ def functional():
     pose_goal = Pose()
     pose_goal.orientation.y = -0.7071068
     pose_goal.orientation.w = 0.7071068
-    pose_goal.position.x = 0.2
+    pose_goal.position.x = -0.2
     pose_goal.position.y = 0
-    pose_goal.position.z = 0.3
+    pose_goal.position.z = 0.2
 
     waypoints.append(pose_goal)
     (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)
