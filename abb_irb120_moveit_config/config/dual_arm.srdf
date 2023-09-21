@@ -17,6 +17,7 @@
         <joint name="joint_5" />
         <joint name="joint_6" />
         <joint name="joint_7" />
+        <joint name="pointer_joint" />
     </group>
 
     <group name="mp_m">
@@ -26,9 +27,10 @@
         <joint name="joint_5_m" />
         <joint name="joint_6_m" />
         <joint name="joint_7_m" />
-        <joint name="gripper_joint_m" />
+        <joint name="pointer_joint_m" />
+        <!-- <joint name="gripper_joint_m" />
         <joint name="gripper_base_joint_m" />
-        <joint name="gripper_tcp_joint_m" />
+        <joint name="gripper_tcp_joint_m" /> -->
     </group>
 
     <group name="dual_arm">
@@ -56,8 +58,9 @@
         <joint name="joint_7_m" value="0" />
     </group_state>
 
-    <end_effector name="gripper_tcp_m" parent_link="gripper_base_m" group="mp_m"/>
-    <end_effector name="link_6" parent_link="link_6" group="mp"/>
+    <!-- <end_effector name="gripper_tcp_m" parent_link="gripper_base_m" group="mp_m"/> -->
+    <end_effector name="pointer" parent_link="link_6" group="mp"/>
+    <end_effector name="pointer_m" parent_link="link_6" group="mp_m"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />
@@ -83,7 +86,7 @@
     <disable_collisions link1="base_link_m" link2="link_1_m" reason="Adjacent" />
     <disable_collisions link1="base_link_m" link2="link_2_m" reason="Never" />
     <disable_collisions link1="link_1_m" link2="link_2_m" reason="Adjacent" />
-    <disable_collisions link1="link_2_m" link2="link_3_m" reason="Adjacent" />
+    <disable_collisions link1="link_2_m" link2="link_3_m" reason="Adjacent" />  
     <disable_collisions link1="link_2_m" link2="link_5_m" reason="Never" />
     <disable_collisions link1="link_2_m" link2="link_6_m" reason="Never" />
     <disable_collisions link1="link_3_m" link2="link_4_m" reason="Adjacent" />
@@ -92,10 +95,12 @@
     <disable_collisions link1="link_4_m" link2="link_5_m" reason="Adjacent" />
     <disable_collisions link1="link_4_m" link2="link_6_m" reason="Default" />
     <disable_collisions link1="link_5_m" link2="link_6_m" reason="Adjacent" />
-    <disable_collisions link1="link_5_m" link2="gripper_m" reason="Adjacent" />
+    <disable_collisions link1="link_6" link2="pointer" reason="Adjacent" />
+    <disable_collisions link1="link_6_m" link2="pointer_m" reason="Adjacent" />
+    <!-- <disable_collisions link1="link_5_m" link2="gripper_m" reason="Adjacent" />
     <disable_collisions link1="gripper_m" link2="link_6_m" reason="Adjacent" />
     <disable_collisions link1="gripper_m" link2="gripper_base_m" reason="Adjacent" />
     <disable_collisions link1="gripper_m" link2="gripper_tcp_m" reason="Adjacent" />
     <disable_collisions link1="gripper_base_m" link2="link_6_m" reason="Adjacent" />
-    <disable_collisions link1="gripper_base_m" link2="gripper_tcp_m" reason="Adjacent" />
+    <disable_collisions link1="gripper_base_m" link2="gripper_tcp_m" reason="Adjacent" /> -->
 </robot>

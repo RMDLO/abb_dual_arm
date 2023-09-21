@@ -322,59 +322,24 @@
         <xacro:material_abb_yellow />
       </collision>
     </link>
-    <!-- Gripper Links -->
-    <link name="${prefix}gripper_m">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/gripper_assembly.stl" scale="0.001 0.001 0.001"/>
-        </geometry>
-        <xacro:material_abb_white />
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/gripper_collision_cube.stl" scale="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-    </link>
-    <link name="${prefix}gripper_base_m">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </link>
-    <link name="${prefix}gripper_tcp_m">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0005 0.0005 0.0005"/>
-        </geometry>
-        <xacro:material_abb_white />
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.000001 0.000001 0.000001"/>
-        </geometry>
-        <xacro:material_abb_white />
-      </collision>
-    </link>
     <!-- Pointer Links -->
     <link name="${prefix}pointer">
       <inertial>
         <mass value="0.137"/>
-        <origin xyz="-0.00706 -0.00017 -1.32E-06" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 3.14159265 -1.5708"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ABB_pointer.stl"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ABB_pointer.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:material_abb_black />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 3.14159265 -1.5708"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ABB_pointer.stl"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ABB_pointer.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:material_abb_yellow />
       </collision>
@@ -386,16 +351,16 @@
         <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="3.14159265 0 -1.5708"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ABB_pointer.stl"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ABB_pointer.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:material_abb_black />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="3.14159265 0 -1.5708"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ABB_pointer.stl"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ABB_pointer.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:material_abb_yellow />
       </collision>
@@ -498,31 +463,14 @@
       <axis xyz="-1 0 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
-    <!-- Gripper Joints -->
-    <joint name="${prefix}gripper_joint_m" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <parent link="${prefix}link_6_m"/>
-      <child link="${prefix}gripper_m"/>
-    </joint>
-    <joint name="${prefix}gripper_base_joint_m" type="fixed">
-      <origin rpy="0 0 0" xyz="-0.1277 0 0"/>
-      <parent link="${prefix}gripper_m"/>
-      <child link="${prefix}gripper_base_m"/>
-    </joint>
-    <joint name="${prefix}gripper_tcp_joint_m" type="fixed">
-      <!-- <origin rpy="0 0 0" xyz="-0.172 -0.0316545 0.0482436"/> -->
-      <origin rpy="${radians(-20)} 0 0" xyz="-0.045283 0 0"/>
-      <parent link="${prefix}gripper_base_m"/>
-      <child link="${prefix}gripper_tcp_m"/>
-    </joint>
     <!-- Pointer Joints -->
     <joint name="${prefix}pointer_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 -0.035 0.03"/>
       <parent link="${prefix}link_6"/>
       <child link="${prefix}pointer"/>
     </joint>
     <joint name="${prefix}pointer_joint_m" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0.035 0.03"/>
       <parent link="${prefix}link_6_m"/>
       <child link="${prefix}pointer_m"/>
     </joint>
