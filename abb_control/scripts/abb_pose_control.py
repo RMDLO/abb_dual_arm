@@ -22,11 +22,12 @@ def functional():
     waypoints.append(group.get_current_pose().pose)
 
     pose_goal = Pose()
-    pose_goal.orientation.y = -0.7071068
-    pose_goal.orientation.w = 0.7071068
-    pose_goal.position.x = -0.2
+    # pose_goal.orientation.y = -0.7071068
+    # pose_goal.orientation.w = 0.7071068
+    pose_goal.orientation.w = 1
+    pose_goal.position.x = .3
     pose_goal.position.y = 0
-    pose_goal.position.z = 0.2
+    pose_goal.position.z = 0.5
 
     waypoints.append(pose_goal)
     (plan, fraction) = group.compute_cartesian_path(waypoints, 0.01, 0.0, avoid_collisions=True)
