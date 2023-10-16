@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
+# Static transformation from pointer to pointer's tip
+
 import rospy
 import tf
 from tf.transformations import quaternion_from_matrix
 import numpy as np
 
 def broadcast_tf():
-    rospy.init_node('tf_broadcaster_h2e')
+    rospy.init_node('tf_broadcaster_p2t')
 
     br = tf.TransformBroadcaster()
 
@@ -14,10 +16,10 @@ def broadcast_tf():
 
     # Your transformation matrix
     matrix = np.array([
-        [0.0047183,   -0.999864,  -0.0158078,   0.0179451],
-        [-0.999987, -0.00474907,   0.0019095,    0.030616],
-        [-0.00198431,   0.0157986,   -0.999873,   -0.039238],
-        [0,           0,           0,           1]
+        [1, 0, 0, -0.03],
+        [0, 1, 0, 0],
+        [0, 0, 1, -0.06],
+        [0, 0, 0, 1]
     ])
 
     # Extract translation from the matrix
@@ -32,8 +34,8 @@ def broadcast_tf():
             translation,
             quaternion,
             rospy.Time.now(),
-            "eye",  # Child frame (object in this case)
-            "link_6"  # Parent frame (world in this case)
+            "tip",  # Child frame (object in this case)
+            "pointer_m"  # Parent frame (world in this case)
         )
         rate.sleep()
 
