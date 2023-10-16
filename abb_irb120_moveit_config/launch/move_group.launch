@@ -1,6 +1,10 @@
 <launch>
 
-  <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" />
+  <arg name="pointer" default="false" />
+
+  <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch">
+    <arg name="pointer" value="$(arg pointer)" />
+  </include>
 
   <!-- GDB Debug Option -->
   <arg name="debug" default="false" />

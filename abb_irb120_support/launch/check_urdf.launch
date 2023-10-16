@@ -1,7 +1,7 @@
 <launch>
   <!-- To run joint_state_publisher package -->
   
-    <param name="robot_description" command="xacro '$(find abb_irb120_support)/urdf/dual_arm.xacro'" />
+    <param name="robot_description" command="xacro '$(find abb_irb120_support)/urdf/dual_arm_gripper.xacro'" />
 
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
         <param name = "use_gui" value="TRUE" />

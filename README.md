@@ -70,9 +70,9 @@ Source the workspace to access the built packages.
 ```bash
 source devel/setup.bash
 ```
-Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `moveit_planning_execution.launch` and set `sim:=False` if controlling the real robots.
+Launch MoveIt! planning and execution. Make sure to change the robot controller's IP address in `abb_control.launch` and set `sim:=False` if controlling the real robots. If using the pointer as the end effector, set `pointer:=True` on launch.
 ```bash
-roslaunch abb_irb120_moveit_config moveit_planning_execution.launch sim:=True
+roslaunch abb_control abb_control.launch sim:=True camera:=False pointer:=False
 ```
 
 #### Terminal 2
@@ -83,7 +83,7 @@ source devel/setup.bash
 ```
 Run the robot control node.
 ```bash
-rosrun abb_control abb_control.py
+rosrun abb_control abb_joint_control.py
 ```
 
 ## License
