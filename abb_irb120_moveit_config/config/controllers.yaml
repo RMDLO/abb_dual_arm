@@ -18,8 +18,9 @@ controller_list:
       - joint_5_m 
       - joint_6_m 
       - joint_7_m
-      - pointer_joint
-      - pointer_joint_m
+      - gripper_joint_m
+      - gripper_base_joint_m
+      - gripper_tcp_joint_m
   - name: mp
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
@@ -31,7 +32,6 @@ controller_list:
       - joint_5
       - joint_6 
       - joint_7 
-      - pointer_joint
   - name: mp_m
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory
@@ -43,4 +43,6 @@ controller_list:
       - joint_5_m 
       - joint_6_m 
       - joint_7_m
-      - pointer_joint_m
+      - gripper_joint_m
+      - gripper_base_joint_m
+      - gripper_tcp_joint_m

@@ -11,8 +11,7 @@ controller_list:
       - joint_4
       - joint_5
       - joint_6
-      - joint_7
-      - pointer_joint 
+      - joint_7 
   - name: mp_m
     type: interpolate
     joints:
@@ -22,9 +21,8 @@ controller_list:
       - joint_5_m
       - joint_6_m
       - joint_7_m
-      - pointer_joint_m
-      #- gripper_joint_m
-      #- gripper_tcp_joint_m
+      - gripper_joint_m
+      - gripper_tcp_joint_m
   - name: dual_arm
     type: interpolate
     joints:
@@ -40,8 +38,6 @@ controller_list:
       - joint_5_m 
       - joint_6_m 
       - joint_7_m
-      - pointer_joint
-      - pointer_joint_m
-      #- gripper_joint_m
-      #- gripper_base_joint_m
-      #- gripper_tcp_joint_m
+      - gripper_joint_m
+      - gripper_base_joint_m
+      - gripper_tcp_joint_m
