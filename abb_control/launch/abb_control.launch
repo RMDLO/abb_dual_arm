@@ -4,6 +4,7 @@
   <arg name="sim" default="true" />
   <arg name="robot_ip" default="192.168.125.1" unless="$(arg sim)"/>
   <arg name="camera" default="false" />
+  <arg name="pointer" default="false" />
 
   <group if="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_dual_arm.yaml" />
@@ -27,9 +28,19 @@
   </group>
 
   <!-- load the robot_description parameter before launching ROS-I nodes -->
-  <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
-    <arg name="load_robot_description" value="true" />
-  </include>
+  <group if="$(arg pointer)" >
+    <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
+      <arg name="load_robot_description" value="true" />
+      <arg name="pointer" value="true" />
+    </include>
+  </group>
+
+  <group unless="$(arg pointer)">
+    <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
+      <arg name="load_robot_description" value="true" />
+      <arg name="pointer" value="false" />
+    </include>
+  </group>
 
   <!-- run the robot simulator and action interface nodes -->
   <group if="$(arg sim)">
@@ -58,12 +69,14 @@
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
       <arg name="fake_execution" value="true" />
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
   </group>
 
   <group unless="$(arg sim)">
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
   </group>
 
