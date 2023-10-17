@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Transform from hand to eye (end effector to camera)
+
 import rospy
 import tf
 from tf.transformations import quaternion_from_matrix
