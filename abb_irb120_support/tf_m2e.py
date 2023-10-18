@@ -19,7 +19,7 @@ def main():
 
     # Time and frame information
     static_transformStamped.header.stamp = rospy.Time.now()
-    static_transformStamped.header.frame_id = "camera_link"
+    static_transformStamped.header.frame_id = "camera_color_frame"
     static_transformStamped.child_frame_id = "marker_frame"
 
     # Translation vector 
