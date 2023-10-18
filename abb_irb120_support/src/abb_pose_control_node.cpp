@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
 
     control_msgs::FollowJointTrajectoryActionGoal action_goal;
-    action_goal.goal.trajectory = plan.trajectory_;
+    action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
 
     pub.publish(action_goal);
 
@@ -65,10 +65,11 @@ int main(int argc, char** argv)
     if (input == "y")
     {
         group.setPoseTarget(transformed_pose.pose);
-        bool success = group.move();
+        moveit::planning_interface::MoveItErrorCode success_code = group.move();
+        bool success = (success_code == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         group.stop();
         group.clearPoseTargets();
-        std::cout << "Executed? " << success << std::endl;
+        std::cout << "Executed? " << (success ? "Yes" : "No") << std::endl;
     }
     else
     {
