@@ -34,13 +34,17 @@ def functional():
     waypoints.append(group.get_current_pose().pose)
 
     # Retrieve the transform from "tip" to "marker_frame"
-    trans = tf_buffer.lookup_transform("tip", "marker_frame", rospy.Time(0), rospy.Duration(1.0))
+    trans = tf_buffer.lookup_transform("pointer_m_tip", "marker_frame", rospy.Time(0), rospy.Duration(1.0))
+
+    # Given 3D points and quaternion for the desired position in marker_frame
+    x, y, z = -0.280, -0.424, -0.130  
+    quaternion = [-0.649, 0.495, 0.273, 0.509]
 
     # Create Pose message for the marker in marker_frame
     marker_pose_table = Pose()
-    marker_pose_table.position.x = x  # Replace with the x-coordinate of the marker in marker_frame
-    marker_pose_table.position.y = y  # Replace with the y-coordinate of the marker in marker_frame
-    marker_pose_table.position.z = z  # Replace with the z-coordinate of the marker in marker_frame
+    marker_pose_table.position.x = x  
+    marker_pose_table.position.y = y  
+    marker_pose_table.position.z = z 
     marker_pose_table.orientation.x, marker_pose_table.orientation.y, marker_pose_table.orientation.z, marker_pose_table.orientation.w = quaternion  # Replace with the orientation quaternion of the marker in marker_frame
 
     marker_pose_stamped = PoseStamped()
@@ -85,13 +89,14 @@ def functional():
     command_input = input("Execute plan? y or n: ")
 
     if command_input == "y":
-        group.set_pose_target(marker_pose_base)
+        group.set_pose_target(marker_pose_tip)  
         success = group.go(wait=True)
         group.stop()
         group.clear_pose_targets()
         print("Executed? ", success)
     else:
         print("Trajectory execution on robot aborted.")
+
 
 if __name__ == '__main__':
     try:

@@ -4,6 +4,7 @@
   <arg name="sim" default="true" />
   <arg name="robot_ip" default="192.168.125.1" unless="$(arg sim)"/>
   <arg name="camera" default="false" />
+  <arg name="pointer" default="false" />
 
   <group if="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_dual_arm.yaml" />
@@ -27,9 +28,21 @@
   </group>
 
   <!-- load the robot_description parameter before launching ROS-I nodes -->
-  <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
-    <arg name="load_robot_description" value="true" />
-  </include>
+  <group if="$(arg pointer)" >
+    <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
+      <arg name="load_robot_description" value="true" />
+      <arg name="pointer" value="true" />
+    </include>
+    <node pkg="tf" type="static_transform_publisher" name="pointer_to_tip_tf" args="0.03 0 -0.06 0 0 0 1 pointer pointer_tip 10" />
+    <node pkg="tf" type="static_transform_publisher" name="pointer_m_to_tip_m_tf" args="-0.03 0 -0.06 0 0 0 1 pointer_m pointer_m_tip 10" />
+  </group>
+
+  <group unless="$(arg pointer)">
+    <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch" >
+      <arg name="load_robot_description" value="true" />
+      <arg name="pointer" value="false" />
+    </include>
+  </group>
 
   <!-- run the robot simulator and action interface nodes -->
   <group if="$(arg sim)">
@@ -46,6 +59,7 @@
   <!--   - replace these calls with appropriate robot-specific calls or launch files -->
     <include file="$(find abb_driver)/launch/robot_interface.launch" >
       <arg name="robot_ip" value="$(arg robot_ip)"/>
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
     <include file="$(find abb_irb120_moveit_config)/launch/dual_arm_moveit_controller_manager.launch">
     </include>
@@ -58,12 +72,14 @@
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
       <arg name="fake_execution" value="true" />
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
   </group>
 
   <group unless="$(arg sim)">
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
   </group>
 
