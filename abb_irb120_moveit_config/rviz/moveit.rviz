@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /MotionPlanning1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.7425600290298462
     Tree Height: 383
   - Class: rviz/Help
@@ -81,16 +83,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          gripper_m:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          ground:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           link_1:
             Alpha: 1
             Show Axes: false
@@ -151,10 +143,21 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          pointer:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          pointer_m:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           world:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+            Value: true
         Loop Animation: false
         Robot Alpha: 0.10000000149011612
         Robot Color: 150; 50; 150
@@ -211,16 +214,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          gripper_m:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          ground:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           link_1:
             Alpha: 1
             Show Axes: false
@@ -281,15 +274,121 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          pointer:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          pointer_m:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           world:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+            Value: true
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
       Velocity_Scaling_Factor: 0.1
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        base_link:
+          Value: false
+        base_link_m:
+          Value: false
+        camera_color_frame:
+          Value: false
+        camera_color_optical_frame:
+          Value: true
+        camera_depth_frame:
+          Value: false
+        camera_depth_optical_frame:
+          Value: false
+        camera_link:
+          Value: false
+        link_1:
+          Value: false
+        link_1_m:
+          Value: false
+        link_2:
+          Value: false
+        link_2_m:
+          Value: false
+        link_3:
+          Value: false
+        link_3_m:
+          Value: false
+        link_4:
+          Value: false
+        link_4_m:
+          Value: false
+        link_5:
+          Value: false
+        link_5_m:
+          Value: false
+        link_6:
+          Value: false
+        link_6_m:
+          Value: false
+        marker_frame:
+          Value: false
+        pointer:
+          Value: false
+        pointer_m:
+          Value: false
+        pointer_m_tip:
+          Value: false
+        pointer_tip:
+          Value: false
+        world:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          base_link:
+            link_1:
+              link_2:
+                link_3:
+                  link_4:
+                    link_5:
+                      link_6:
+                        camera_link:
+                          camera_color_frame:
+                            camera_color_optical_frame:
+                              marker_frame:
+                                {}
+                          camera_depth_frame:
+                            camera_depth_optical_frame:
+                              {}
+                        pointer:
+                          pointer_tip:
+                            {}
+          base_link_m:
+            link_1_m:
+              link_2_m:
+                link_3_m:
+                  link_4_m:
+                    link_5_m:
+                      link_6_m:
+                        pointer_m:
+                          pointer_m_tip:
+                            {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 211; 215; 207
@@ -306,7 +405,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.5585774183273315
+      Distance: 1.9782779216766357
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -322,9 +421,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.44979655742645264
+      Pitch: 0.2347967028617859
       Target Frame: base_link
-      Yaw: 1.5617586374282837
+      Yaw: 1.1617357730865479
     Saved: ~
 Window Geometry:
   Displays:

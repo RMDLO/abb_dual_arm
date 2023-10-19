@@ -12,9 +12,11 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 # Declare C++ executable, along with its source files
 add_executable(abb_pose_control_node src/abb_pose_control_node.cpp)
+add_executable(camera_optical_frames src/camera_optical_frames.cpp)
 
 # To compile the node, you must also link it against libraries
 target_link_libraries(abb_pose_control_node ${catkin_LIBRARIES})
+target_link_libraries(camera_optical_frames ${catkin_LIBRARIES})
 
 # Additional install commands
 if (CATKIN_ENABLE_TESTING)
