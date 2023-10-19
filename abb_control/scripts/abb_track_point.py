@@ -3,13 +3,10 @@
 import rospy
 from ros_numpy import numpify
 import moveit_commander
-from sensor_msgs.msg import JointState
 from moveit_msgs.msg import DisplayTrajectory
 from control_msgs.msg import FollowJointTrajectoryActionGoal
-from geometry_msgs.msg import Pose, Quaternion
+from geometry_msgs.msg import Pose
 import tf2_ros
-
-import time
 
 class CalibrationChecker:
     '''
@@ -29,27 +26,30 @@ class CalibrationChecker:
 
         self.group.set_start_state_to_current_state()
 
-        joint_start = self.group.get_current_joint_values()
         waypoints = []
         waypoints.append(self.group.get_current_pose().pose)
 
         print("current pose: ", self.group.get_current_pose().pose)
 
-        charuco_pt_tf = self.buffer.lookup_transform('world', 'charuco_point', rospy.Time(0), timeout=rospy.Duration(1))
-        t  = numpify(charuco_pt_tf.transform.translation)
-        print("t: ", t)
+        target_pt_tf = self.buffer.lookup_transform('world', 'target_point', rospy.Time(0), timeout=rospy.Duration(1))
+        t  = numpify(target_pt_tf.transform.translation)
+        q = numpify(target_pt_tf.transform.rotation)
 
         pose_goal1 = Pose()
-        pose_goal1.orientation.x = 0
-        pose_goal1.orientation.w = 1
+        pose_goal1.orientation.x = q[0]
+        pose_goal1.orientation.y = q[1]
+        pose_goal1.orientation.z = q[2]
+        pose_goal1.orientation.w = q[3]
         pose_goal1.position.x = t[0]
         pose_goal1.position.y = t[1]
         pose_goal1.position.z = 0.1
 
         pose_goal2 = Pose()
-        pose_goal2.orientation.x = 0
-        pose_goal2.orientation.w = 1
-        pose_goal2.position.x = t[0]+0.08
+        pose_goal2.orientation.x = q[0]
+        pose_goal2.orientation.y = q[1]
+        pose_goal2.orientation.z = q[2]
+        pose_goal2.orientation.w = q[3]
+        pose_goal2.position.x = t[0]+0.05
         pose_goal2.position.y = t[1]
         pose_goal2.position.z = 0.1
 
@@ -75,6 +75,5 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         try:
             c.functional()
-            # rospy.spin()
         except KeyboardInterrupt:
             print("Shutting down")
