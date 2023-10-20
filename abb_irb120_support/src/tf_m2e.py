@@ -21,16 +21,16 @@ def main():
 
     # Time and frame information
     static_transformStamped.header.stamp = rospy.Time.now()
-    static_transformStamped.header.frame_id = "camera_color_frame"
+    static_transformStamped.header.frame_id = "camera_color_optical_frame"
     static_transformStamped.child_frame_id = "marker_frame"
 
     # Translation vector
-    static_transformStamped.transform.translation.x = 0.109172
-    static_transformStamped.transform.translation.y = -0.0076801
-    static_transformStamped.transform.translation.z = 0.453516
+    static_transformStamped.transform.translation.x = 0.03833871685350818
+    static_transformStamped.transform.translation.y = -0.07290789052165131
+    static_transformStamped.transform.translation.z = 0.3944341341981887
 
     # New Rotation vector converted to quaternion
-    rvec = np.array([2.01053, -2.01678, 0.389023])
+    rvec = np.array([2.03416, -2.04372, 0.332878])
     R, _ = cv2.Rodrigues(rvec)
 
     # Create a 4x4 homogeneous transformation matrix

@@ -26,7 +26,7 @@ int main(int argc, char** argv)
         color_transformStamped.transform.translation.z = 0;
 
         tf2::Quaternion color_quat;
-        color_quat.setRPY(0, -M_PI/2, M_PI/2);  // 90-degree rotation about Z-axis
+        color_quat.setRPY(0, 0, 0);  // 90-degree rotation about Z-axis
         color_transformStamped.transform.rotation.x = color_quat.x();
         color_transformStamped.transform.rotation.y = color_quat.y();
         color_transformStamped.transform.rotation.z = color_quat.z();
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
         depth_transformStamped.transform.translation.z = 0;
 
         tf2::Quaternion depth_quat;
-        depth_quat.setRPY(0, M_PI/2, M_PI/2);  // 90-degree rotation about Z-axis
+        depth_quat.setRPY(0, 0, 0);  // 90-degree rotation about Z-axis
         depth_transformStamped.transform.rotation.x = depth_quat.x();
         depth_transformStamped.transform.rotation.y = depth_quat.y();
         depth_transformStamped.transform.rotation.z = depth_quat.z();

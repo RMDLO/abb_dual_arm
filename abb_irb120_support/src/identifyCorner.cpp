@@ -5,7 +5,7 @@
 
 int main() {
     // Load the image
-    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231017/000_image.jpg";
+    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231019/000_image.jpg";
     cv::Mat image = cv::imread(image_path);
 
     // Check if the image is loaded
@@ -50,66 +50,79 @@ int main() {
             }
         }
         std::cout << std::endl;
-    }
 
-    // Choose a specific corner to look at
-    int desired_id = 16;  // Replace with the ID of the corner interested in
-    int index = -1;
-    for (int i = 0; i < charuco_ids.rows; ++i) {
-        if (charuco_ids.at<int>(i, 0) == desired_id) {
-            index = i;
-            break;
+        // Ask the user for the desired corner ID
+        int desired_id;
+        std::cout << "Enter the desired corner ID: ";
+        std::cin >> desired_id;
+
+        // Find the index of the desired corner ID
+        int index = -1;
+        for (int i = 0; i < charuco_ids.rows; ++i) {
+            if (charuco_ids.at<int>(i, 0) == desired_id) {
+                index = i;
+                break;
+            }
         }
-    }
 
-    if (index >= 0) {
-        cv::Point2f corner_coordinates = charuco_corners.at<cv::Point2f>(index, 0);
-        std::cout << "Corner coordinates for ID " << desired_id << ": " << corner_coordinates << std::endl;
+        if (index != -1) {
+            std::cout << "Desired corner ID " << desired_id << " found at index " << index << std::endl;
+        } else {
+            std::cout << "Desired corner ID " << desired_id << " not found." << std::endl;
+        }
 
-        // Draw a circle at the corner coordinates
-        cv::circle(image, corner_coordinates, 2, cv::Scalar(0, 0, 255), -1);
+        if (index >= 0) {
+            cv::Point2f corner_coordinates = charuco_corners.at<cv::Point2f>(index, 0);
+            std::cout << "Corner coordinates for ID " << desired_id << ": " << corner_coordinates << std::endl;
 
-        // Optionally, save or display the modified image
-        cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231017/000_image_with_marker.jpg", image);
-        //cv::imshow("Image with Marker", image);
-        //cv::waitKey(0);
+            // Draw a circle at the corner coordinates
+            cv::circle(image, corner_coordinates, 2, cv::Scalar(0, 0, 255), -1);
 
-    } else {
-        std::cout << "Desired corner ID not found" << std::endl;
-    }
+            // Optionally, save or display the modified image
+            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231019/000_image_with_marker.jpg", image);
+            //cv::imshow("Image with Marker", image);
+            //cv::waitKey(0);
 
-    // Directly use the provided camera matrix and distortion coefficients
-    cv::Mat camera_matrix = (cv::Mat_<double>(3,3) << 612.2394409179688, 0.0, 323.92718505859375, 0.0, 610.8439331054688, 236.01596069335938, 0.0, 0.0, 1.0);
-    cv::Mat dist_coeffs = (cv::Mat_<double>(1,5) << 0.0, 0.0, 0.0, 0.0, 0.0);
+        } else {
+            std::cout << "Desired corner ID not found" << std::endl;
+        }
 
-    // Print the matrices to verify the values
-    std::cout << "Camera Matrix:" << std::endl << camera_matrix << std::endl;
-    std::cout << "Distortion Coefficients:" << std::endl << dist_coeffs << std::endl;
+        // Directly use the provided camera matrix and distortion coefficients
+        cv::Mat camera_matrix = (cv::Mat_<double>(3,3) << 612.2394409179688, 0.0, 323.92718505859375, 0.0, 610.8439331054688, 236.01596069335938, 0.0, 0.0, 1.0);
+        cv::Mat dist_coeffs = (cv::Mat_<double>(1,5) << 0.0, 0.0, 0.0, 0.0, 0.0);
 
-    // Estimate pose of the board
-    cv::Vec3d rvec, tvec;
-    bool validPose = cv::aruco::estimatePoseCharucoBoard(charuco_corners, charuco_ids, charuco_board, camera_matrix, dist_coeffs, rvec, tvec);
+        // Print the matrices to verify the values
+        std::cout << "Camera Matrix:" << std::endl << camera_matrix << std::endl;
+        std::cout << "Distortion Coefficients:" << std::endl << dist_coeffs << std::endl;
 
-    if (validPose) {
-        std::cout << "Rotation vector (rvec): " << rvec << std::endl;
-        std::cout << "Translation vector (tvec): " << tvec << std::endl;
+        // Estimate pose of the board
+        cv::Vec3d rvec, tvec;
+        bool validPose = cv::aruco::estimatePoseCharucoBoard(charuco_corners, charuco_ids, charuco_board, camera_matrix, dist_coeffs, rvec, tvec);
 
-        // Find the 3D coordinates of the desired corner
-        cv::Point3f desired_corner_3d = charuco_board->chessboardCorners[desired_id];
+        if (validPose) {
+            std::cout << "Rotation vector (rvec): " << rvec << std::endl;
+            std::cout << "Translation vector (tvec): " << tvec << std::endl;
 
-        // Transform the 3D point from the board's coordinate system to the camera's coordinate system
-        cv::Mat rotation_matrix;
-        cv::Rodrigues(rvec, rotation_matrix);  // Convert rotation vector to rotation matrix
+            // Transform the 3D point from the board's coordinate system to the camera's coordinate system
+            cv::Mat rotation_matrix;
+            cv::Rodrigues(rvec, rotation_matrix);  // Convert rotation vector to rotation matrix
 
-        cv::Mat desired_corner_mat = (cv::Mat_<double>(3, 1) << desired_corner_3d.x, desired_corner_3d.y, desired_corner_3d.z);
-
-        cv::Mat tvec_mat = cv::Mat(tvec); // Convert tvec to cv::Mat
-        cv::Mat transformed_corner = rotation_matrix * desired_corner_mat + tvec_mat;
-
-        std::cout << "3D coordinates of the desired corner (ID " << desired_id << ") in camera's coordinate system: ";
-        std::cout << transformed_corner.t() << std::endl;
-    } else {
-        std::cout << "Invalid pose. Could not estimate the pose." << std::endl;
+            // To get rvec and tvec of the desired corner ID
+            cv::Point3f desired_corner_3d = charuco_board->chessboardCorners[desired_id];
+            cv::Mat desired_corner_mat = (cv::Mat_<double>(3, 1) << desired_corner_3d.x, desired_corner_3d.y, desired_corner_3d.z);
+            cv::Mat tvec_mat = cv::Mat(tvec);
+            cv::Mat transformed_corner = rotation_matrix * desired_corner_mat + tvec_mat;
+            
+            // Output transformed corner
+            std::cout << "3D coordinates of the desired corner (ID " << desired_id << ") in camera's coordinate system: ";
+            std::cout << transformed_corner.t() << std::endl;
+            
+            // Output rvec and tvec of the desired corner (with respect to the camera frame)
+            std::cout << "Rotation vector (rvec) for the desired corner (ID " << desired_id << "): " << rvec << std::endl; // Stays the same as the board's rvec
+            std::cout << "Translation vector (tvec) for the desired corner (ID " << desired_id << "): " << transformed_corner.t() << std::endl;
+        } else {
+            std::cout << "Invalid pose. Could not estimate the pose." << std::endl;
+        }
     }
 
     return 0;
