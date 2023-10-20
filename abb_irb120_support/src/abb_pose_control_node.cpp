@@ -14,11 +14,11 @@ int main(int argc, char** argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
-    std::string group_name = "mp_m";
+    std::string group_name = "dual_arm";
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/mp_m/joint_trajectory_action/goal", 1);
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/dual_arm/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
@@ -28,54 +28,67 @@ int main(int argc, char** argv)
     std::vector<geometry_msgs::Pose> waypoints;
     waypoints.push_back(group.getCurrentPose().pose);
 
-    geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform("pointer_m_tip", "marker_frame", ros::Time(0), ros::Duration(1.0));
-
-    geometry_msgs::PoseStamped marker_pose_stamped;
-    marker_pose_stamped.header.frame_id = "marker_frame";
-    marker_pose_stamped.pose.position.x = -0.280;
-    marker_pose_stamped.pose.position.y = -0.424;
-    marker_pose_stamped.pose.position.z = -0.130;
-    marker_pose_stamped.pose.orientation.x = -0.649;
-    marker_pose_stamped.pose.orientation.y = 0.495;
-    marker_pose_stamped.pose.orientation.z = 0.273;
-    marker_pose_stamped.pose.orientation.w = 0.509;
-
-    geometry_msgs::PoseStamped transformed_pose;
-    tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
-
-    waypoints.push_back(transformed_pose.pose);
-
-    moveit::planning_interface::MoveGroupInterface::Plan plan;
-    double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
-
-    control_msgs::FollowJointTrajectoryActionGoal action_goal;
-    action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
-
-    pub.publish(action_goal);
-
-    moveit_msgs::DisplayTrajectory display_trajectory;
-    display_trajectory.model_id = group_name;
-    display_trajectory.trajectory.push_back(plan.trajectory_);
-    display_pub.publish(display_trajectory);
-
-    std::string input;
-    std::cout << "Execute plan? y or n: ";
-    std::cin >> input;
-
-    if (input == "y")
+    try
     {
-        group.setPoseTarget(transformed_pose.pose);
-        moveit::planning_interface::MoveItErrorCode success_code = group.move();
-        bool success = (success_code == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        group.stop();
-        group.clearPoseTargets();
-        std::cout << "Executed? " << (success ? "Yes" : "No") << std::endl;
+        // This will transform the marker's pose to the planning frame
+        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), "marker_frame", ros::Time(0), ros::Duration(1.0));
+
+        geometry_msgs::PoseStamped marker_pose_stamped;
+        marker_pose_stamped.header.frame_id = group.getPlanningFrame();
+        
+        // (populate the pose information, similar to your existing code)
+        geometry_msgs::PoseStamped transformed_pose;
+        tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
+
+        waypoints.push_back(transformed_pose.pose);
+
+        moveit::planning_interface::MoveGroupInterface::Plan plan;
+ 
+        double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
+    
+        // Add this snippet here to check the fraction returned
+        if (fraction >= 0.9)  
+        {
+            // Populate action goal and other steps before execution
+            control_msgs::FollowJointTrajectoryActionGoal action_goal;
+            action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
+
+            pub.publish(action_goal);
+
+            moveit_msgs::DisplayTrajectory display_trajectory;
+            display_trajectory.model_id = group_name;
+            display_trajectory.trajectory.push_back(plan.trajectory_);
+            display_pub.publish(display_trajectory);
+            
+            std::string input;
+            std::cout << "Execute plan? y or n: ";
+            std::cin >> input;
+
+            if (input == "y")
+            {
+                // Using 'group.move()' to execute previously computed plan
+                moveit::core::MoveItErrorCode success_code = group.move();
+                bool success = (success_code == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+                group.stop();
+                group.clearPoseTargets();
+                std::cout << "Executed? " << (success ? "Yes" : "No") << std::endl;
+            }
+            else
+            {
+            std::cout << "Trajectory execution on robot aborted." << std::endl;
+            }
+        }
+        else
+        {
+            ROS_WARN("Could not compute a valid Cartesian path. Fraction returned: %f", fraction);
+        }
     }
-    else
+    catch (tf2::TransformException &ex)
     {
-        std::cout << "Trajectory execution on robot aborted." << std::endl;
+        ROS_WARN("Could not transform marker_pose: %s", ex.what());
     }
 
     ros::shutdown();
+
     return 0;
 }
