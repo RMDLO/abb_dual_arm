@@ -462,13 +462,12 @@
       <child link="${prefix}gripper_m"/>
     </joint>
     <joint name="${prefix}gripper_base_joint_m" type="fixed">
-      <origin rpy="0 0 0" xyz="-0.1277 0 0"/>
+      <origin rpy="0 ${radians(90)} 0" xyz="-0.1277 0 0"/>
       <parent link="${prefix}gripper_m"/>
       <child link="${prefix}gripper_base_m"/>
     </joint>
     <joint name="${prefix}gripper_tcp_joint_m" type="fixed">
-      <!-- <origin rpy="0 0 0" xyz="-0.172 -0.0316545 0.0482436"/> -->
-      <origin rpy="${radians(-20)} 0 0" xyz="-0.045283 0 0"/>
+      <origin rpy="0 0 ${radians(-20)}" xyz="0 0 -0.045283"/>
       <parent link="${prefix}gripper_base_m"/>
       <child link="${prefix}gripper_tcp_m"/>
     </joint>
