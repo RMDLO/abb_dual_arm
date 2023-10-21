@@ -14,11 +14,11 @@ int main(int argc, char** argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
-    std::string group_name = "dual_arm";
+    std::string group_name = "mp_m";
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/dual_arm/joint_trajectory_action/goal", 1);
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/mp_m/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
@@ -36,7 +36,16 @@ int main(int argc, char** argv)
         geometry_msgs::PoseStamped marker_pose_stamped;
         marker_pose_stamped.header.frame_id = group.getPlanningFrame();
         
-        // (populate the pose information, similar to your existing code)
+        // Populate the pose information from the TransformStamped object
+        marker_pose_stamped.pose.position.x = transform_stamped.transform.translation.x;
+        marker_pose_stamped.pose.position.y = transform_stamped.transform.translation.y;
+        marker_pose_stamped.pose.position.z = transform_stamped.transform.translation.z;
+
+        marker_pose_stamped.pose.orientation.x = transform_stamped.transform.rotation.x;
+        marker_pose_stamped.pose.orientation.y = transform_stamped.transform.rotation.y;
+        marker_pose_stamped.pose.orientation.z = transform_stamped.transform.rotation.z;
+        marker_pose_stamped.pose.orientation.w = transform_stamped.transform.rotation.w;
+
         geometry_msgs::PoseStamped transformed_pose;
         tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
 

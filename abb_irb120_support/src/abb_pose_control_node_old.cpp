@@ -14,11 +14,11 @@ int main(int argc, char** argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
-    std::string group_name = "dual_arm";
+    std::string group_name = "mp_m";
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/dual_arm/joint_trajectory_action/goal", 1);
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/mp_m/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
