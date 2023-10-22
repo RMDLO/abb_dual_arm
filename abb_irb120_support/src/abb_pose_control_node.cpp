@@ -42,11 +42,21 @@ int main(int argc, char** argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
-    std::string group_name = "mp_m";
+    // Get group name from user input
+    std::string group_name;
+    std::cout << "Enter the group name (valid choices are: mp, mp_m, dual_arm): ";
+    std::cin >> group_name;
+
+    // Check if the entered group name is valid
+    if (group_name != "mp" && group_name != "mp_m" && group_name != "dual_arm") {
+        std::cout << "Invalid group name entered. Exiting..." << std::endl;
+        return -1;
+    }
+
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/mp_m/joint_trajectory_action/goal", 1);
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/" + group_name + "/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
@@ -56,10 +66,15 @@ int main(int argc, char** argv)
     std::vector<geometry_msgs::Pose> waypoints;
     waypoints.push_back(group.getCurrentPose().pose);
 
+    std::string frame_name;
+
+    std::cout << "Enter the name of the frame you want to transform to: ";
+    std::cin >> frame_name;
+
     try
     {
         // This will transform the marker's pose to the planning frame
-        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), "marker_frame", ros::Time(0), ros::Duration(1.0));
+        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), frame_name, ros::Time(0), ros::Duration(1.0));
 
         geometry_msgs::PoseStamped marker_pose_stamped;
         marker_pose_stamped.header.frame_id = group.getPlanningFrame();
@@ -81,7 +96,7 @@ int main(int argc, char** argv)
 
         moveit::planning_interface::MoveGroupInterface::Plan plan;
  
-        double fraction = group.computeCartesianPath(waypoints, 0.01, 0.5, plan.trajectory_, true);
+        double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
     
         // To check the fraction returned
         if (fraction >= 0.9)  
