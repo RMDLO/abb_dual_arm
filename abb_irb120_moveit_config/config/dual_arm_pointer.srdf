@@ -18,7 +18,6 @@
         <joint name="joint_6" />
         <joint name="joint_7" />
         <joint name="pointer_joint" />
-        <joint name="pointer_joint_tip" />
     </group>
 
     <group name="mp_m">
@@ -29,7 +28,6 @@
         <joint name="joint_6_m" />
         <joint name="joint_7_m" />
         <joint name="pointer_joint_m" />
-        <joint name="pointer_joint_tip_m" />
     </group>
 
     <group name="dual_arm">
@@ -57,8 +55,8 @@
         <joint name="joint_7_m" value="0" />
     </group_state>
 
-    <end_effector name="pointer_m_tip" parent_link="link_6_m" group="mp_m"/>
-    <end_effector name="pointer_tip" parent_link="link_6" group="mp"/>
+    <end_effector name="pointer_m" parent_link="link_6_m" group="mp_m"/>
+    <end_effector name="pointer" parent_link="link_6" group="mp"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />
@@ -80,7 +78,7 @@
     <disable_collisions link1="link_4" link2="link_6" reason="Default" />
     <disable_collisions link1="link_5" link2="link_6" reason="Adjacent" />
     <disable_collisions link1="pointer" link2="link_6" reason="Adjacent" />
-    <disable_collisions link1="pointer" link2="pointer_tip" reason="Adjacent" />
+
     <!-- Second arm mirror -->
     <disable_collisions link1="world" link2="base_link_m" reason="Never" />
     <disable_collisions link1="base_link_m" link2="link_1_m" reason="Adjacent" />
@@ -96,5 +94,4 @@
     <disable_collisions link1="link_4_m" link2="link_6_m" reason="Default" />
     <disable_collisions link1="link_5_m" link2="link_6_m" reason="Adjacent" />
     <disable_collisions link1="pointer_m" link2="link_6_m" reason="Adjacent" />
-    <disable_collisions link1="pointer_m" link2="pointer_m_tip" reason="Adjacent" />
 </robot>
