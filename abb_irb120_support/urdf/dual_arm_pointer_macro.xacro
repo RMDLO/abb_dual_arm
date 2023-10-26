@@ -474,14 +474,25 @@
       <parent link="${prefix}link_6"/>
       <child link="${prefix}pointer"/>
     </joint>
+    <!-- Pointer Tip Joints -->
+    <joint name="${prefix}pointer_joint_tip_m" type="fixed">
+      <origin rpy="0 0 0" xyz="0.03 0 -0.06"/>
+      <parent link="${prefix}pointer_m"/>
+      <child link="${prefix}pointer_tip_m"/>
+    </joint>
+    <joint name="${prefix}pointer_joint_tip" type="fixed">
+      <origin rpy="0 0 0" xyz="0.03 0 -0.06"/>
+      <parent link="${prefix}pointer"/>
+      <child link="${prefix}pointer_tip"/>
+    </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">
-      <origin xyz="-0.548 0.0045 0" rpy="0 0 0"/>
+      <origin xyz="-0.551 -0.004 0" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
     </joint>
     <joint name="${prefix}world-base_link_m" type="fixed">
-      <origin xyz="0.548 -0.0045 0" rpy="0 0 0"/>
+      <origin xyz="0.551 0.004 0" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
     </joint>

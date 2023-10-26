@@ -101,24 +101,24 @@ int main(int argc, char** argv)
         // To check the fraction returned
         if (fraction >= 0.9)  
         {
+            // Populate action goal and other steps before execution
+            control_msgs::FollowJointTrajectoryActionGoal action_goal;
+            action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
+
+            pub.publish(action_goal);
+
+            moveit_msgs::DisplayTrajectory display_trajectory;
+            display_trajectory.model_id = group_name;
+            display_trajectory.trajectory.push_back(plan.trajectory_);
+            display_pub.publish(display_trajectory);
+            
             std::string input;
             std::cout << "Execute plan? y or n: ";
             std::cin >> input;
 
             if (input == "y")
             {
-                // Populate action goal and other steps before execution
-                control_msgs::FollowJointTrajectoryActionGoal action_goal;
-                action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
-
-                pub.publish(action_goal);
-
-                moveit_msgs::DisplayTrajectory display_trajectory;
-                display_trajectory.model_id = group_name;
-                display_trajectory.trajectory.push_back(plan.trajectory_);
-                display_pub.publish(display_trajectory);
-
-                // Using 'group.move()' to execute computed plan
+                // Using 'group.move()' to execute previously computed plan
                 moveit::core::MoveItErrorCode success_code = group.move();
                 bool success = (success_code == moveit::planning_interface::MoveItErrorCode::SUCCESS);
                 group.stop();
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
             }
             else
             {
-                std::cout << "Trajectory execution on robot aborted." << std::endl;
+            std::cout << "Trajectory execution on robot aborted." << std::endl;
             }
         }
         else
@@ -137,7 +137,7 @@ int main(int argc, char** argv)
     }
     catch (tf2::TransformException &ex)
     {
-        ROS_WARN("Could not transform marker_pose: %s", ex.what());
+        ROS_WARN("Could not transform to target pose: %s", ex.what());
     }
 
     ros::shutdown();

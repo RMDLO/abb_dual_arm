@@ -24,7 +24,7 @@ def main():
     # Translation vector
     static_transformStamped.transform.translation.x = 0.0
     static_transformStamped.transform.translation.y = 0.0
-    static_transformStamped.transform.translation.z = 0.06  # 3 cm above in z-axis
+    static_transformStamped.transform.translation.z = 0.047  # 3 cm above in z-axis
 
     # Quaternion for rotation (no rotation in this case)
     static_transformStamped.transform.rotation.x = 0.0
