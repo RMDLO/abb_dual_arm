@@ -1,11 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
 #include <opencv2/aruco/charuco.hpp>
 
 int main() {
     // Load the image
-    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231019/000_image.jpg";
+    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231027/000_image.jpg";
     cv::Mat image = cv::imread(image_path);
 
     // Check if the image is loaded
@@ -76,12 +77,10 @@ int main() {
             std::cout << "Corner coordinates for ID " << desired_id << ": " << corner_coordinates << std::endl;
 
             // Draw a circle at the corner coordinates
-            cv::circle(image, corner_coordinates, 2, cv::Scalar(0, 0, 255), -1);
+            cv::circle(image, corner_coordinates, 4, cv::Scalar(0, 0, 255), -1);
 
-            // Optionally, save or display the modified image
-            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231019/000_image_with_marker.jpg", image);
-            //cv::imshow("Image with Marker", image);
-            //cv::waitKey(0);
+            // Save display the modified image
+            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231027/000_image_with_marker.jpg", image);
 
         } else {
             std::cout << "Desired corner ID not found" << std::endl;
@@ -120,6 +119,30 @@ int main() {
             // Output rvec and tvec of the desired corner (with respect to the camera frame)
             std::cout << "Rotation vector (rvec) for the desired corner (ID " << desired_id << "): " << rvec << std::endl; // Stays the same as the board's rvec
             std::cout << "Translation vector (tvec) for the desired corner (ID " << desired_id << "): " << transformed_corner.t() << std::endl;
+
+            // Write rvec and tvec to a text file
+            std::ofstream output_file("charuco_corner_rvec_tvec.txt");
+            if (output_file.is_open()) {
+                output_file << "rvec [";
+                for (int i = 0; i < 3; ++i) {
+                    output_file << rvec[i];
+                    if (i < 2) output_file << ", ";
+                }
+                output_file << "]\n";
+
+                // Here, we use transformed_corner.t() as the tvec for the desired corner.
+                cv::Mat transformed_corner_transposed = transformed_corner.t();
+                output_file << "tvec [";
+                for (int i = 0; i < transformed_corner_transposed.cols; ++i) {
+                    output_file << transformed_corner_transposed.at<double>(0, i);  
+                    if (i < transformed_corner_transposed.cols - 1) output_file << ", ";
+                }
+                output_file << "]\n";
+
+                output_file.close();
+            } else {
+                std::cout << "Could not open output file.\n";
+            }
         } else {
             std::cout << "Invalid pose. Could not estimate the pose." << std::endl;
         }

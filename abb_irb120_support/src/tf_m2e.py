@@ -8,10 +8,39 @@ import tf_conversions
 from geometry_msgs.msg import TransformStamped
 import numpy as np
 import cv2
+import os
+
+def read_rvec_tvec_from_file(filename):
+    with open(filename, 'r') as file:
+        try:
+            line = file.readline().strip()
+            rvec = np.array([float(x) for x in line.split('[')[1].split(']')[0].split(',')])
+
+            line = file.readline().strip()
+            tvec = np.array([float(x) for x in line.split('[')[1].split(']')[0].split(',')])
+
+            return rvec, tvec
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None, None
 
 def main():
     # Initialize the ROS node
     rospy.init_node('tf_broadcaster_m2e')
+
+   # Get the directory in which this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the full path to the text file
+    text_file_path = os.path.join(script_dir, "charuco_corner_rvec_tvec.txt")
+
+    # Read rvec and tvec from the text file
+    rvec, tvec = read_rvec_tvec_from_file(text_file_path)
+
+    if rvec is None or tvec is None:
+        print("Could not read rvec or tvec from file. Exiting.")
+        return
 
     # Create a StaticTransformBroadcaster
     broadcaster = tf2_ros.StaticTransformBroadcaster()
@@ -24,13 +53,12 @@ def main():
     static_transformStamped.header.frame_id = "camera_color_optical_frame"
     static_transformStamped.child_frame_id = "marker_frame"
 
-    # Translation vector
-    static_transformStamped.transform.translation.x = 0.03833871685350818
-    static_transformStamped.transform.translation.y = -0.07290789052165131
-    static_transformStamped.transform.translation.z = 0.3944341341981887
+    # Translation vector from file
+    static_transformStamped.transform.translation.x = tvec[0]
+    static_transformStamped.transform.translation.y = tvec[1]
+    static_transformStamped.transform.translation.z = tvec[2]
 
-    # New Rotation vector converted to quaternion
-    rvec = np.array([2.03416, -2.04372, 0.332878])
+    # Rotation vector from file converted to quaternion
     R, _ = cv2.Rodrigues(rvec)
 
     # Create a 4x4 homogeneous transformation matrix
