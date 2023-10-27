@@ -33,7 +33,9 @@
       <arg name="load_robot_description" value="true" />
       <arg name="pointer" value="true" />
     </include>
-   <!--  <node pkg="tf" type="static_transform_publisher" name="pointer_to_tip_tf" args="0.03 0 -0.06 0 0 0 1 pointer pointer_tip 10" />
+
+    <!-- Commented the following two lines since the orign of the pointer is moved to tip in the STL file -->
+    <!--  <node pkg="tf" type="static_transform_publisher" name="pointer_to_tip_tf" args="0.03 0 -0.06 0 0 0 1 pointer pointer_tip 10" />
     <node pkg="tf" type="static_transform_publisher" name="pointer_m_to_tip_m_tf" args="-0.03 0 -0.06 0 0 0 1 pointer_m pointer_m_tip 10" /> -->
   </group>
 

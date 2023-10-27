@@ -23,7 +23,7 @@
  * 7. Compute the Cartesian path using MoveIt and get the fraction of the path that was successfully computed.
  * 8. If the path is viable (fraction >= 0.9), execute the plan. Otherwise, print a warning.
  *
- * Note: Replace the 'jump_threshold' and other parameters according to your application needs.
+ * Note: Replace the 'jump_threshold', 'eef_step' and other parameters according to your application needs.
  */
 
 #include <ros/ros.h>
@@ -55,6 +55,14 @@ int main(int argc, char** argv)
 
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
+
+    // Ensure that MoveGroup is connected and properly initialized
+    robot_state::RobotStatePtr current_state = group.getCurrentState();
+    ros::Duration(5.0).sleep(); // Give it some time to receive data
+    if (!current_state) {
+        ROS_ERROR("Failed to fetch the current robot state.");
+        return -1;
+    }
 
     ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/" + group_name + "/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
@@ -94,8 +102,12 @@ int main(int argc, char** argv)
 
         waypoints.push_back(transformed_pose.pose);
 
+        // Adding a visual confirmation for debugging
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Position x: " << transformed_pose.pose.position.x << ", y: " << transformed_pose.pose.position.y << ", z: " << transformed_pose.pose.position.z);
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Orientation x: " << transformed_pose.pose.orientation.x << ", y: " << transformed_pose.pose.orientation.y << ", z: " << transformed_pose.pose.orientation.z << ", w: " << transformed_pose.pose.orientation.w);
+
         moveit::planning_interface::MoveGroupInterface::Plan plan;
- 
+
         double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
     
         // To check the fraction returned
@@ -110,7 +122,7 @@ int main(int argc, char** argv)
             moveit_msgs::DisplayTrajectory display_trajectory;
             display_trajectory.model_id = group_name;
             display_trajectory.trajectory.push_back(plan.trajectory_);
-            display_pub.publish(display_trajectory);
+            display_pub.publish(display_trajectory);    
             
             std::string input;
             std::cout << "Execute plan? y or n: ";
