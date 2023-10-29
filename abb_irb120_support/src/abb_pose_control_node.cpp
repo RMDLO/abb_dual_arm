@@ -1,5 +1,5 @@
 /**
- * @file   abb_irb120_cartesian_planning.cpp
+ * @file   abb_pose_control_node.cpp
  * @brief  This ROS node performs Cartesian path planning for an ABB IRB 120 industrial robot.
  *         The program uses MoveIt to control the robot and TF2 for coordinate transformations.
  *

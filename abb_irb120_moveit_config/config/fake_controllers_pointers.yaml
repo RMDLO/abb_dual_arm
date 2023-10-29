@@ -1,0 +1,42 @@
+# Simulation settings for using moveit_sim_controllers
+moveit_sim_hw_interface:
+  joint_model_group: dual_arm
+  joint_model_group_pose: all_zero
+controller_list:
+  - name: mp
+    type: interpolate
+    joints:
+      - joint_2
+      - joint_3
+      - joint_4
+      - joint_5
+      - joint_6
+      - joint_7
+      - pointer_joint 
+  - name: mp_m
+    type: interpolate
+    joints:
+      - joint_2_m
+      - joint_3_m
+      - joint_4_m
+      - joint_5_m
+      - joint_6_m
+      - joint_7_m
+      - pointer_joint_m
+  - name: dual_arm
+    type: interpolate
+    joints:
+      - joint_2
+      - joint_3
+      - joint_4 
+      - joint_5
+      - joint_6 
+      - joint_7 
+      - joint_2_m
+      - joint_3_m 
+      - joint_4_m 
+      - joint_5_m 
+      - joint_6_m 
+      - joint_7_m
+      - pointer_joint
+      - pointer_joint_m

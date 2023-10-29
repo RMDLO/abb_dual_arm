@@ -51,6 +51,7 @@
     <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch">
     </include>
     <include file="$(find abb_irb120_moveit_config)/launch/fake_moveit_controller_manager.launch">
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
     <!-- <param name="/use_sim_time" value="true"/> -->
   </group>
@@ -64,6 +65,7 @@
       <arg name="pointer" value="$(arg pointer)"/>
     </include>
     <include file="$(find abb_irb120_moveit_config)/launch/dual_arm_moveit_controller_manager.launch">
+      <arg name="pointer" value="$(arg pointer)"/>
     </include>
   </group>
 
