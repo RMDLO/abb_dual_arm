@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    // Ensure that MoveGroup is connected and properly initialized
+    // Ensure that MoveGroup is connected and properly initialized; Added more detailed check for current state
     robot_state::RobotStatePtr current_state = group.getCurrentState();
     ros::Duration(5.0).sleep(); // Give it some time to receive data
     if (!current_state) {
@@ -116,6 +116,19 @@ int main(int argc, char** argv)
             // Populate action goal and other steps before execution
             control_msgs::FollowJointTrajectoryActionGoal action_goal;
             action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
+
+            // Before publishing, checking timestamps and other properties
+            for (size_t i = 0; i < action_goal.goal.trajectory.points.size(); ++i) {
+                if (action_goal.goal.trajectory.points[i].time_from_start.toSec() == 0) {
+                    ROS_WARN("Invalid timestamp at trajectory point %zu", i);
+                }
+            }
+
+            ros::Duration time_from_start(0.0);
+            for (auto& point : plan.trajectory_.joint_trajectory.points) {
+                time_from_start += ros::Duration(0.1);  
+                point.time_from_start = time_from_start;
+            }
 
             pub.publish(action_goal);
 
