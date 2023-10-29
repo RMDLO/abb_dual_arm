@@ -108,6 +108,7 @@ int main(int argc, char** argv)
 
         moveit::planning_interface::MoveGroupInterface::Plan plan;
 
+        // Setting the jump threshold and eef_step (refer moveit documentation for more details)
         double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
     
         // To check the fraction returned
