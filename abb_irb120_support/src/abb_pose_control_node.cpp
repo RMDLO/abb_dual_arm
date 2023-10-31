@@ -64,7 +64,8 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/" + group_name + "/joint_trajectory_action/goal", 1);
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/" + group_name + 
+                                                                                    "/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
@@ -82,7 +83,8 @@ int main(int argc, char** argv)
     try
     {
         // This will transform the marker's pose to the planning frame
-        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), frame_name, ros::Time(0), ros::Duration(1.0));
+        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), frame_name, 
+                                                                                        ros::Time(0), ros::Duration(1.0));
 
         geometry_msgs::PoseStamped marker_pose_stamped;
         marker_pose_stamped.header.frame_id = group.getPlanningFrame();
@@ -97,14 +99,24 @@ int main(int argc, char** argv)
         marker_pose_stamped.pose.orientation.z = transform_stamped.transform.rotation.z;
         marker_pose_stamped.pose.orientation.w = transform_stamped.transform.rotation.w;
 
+        // Debugging line to show the original marker pose before transformation
+        ROS_INFO_STREAM("Original Marker Pose in Planning Frame: Position x: " << marker_pose_stamped.pose.position.x 
+                        << ", y: " << marker_pose_stamped.pose.position.y << ", z: " << marker_pose_stamped.pose.position.z);
+        ROS_INFO_STREAM("Original Marker Pose in Planning Frame: Orientation x: " << marker_pose_stamped.pose.orientation.x 
+                        << ", y: " << marker_pose_stamped.pose.orientation.y << ", z: " << marker_pose_stamped.pose.orientation.z 
+                        << ", w: " << marker_pose_stamped.pose.orientation.w);
+
         geometry_msgs::PoseStamped transformed_pose;
         tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
 
         waypoints.push_back(transformed_pose.pose);
 
         // Adding a visual confirmation for debugging
-        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Position x: " << transformed_pose.pose.position.x << ", y: " << transformed_pose.pose.position.y << ", z: " << transformed_pose.pose.position.z);
-        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Orientation x: " << transformed_pose.pose.orientation.x << ", y: " << transformed_pose.pose.orientation.y << ", z: " << transformed_pose.pose.orientation.z << ", w: " << transformed_pose.pose.orientation.w);
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Position x: " << transformed_pose.pose.position.x << ", y: " 
+                                    << transformed_pose.pose.position.y << ", z: " << transformed_pose.pose.position.z);
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Orientation x: " << transformed_pose.pose.orientation.x 
+                        << ", y: " << transformed_pose.pose.orientation.y << ", z: " << transformed_pose.pose.orientation.z 
+                        << ", w: " << transformed_pose.pose.orientation.w);
 
         moveit::planning_interface::MoveGroupInterface::Plan plan;
 
@@ -118,17 +130,21 @@ int main(int argc, char** argv)
             control_msgs::FollowJointTrajectoryActionGoal action_goal;
             action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
 
-            // Before publishing, checking timestamps and other properties
+            // Adding timestamps
+            ros::Duration time_from_start(0.0);
+            for (auto& point : plan.trajectory_.joint_trajectory.points) {
+                time_from_start += ros::Duration(0.1);
+                point.time_from_start = time_from_start;
+
+                // Debug output for timestamps
+                ROS_INFO("Timestamp for point: %f", point.time_from_start.toSec());
+            }
+
+            // Now perform the timestamp checks
             for (size_t i = 0; i < action_goal.goal.trajectory.points.size(); ++i) {
                 if (action_goal.goal.trajectory.points[i].time_from_start.toSec() == 0) {
                     ROS_WARN("Invalid timestamp at trajectory point %zu", i);
                 }
-            }
-
-            ros::Duration time_from_start(0.0);
-            for (auto& point : plan.trajectory_.joint_trajectory.points) {
-                time_from_start += ros::Duration(0.1);  
-                point.time_from_start = time_from_start;
             }
 
             pub.publish(action_goal);
