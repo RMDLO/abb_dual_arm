@@ -1,4 +1,4 @@
-# Simulation settings for using moveit_sim_controllers
+# Simulation settings for using moveit_sim_controllers with pointer
 moveit_sim_hw_interface:
   joint_model_group: dual_arm
   joint_model_group_pose: all_zero
