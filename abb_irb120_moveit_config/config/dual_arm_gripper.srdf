@@ -17,6 +17,7 @@
         <joint name="joint_5" />
         <joint name="joint_6" />
         <joint name="joint_7" />
+        <joint name="eef_collision_joint" />
     </group>
 
     <group name="mp_m">
