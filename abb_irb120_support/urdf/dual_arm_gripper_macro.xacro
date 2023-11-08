@@ -357,6 +357,22 @@
         <xacro:material_abb_white />
       </collision>
     </link>
+    <link name="${prefix}cube">
+      <visual>
+        <origin xyz="0.02 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0015 0.003 0.002"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </visual>
+      <collision>
+        <origin xyz="0.02 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0015 0.003 0.002"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </collision>
+    </link>
     <!-- Arm 1 Joints -->
     <joint name="${prefix}joint_2" type="revolute">
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -455,22 +471,26 @@
       <axis xyz="-1 0 0"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
-    <!-- Gripper Joints -->
+    <!-- End Effector Joints Joints -->
     <joint name="${prefix}gripper_joint_m" type="fixed">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <parent link="${prefix}link_6_m"/>
       <child link="${prefix}gripper_m"/>
     </joint>
     <joint name="${prefix}gripper_base_joint_m" type="fixed">
-      <origin rpy="0 0 0" xyz="-0.1277 0 0"/>
+      <origin rpy="0 ${radians(90)} 0" xyz="-0.1277 0 0"/>
       <parent link="${prefix}gripper_m"/>
       <child link="${prefix}gripper_base_m"/>
     </joint>
     <joint name="${prefix}gripper_tcp_joint_m" type="fixed">
-      <!-- <origin rpy="0 0 0" xyz="-0.172 -0.0316545 0.0482436"/> -->
-      <origin rpy="${radians(-20)} 0 0" xyz="-0.045283 0 0"/>
+      <origin rpy="0 0 ${radians(-20)}" xyz="0 0 -0.045283"/>
       <parent link="${prefix}gripper_base_m"/>
       <child link="${prefix}gripper_tcp_m"/>
+    </joint>
+    <joint name="${prefix}camera_collision_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}cube"/>
     </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">
