@@ -28,11 +28,12 @@
 
 #include <ros/ros.h>
 #include <moveit/move_group_interface/move_group_interface.h>
+#include <tf2_ros/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <sensor_msgs/JointState.h>
 #include <moveit_msgs/DisplayTrajectory.h>
 #include <control_msgs/FollowJointTrajectoryActionGoal.h>
-#include <tf2_ros/transform_listener.h>
-#include <geometry_msgs/TransformStamped.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <geometry_msgs/PoseStamped.h>
 
 int main(int argc, char** argv)
 {
@@ -55,7 +56,7 @@ int main(int argc, char** argv)
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
-    // Ensure that MoveGroup is connected and properly initialized
+    // Ensure that MoveGroup is connected and properly initialized; Added more detailed check for current state
     robot_state::RobotStatePtr current_state = group.getCurrentState();
     ros::Duration(5.0).sleep(); // Give it some time to receive data
     if (!current_state) {
@@ -63,13 +64,19 @@ int main(int argc, char** argv)
         return -1;
     }
 
+    ros::Publisher pub = nh.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/" + group_name + 
+                                                                                    "/joint_trajectory_action/goal", 1);
     ros::Publisher display_pub = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 10);
 
     tf2_ros::Buffer tfBuffer;
     tf2_ros::TransformListener tfListener(tfBuffer);
     ros::Duration(1.0).sleep(); 
 
+    std::vector<geometry_msgs::Pose> waypoints;
+    waypoints.push_back(group.getCurrentPose().pose);
+
     std::string frame_name;
+
     std::cout << "Enter the name of the frame you want to transform to: ";
     std::cin >> frame_name;
 
@@ -92,41 +99,82 @@ int main(int argc, char** argv)
         marker_pose_stamped.pose.orientation.z = transform_stamped.transform.rotation.z;
         marker_pose_stamped.pose.orientation.w = transform_stamped.transform.rotation.w;
 
+        // Debugging line to show the original marker pose before transformation
+        ROS_INFO_STREAM("Original Marker Pose in Planning Frame: Position x: " << marker_pose_stamped.pose.position.x 
+                        << ", y: " << marker_pose_stamped.pose.position.y << ", z: " << marker_pose_stamped.pose.position.z);
+        ROS_INFO_STREAM("Original Marker Pose in Planning Frame: Orientation x: " << marker_pose_stamped.pose.orientation.x 
+                        << ", y: " << marker_pose_stamped.pose.orientation.y << ", z: " << marker_pose_stamped.pose.orientation.z 
+                        << ", w: " << marker_pose_stamped.pose.orientation.w);
+
         geometry_msgs::PoseStamped transformed_pose;
         tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
 
-        // Set the target pose
-        group.setPoseTarget(transformed_pose);
+        waypoints.push_back(transformed_pose.pose);
+
+        // Adding a visual confirmation for debugging
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Position x: " << transformed_pose.pose.position.x << ", y: " 
+                                    << transformed_pose.pose.position.y << ", z: " << transformed_pose.pose.position.z);
+        ROS_INFO_STREAM("Transformed Pose to Planning Frame: Orientation x: " << transformed_pose.pose.orientation.x 
+                        << ", y: " << transformed_pose.pose.orientation.y << ", z: " << transformed_pose.pose.orientation.z 
+                        << ", w: " << transformed_pose.pose.orientation.w);
 
         moveit::planning_interface::MoveGroupInterface::Plan plan;
 
-        // Plan to the new pose
-        bool success = (group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        
-        if (success) 
+        // Setting the jump threshold and eef_step (refer moveit documentation for more details)
+        double fraction = group.computeCartesianPath(waypoints, 0.01, 0.0, plan.trajectory_, true);
+    
+        // To check the fraction returned
+        if (fraction >= 0.9)  
         {
+            // Populate action goal and other steps before execution
+            control_msgs::FollowJointTrajectoryActionGoal action_goal;
+            action_goal.goal.trajectory = plan.trajectory_.joint_trajectory;
+
+            // Adding timestamps
+            ros::Duration time_from_start(0.0);
+            for (auto& point : plan.trajectory_.joint_trajectory.points) {
+                time_from_start += ros::Duration(0.1);
+                point.time_from_start = time_from_start;
+
+                // Debug output for timestamps
+                ROS_INFO("Timestamp for point: %f", point.time_from_start.toSec());
+            }
+
+            // Now perform the timestamp checks
+            for (size_t i = 0; i < action_goal.goal.trajectory.points.size(); ++i) {
+                if (action_goal.goal.trajectory.points[i].time_from_start.toSec() == 0) {
+                    ROS_WARN("Invalid timestamp at trajectory point %zu", i);
+                }
+            }
+
+            pub.publish(action_goal);
+
             moveit_msgs::DisplayTrajectory display_trajectory;
             display_trajectory.model_id = group_name;
             display_trajectory.trajectory.push_back(plan.trajectory_);
-            display_pub.publish(display_trajectory);
-
+            display_pub.publish(display_trajectory);    
+            
             std::string input;
             std::cout << "Execute plan? y or n: ";
             std::cin >> input;
 
             if (input == "y")
             {
-                group.move();  // Execute the plan
-                std::cout << "Plan executed." << std::endl;
+                // Using 'group.move()' to execute previously computed plan
+                moveit::core::MoveItErrorCode success_code = group.move();
+                bool success = (success_code == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+                group.stop();
+                group.clearPoseTargets();
+                std::cout << "Executed? " << (success ? "Yes" : "No") << std::endl;
             }
             else
             {
-                std::cout << "Trajectory execution on robot aborted." << std::endl;
+            std::cout << "Trajectory execution on robot aborted." << std::endl;
             }
         }
         else
         {
-            ROS_WARN("Could not compute a valid path.");
+            ROS_WARN("Could not compute a valid Cartesian path. Fraction returned: %f", fraction);
         }
     }
     catch (tf2::TransformException &ex)
@@ -135,5 +183,6 @@ int main(int argc, char** argv)
     }
 
     ros::shutdown();
+
     return 0;
 }
