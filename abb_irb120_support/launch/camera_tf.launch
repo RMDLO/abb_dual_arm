@@ -10,4 +10,8 @@
     <!-- Launch the tf_m2e.py node -->
     <node name="tf_m2e" pkg="abb_irb120_support" type="tf_m2e.py" output="screen">
     </node>
+
+    <!-- Launch the tf_m2e.py node -->
+    <node name="tf_w2mw" pkg="abb_irb120_support" type="tf_w2mw.py" output="screen">
+    </node>
 </launch>
