@@ -33,28 +33,20 @@
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <ros/ros.h>
-#include <moveit/move_group_interface/move_group_interface.h>
-#include <geometry_msgs/PoseStamped.h>
-
-#include <ros/ros.h>
-#include <moveit/move_group_interface/move_group_interface.h>
-#include <tf2_ros/transform_listener.h>
-#include <geometry_msgs/TransformStamped.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <moveit_msgs/DisplayTrajectory.h>
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "modified_cartesian_planning");
+    ros::init(argc, argv, "abb_irb120_cartesian_planning");
     ros::NodeHandle nh;
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
+    // Get group name from user input
     std::string group_name;
     std::cout << "Enter the group name (valid choices are: mp, mp_m, dual_arm): ";
     std::cin >> group_name;
 
+    // Check if the entered group name is valid
     if (group_name != "mp" && group_name != "mp_m" && group_name != "dual_arm") {
         std::cout << "Invalid group name entered. Exiting..." << std::endl;
         return -1;
@@ -63,8 +55,9 @@ int main(int argc, char** argv)
     moveit::planning_interface::MoveGroupInterface group(group_name);
     group.setStartStateToCurrentState();
 
+    // Ensure that MoveGroup is connected and properly initialized
     robot_state::RobotStatePtr current_state = group.getCurrentState();
-    ros::Duration(5.0).sleep();
+    ros::Duration(5.0).sleep(); // Give it some time to receive data
     if (!current_state) {
         ROS_ERROR("Failed to fetch the current robot state.");
         return -1;
@@ -74,31 +67,44 @@ int main(int argc, char** argv)
 
     tf2_ros::Buffer tfBuffer;
     tf2_ros::TransformListener tfListener(tfBuffer);
-    ros::Duration(1.0).sleep();
+    ros::Duration(1.0).sleep(); 
 
     std::string frame_name;
     std::cout << "Enter the name of the frame you want to transform to: ";
     std::cin >> frame_name;
 
-    try {
-        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), frame_name, ros::Time(0), ros::Duration(1.0));
+    try
+    {
+        // This will transform the marker's pose to the planning frame
+        geometry_msgs::TransformStamped transform_stamped = tfBuffer.lookupTransform(group.getPlanningFrame(), frame_name, 
+                                                                                        ros::Time(0), ros::Duration(1.0));
+
         geometry_msgs::PoseStamped marker_pose_stamped;
         marker_pose_stamped.header.frame_id = group.getPlanningFrame();
-
+        
+        // Populate the pose information from the TransformStamped object
         marker_pose_stamped.pose.position.x = transform_stamped.transform.translation.x;
         marker_pose_stamped.pose.position.y = transform_stamped.transform.translation.y;
         marker_pose_stamped.pose.position.z = transform_stamped.transform.translation.z;
+
         marker_pose_stamped.pose.orientation.x = transform_stamped.transform.rotation.x;
         marker_pose_stamped.pose.orientation.y = transform_stamped.transform.rotation.y;
         marker_pose_stamped.pose.orientation.z = transform_stamped.transform.rotation.z;
         marker_pose_stamped.pose.orientation.w = transform_stamped.transform.rotation.w;
 
-        group.setPoseTarget(marker_pose_stamped.pose);
+        geometry_msgs::PoseStamped transformed_pose;
+        tf2::doTransform(marker_pose_stamped, transformed_pose, transform_stamped);
+
+        // Set the target pose
+        group.setPoseTarget(transformed_pose);
 
         moveit::planning_interface::MoveGroupInterface::Plan plan;
-        bool success = (group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-        if (success) {
+        // Plan to the new pose
+        bool success = (group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        
+        if (success) 
+        {
             moveit_msgs::DisplayTrajectory display_trajectory;
             display_trajectory.model_id = group_name;
             display_trajectory.trajectory.push_back(plan.trajectory_);
@@ -108,16 +114,23 @@ int main(int argc, char** argv)
             std::cout << "Execute plan? y or n: ";
             std::cin >> input;
 
-            if (input == "y") {
-                group.move();
+            if (input == "y")
+            {
+                group.move();  // Execute the plan
                 std::cout << "Plan executed." << std::endl;
-            } else {
+            }
+            else
+            {
                 std::cout << "Trajectory execution on robot aborted." << std::endl;
             }
-        } else {
+        }
+        else
+        {
             ROS_WARN("Could not compute a valid path.");
         }
-    } catch (tf2::TransformException &ex) {
+    }
+    catch (tf2::TransformException &ex)
+    {
         ROS_WARN("Could not transform to target pose: %s", ex.what());
     }
 
