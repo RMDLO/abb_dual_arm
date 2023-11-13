@@ -37,13 +37,6 @@
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <geometry_msgs/PoseStamped.h>
 
-#include <ros/ros.h>
-#include <moveit/move_group_interface/move_group_interface.h>
-#include <tf2_ros/transform_listener.h>
-#include <geometry_msgs/TransformStamped.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <moveit_msgs/DisplayTrajectory.h>
-
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "modified_cartesian_planning");
