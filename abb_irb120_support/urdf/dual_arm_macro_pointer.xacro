@@ -13,14 +13,14 @@
     <!-- World Link -->
     <link name="${prefix}world">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0.01" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/ground_plane.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:material_abb_white />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0.01" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/collision/ground_plane.stl" scale="0.001 0.001 0.001"/>
         </geometry>
@@ -476,12 +476,12 @@
     </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">
-      <origin xyz="-0.556 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.552 0 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
     </joint>
     <joint name="${prefix}world-base_link_m" type="fixed">
-      <origin xyz="0.556 0 0" rpy="0 0 0"/>
+      <origin xyz="0.552 0 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
     </joint>

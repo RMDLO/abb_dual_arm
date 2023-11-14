@@ -22,9 +22,9 @@ def main():
     static_transformStamped.child_frame_id = "moving_world"
 
     # Translation vector
-    static_transformStamped.transform.translation.x = 0.1
-    static_transformStamped.transform.translation.y = 0.2
-    static_transformStamped.transform.translation.z = 0.3  
+    static_transformStamped.transform.translation.x = 0.0
+    static_transformStamped.transform.translation.y = 0.0
+    static_transformStamped.transform.translation.z = 0.008 
 
     # Quaternion for rotation (no rotation in this case)
     static_transformStamped.transform.rotation.x = 0.0

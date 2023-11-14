@@ -94,7 +94,7 @@ int main() {
             cv::circle(image, corner_coordinates, 4, cv::Scalar(0, 0, 255), -1);
 
             // Save display the modified image
-            cv::imwrite("   /home/raghav/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image_with_marker.jpg", image);
+            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image_with_marker.jpg", image);
 
         } else {
             std::cout << "Desired corner ID not found" << std::endl;

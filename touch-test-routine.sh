@@ -1,7 +1,11 @@
 #!/bin/bash
 
+echo "Starting Touch Test Routine..."
+
 # Source ROS environment
 source ~/cws/abb_dual_arm/devel/setup.bash
+
+echo "Launching abb_control..."
 
 # Launch ROS nodes in separate Terminator windows
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
@@ -9,14 +13,18 @@ terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash;
                 exec bash'" &
 
 # Wait for nodes to initialize
-sleep 25
+sleep 10
+
+echo "Starting realsense..."
 
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
                 roslaunch realsense2_camera rs_camera.launch; 
                 exec bash'" &
 
 # Wait for nodes to initialize
-sleep 25
+sleep 10
+
+echo "Begin calibration data collection..."
 
 # Activate Python environment and run calibration in a new Terminator window
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
@@ -46,8 +54,10 @@ terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash;
                 exec bash'" &
 
 # Wait for frame to come up
-echo "Press any key once frames are launched..."
-read -n 1 -s
+echo "Frames are being  launched..."
+
+# Wait for nodes to initialize
+sleep 10
 
 # Launch final move group in a new Terminator window
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
