@@ -53,10 +53,12 @@ def main():
     static_transformStamped.header.frame_id = "camera_color_optical_frame"
     static_transformStamped.child_frame_id = "marker_frame"
 
+    clearance_m = 0.01;  # 10 mm in meters
+
     # Translation vector from file
     static_transformStamped.transform.translation.x = tvec[0]
     static_transformStamped.transform.translation.y = tvec[1]
-    static_transformStamped.transform.translation.z = tvec[2]
+    static_transformStamped.transform.translation.z = tvec[2] - clearance_m;
 
     # Rotation vector from file converted to quaternion
     R, _ = cv2.Rodrigues(rvec)

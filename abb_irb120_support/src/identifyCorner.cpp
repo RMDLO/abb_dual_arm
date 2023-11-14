@@ -6,7 +6,7 @@
 
 int main() {
     // Load the image
-    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231027/000_image.jpg";
+    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231113/000_image.jpg";
     cv::Mat image = cv::imread(image_path);
 
     // Check if the image is loaded
@@ -80,7 +80,7 @@ int main() {
             cv::circle(image, corner_coordinates, 4, cv::Scalar(0, 0, 255), -1);
 
             // Save display the modified image
-            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231027/000_image_with_marker.jpg", image);
+            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231113/000_image_with_marker.jpg", image);
 
         } else {
             std::cout << "Desired corner ID not found" << std::endl;
