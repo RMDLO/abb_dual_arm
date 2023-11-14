@@ -58,7 +58,7 @@ def main():
     # Translation vector from file
     static_transformStamped.transform.translation.x = tvec[0]
     static_transformStamped.transform.translation.y = tvec[1]
-    static_transformStamped.transform.translation.z = tvec[2] - clearance_m;
+    static_transformStamped.transform.translation.z = tvec[2] + clearance_m;
 
     # Rotation vector from file converted to quaternion
     R, _ = cv2.Rodrigues(rvec)

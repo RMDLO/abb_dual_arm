@@ -4,9 +4,23 @@
 #include <opencv2/aruco.hpp>
 #include <opencv2/aruco/charuco.hpp>
 
+std::string getCurrentDate() {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    int year = 1900 + ltm->tm_year;
+    int month = 1 + ltm->tm_mon;
+    int day = ltm->tm_mday;
+
+    char date[9];
+    sprintf(date, "%04d%02d%02d", year, month, day);
+    return std::string(date);
+}
+
 int main() {
     // Load the image
-    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231113/000_image.jpg";
+    std::string currentDate = getCurrentDate();
+    std::string image_path = "~/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image.jpg";
     cv::Mat image = cv::imread(image_path);
 
     // Check if the image is loaded
@@ -80,7 +94,7 @@ int main() {
             cv::circle(image, corner_coordinates, 4, cv::Scalar(0, 0, 255), -1);
 
             // Save display the modified image
-            cv::imwrite("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/20231113/000_image_with_marker.jpg", image);
+            cv::imwrite("~/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image_with_marker.jpg", image);
 
         } else {
             std::cout << "Desired corner ID not found" << std::endl;
