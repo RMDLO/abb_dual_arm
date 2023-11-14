@@ -20,7 +20,7 @@ std::string getCurrentDate() {
 int main() {
     // Load the image
     std::string currentDate = getCurrentDate();
-    std::string image_path = "~/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image.jpg";
+    std::string image_path = "/home/raghav/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image.jpg";
     cv::Mat image = cv::imread(image_path);
 
     // Check if the image is loaded
@@ -94,7 +94,7 @@ int main() {
             cv::circle(image, corner_coordinates, 4, cv::Scalar(0, 0, 255), -1);
 
             // Save display the modified image
-            cv::imwrite("~/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image_with_marker.jpg", image);
+            cv::imwrite("   /home/raghav/cws/abb_dual_arm/src/axbycz_data/calibration_data/" + currentDate + "/000_image_with_marker.jpg", image);
 
         } else {
             std::cout << "Desired corner ID not found" << std::endl;
@@ -135,7 +135,7 @@ int main() {
             std::cout << "Translation vector (tvec) for the desired corner (ID " << desired_id << "): " << transformed_corner.t() << std::endl;
 
             // Write rvec and tvec to a text file
-            std::ofstream output_file("charuco_corner_rvec_tvec.txt");
+            std::ofstream output_file("/home/raghav/cws/abb_dual_arm/src/abb_dual_arm/abb_irb120_support/src/charuco_corner_rvec_tvec.txt");
             if (output_file.is_open()) {
                 output_file << "rvec [";
                 for (int i = 0; i < 3; ++i) {

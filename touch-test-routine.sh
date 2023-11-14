@@ -20,7 +20,9 @@ sleep 25
 
 # Activate Python environment and run calibration in a new Terminator window
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
-                source numpyenvros/bin/activate; rosrun axbycz_data calibrate.py; 
+                source numpyenvros/bin/activate; 
+                rosrun axbycz_data calibrate.py; 
+                deactivate;
                 exec bash'" &
 
 # Wait for data collection to complete
@@ -39,6 +41,7 @@ read -n 1 -s
 
 # Launch the frames in a new Terminator window
 terminator -e "bash -c 'source ~/cws/abb_dual_arm/devel/setup.bash; 
+                source numpyenvros/bin/activate;
                 roslaunch abb_irb120_support camera_tf.launch; 
                 exec bash'" &
 
