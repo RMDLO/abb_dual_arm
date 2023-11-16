@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import time
+from pyquaternion import Quaternion
+import math
 
 import rospy
 from ros_numpy import numpify
@@ -7,6 +10,8 @@ from moveit_msgs.msg import DisplayTrajectory
 from control_msgs.msg import FollowJointTrajectoryActionGoal
 from geometry_msgs.msg import Pose
 import tf2_ros
+from onrobot_2fg7_control.srv import SetCommand
+
 
 class CalibrationChecker:
     '''
@@ -21,6 +26,7 @@ class CalibrationChecker:
         self.buffer = tf2_ros.Buffer()
         self.listener = tf2_ros.TransformListener(self.buffer)
         self.broadcaster = tf2_ros.TransformBroadcaster()
+        self.gripper_client = rospy.ServiceProxy('/onrobot_2fg7/set_command', SetCommand)
 
     def functional(self):
 
@@ -31,33 +37,63 @@ class CalibrationChecker:
 
         print("current pose: ", self.group.get_current_pose().pose)
 
-        target_pt_tf = self.buffer.lookup_transform('world', 'target_point', rospy.Time(0), timeout=rospy.Duration(1))
-        t  = numpify(target_pt_tf.transform.translation)
-        q = numpify(target_pt_tf.transform.rotation)
+        # frames = ["dlo_point"]
+        frames = ["target_point"]
 
-        pose_goal1 = Pose()
-        pose_goal1.orientation.x = q[0]
-        pose_goal1.orientation.y = q[1]
-        pose_goal1.orientation.z = q[2]
-        pose_goal1.orientation.w = q[3]
-        pose_goal1.position.x = t[0]
-        pose_goal1.position.y = t[1]
-        pose_goal1.position.z = 0.1
+        for from_frame in frames:
+            target_pt_tf = self.buffer.lookup_transform('world', from_frame, rospy.Time(0), timeout=rospy.Duration(1))
+            t  = numpify(target_pt_tf.transform.translation)
+            q = numpify(target_pt_tf.transform.rotation)
 
-        pose_goal2 = Pose()
-        pose_goal2.orientation.x = q[0]
-        pose_goal2.orientation.y = q[1]
-        pose_goal2.orientation.z = q[2]
-        pose_goal2.orientation.w = q[3]
-        pose_goal2.position.x = t[0]+0.05
-        pose_goal2.position.y = t[1]
-        pose_goal2.position.z = 0.1
+            # Pose 1
+            pose_goal = Pose()
+            pose_goal.orientation.x = q[0]
+            pose_goal.orientation.y = q[1]
+            pose_goal.orientation.z = q[2]
+            pose_goal.orientation.w = q[3]
+            pose_goal.position.x = t[0]
+            pose_goal.position.y = t[1]
+            pose_goal.position.z = t[2] + 0.1
+            waypoints.append(pose_goal)
+            self.execute(pose_goal)
 
-        waypoints.append(pose_goal1)
-        waypoints.append(pose_goal2)
+            time.sleep(0.5)
 
-        self.execute(pose_goal1)
-        self.execute(pose_goal2)
+            # Pose 2
+            pose_goal.position.z = 0.05
+            waypoints.append(pose_goal)
+            self.execute(pose_goal)
+            response = self.gripper_client("c")
+
+            time.sleep(0.5)
+
+            # Pose 3
+            # pose_goal.position.x -= 0.05
+            pose_goal.position.z += 0.1
+            waypoints.append(pose_goal)
+            self.execute(pose_goal)
+
+            # Pose 4:
+            # For twisting RI: 
+            # rotation_quaternion = Quaternion(axis=[0, 0, 1], angle=-math.pi)
+            # pose_quat = Quaternion(w=pose_goal.orientation.w, x=pose_goal.orientation.x, y=pose_goal.orientation.y, z=pose_goal.orientation.z)
+            # rotated = rotation_quaternion*pose_quat
+            # print("rotation_quaternion", rotation_quaternion)
+            # print("pose_quat: ", pose_quat)
+            # print("rotated: ", rotated)
+            # pose_goal.orientation.x = rotated.x
+            # pose_goal.orientation.y = rotated.y
+            # pose_goal.orientation.z = rotated.z
+            # pose_goal.orientation.w = rotated.w
+            # waypoints.append(pose_goal)
+            # self.execute(pose_goal)
+
+            # Pose 5:
+            pose_goal.position.x -= 0.05
+            pose_goal.position.z -= 0.05
+            waypoints.append(pose_goal)
+            self.execute(pose_goal)
+            response = self.gripper_client("o")
 
     def execute(self, pose_goal):
 
@@ -72,8 +108,8 @@ if __name__ == '__main__':
     rospy.init_node(f'{group_name}_cartesian_planning')
 
     c = CalibrationChecker(group_name)
-    while not rospy.is_shutdown():
-        try:
-            c.functional()
-        except KeyboardInterrupt:
-            print("Shutting down")
+    # while not rospy.is_shutdown():
+    try:
+        c.functional()
+    except KeyboardInterrupt:
+        print("Shutting down")
