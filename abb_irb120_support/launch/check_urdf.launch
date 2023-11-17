@@ -1,0 +1,25 @@
+<launch>
+  <!-- To run joint_state_publisher package -->
+    <arg name="pointer" default="false" />
+
+    <group if="$(arg pointer)" >
+      <param name="robot_description" command="xacro '$(find abb_irb120_support)/urdf/dual_arm_pointer.xacro'" />
+    </group>
+
+    <group unless="$(arg pointer)" >
+      <param name="robot_description" command="xacro '$(find abb_irb120_support)/urdf/dual_arm_gripper.xacro'" />
+    </group>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <param name = "use_gui" value="TRUE" />
+    </node>   
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <arg name="command_args" value="-d $(find abb_irb120_moveit_config)/rviz/urdf.rviz" />
+    <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false"
+    args="$(arg command_args)" output="screen">
+      <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/>
+    </node>
+
+</launch>
