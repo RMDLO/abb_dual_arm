@@ -1,0 +1,5 @@
+<launch>
+    <!-- Start the cartesian planning node -->
+    <node name="abb_pose_control_node" pkg="abb_irb120_support" type="abb_pose_control_node" output="screen">
+    </node>
+</launch>
