@@ -2,22 +2,19 @@ name: Build, test and push docker CI
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ 'master', 'develop' ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ 'master', 'develop' ]
 
 jobs:
+  build-linux:
+    strategy:
+      max-parallel: 5
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04, ubuntu-20.04, ubuntu-18.04]
 
-  build-focal:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout ABB_DUAL_ARM repository
-        uses: actions/checkout@v3
-      - name: Build, test, push base docker (Ubuntu 20.04)
-        run: cd docker && docker build -t rmdlo-abb_dual_arm:noetic -f Dockerfile.noetic ..
+    runs-on: ${{matrix.os}}
 
-  build-jammy:
-    runs-on: ubuntu-22.04
     steps:
       - name: Checkout ABB_DUAL_ARM repository
         uses: actions/checkout@v3
