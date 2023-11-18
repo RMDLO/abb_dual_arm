@@ -1,0 +1,17 @@
+<launch>
+    <!-- Launch the camera_optical_frames node -->
+    <node name="camera_optical_frames" pkg="abb_irb120_support" type="camera_optical_frames" output="screen">
+    </node> 
+
+    <!-- Launch the tf_cam2ee.py node -->
+    <node name="tf_cam2ee" pkg="abb_irb120_support" type="tf_cam2ee.py" output="screen">
+    </node>
+
+    <!-- Launch the tf_m2e.py node -->
+    <node name="tf_m2e" pkg="abb_irb120_support" type="tf_m2e.py" output="screen">
+    </node>
+
+    <!-- Launch the tf_m2e.py node -->
+    <node name="tf_w2mw" pkg="abb_irb120_support" type="tf_w2mw.py" output="screen">
+    </node>
+</launch>
