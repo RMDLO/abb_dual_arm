@@ -494,12 +494,12 @@
     </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">
-      <origin xyz="-0.545 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.551 0 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
     </joint>
     <joint name="${prefix}world-base_link_m" type="fixed">
-      <origin xyz="0.545 0 0" rpy="0 0 0"/>
+      <origin xyz="0.551 0 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
     </joint>
