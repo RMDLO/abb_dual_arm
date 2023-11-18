@@ -1,5 +1,11 @@
 # ABB Robot Operating System (ROS) Package for Dual-Arm Motion Planning and Execution
 
+<p>
+  <a href="https://github.com/RMDLO/abb_dual_arm/actions/workflows/build.yml?query=branch%3Amaster" alt="GitHub Actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/RMDLO/abb_dual_arm/build.yml?branch=master">
+  </a>
+</p>
+
 This repository contains ROS drivers to perform dual-arm coordinated motion planning for two ABB IRB120 robots in both hardware and simulation. Before getting started, please read the [ABB IRB120 product manual](https://library.e.abb.com/public/35c8d30aebad4d13b945a1943e354ac5/3HAC035728%20PM%20IRB%20120-en.pdf) which contains important safety information.
 
 Current Development Status:
