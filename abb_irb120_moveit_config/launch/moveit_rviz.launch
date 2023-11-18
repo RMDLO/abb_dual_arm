@@ -1,14 +1,21 @@
 <launch>
 
   <arg name="camera" default="false" />
-  <!-- <rosparam command="load" file="$(find abb_irb120_moveit_config)/config/kinematics.yaml"/> -->
+  <arg name="tracking" default="false" />
+  <arg name="node_start_delay" default="" />
 
   <group unless="$(arg camera)">
     <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit.rviz"/>
   </group>
 
   <group if="$(arg camera)">
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit_camera.rviz"/>
+    <group if="$(arg tracking)">
+      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/knot.rviz" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+    </group>
+
+    <group unless="$(arg tracking)">
+      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/moveit_camera.rviz" />
+    </group>
   </group>
 
 </launch>

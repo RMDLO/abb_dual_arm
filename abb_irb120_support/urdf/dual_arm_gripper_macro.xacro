@@ -359,16 +359,16 @@
     </link>
     <link name="${prefix}cube">
       <visual>
-        <origin xyz="0.02 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0015 0.003 0.002"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.002 0.003 0.003"/>
         </geometry>
         <xacro:material_abb_white />
       </visual>
       <collision>
-        <origin xyz="0.02 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0015 0.003 0.002"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.002 0.003 0.003"/>
         </geometry>
         <xacro:material_abb_white />
       </collision>
@@ -483,12 +483,12 @@
       <child link="${prefix}gripper_base_m"/>
     </joint>
     <joint name="${prefix}gripper_tcp_joint_m" type="fixed">
-      <origin rpy="0 0 ${radians(-20)}" xyz="0 0 -0.045283"/>
+      <origin rpy="0 0 ${radians(-22.5)}" xyz="0 0 -0.0456"/>
       <parent link="${prefix}gripper_base_m"/>
       <child link="${prefix}gripper_tcp_m"/>
     </joint>
     <joint name="${prefix}camera_collision_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0.035 0 0"/>
       <parent link="${prefix}link_6"/>
       <child link="${prefix}cube"/>
     </joint>
