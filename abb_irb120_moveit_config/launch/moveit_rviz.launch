@@ -10,7 +10,7 @@
 
   <group if="$(arg camera)">
     <group if="$(arg tracking)">
-      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/knot.rviz" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find abb_irb120_moveit_config)/rviz/record.rviz" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
     </group>
 
     <group unless="$(arg tracking)">

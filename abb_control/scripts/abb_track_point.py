@@ -32,68 +32,58 @@ class CalibrationChecker:
 
         self.group.set_start_state_to_current_state()
 
-        waypoints = []
-        waypoints.append(self.group.get_current_pose().pose)
-
-        print("current pose: ", self.group.get_current_pose().pose)
-
-        # frames = ["dlo_point"]
-        frames = ["target_point"]
+        frames = ["grasp"]
 
         for from_frame in frames:
             target_pt_tf = self.buffer.lookup_transform('world', from_frame, rospy.Time(0), timeout=rospy.Duration(1))
             t  = numpify(target_pt_tf.transform.translation)
             q = numpify(target_pt_tf.transform.rotation)
+        
+        self.r1_twist(t, q)
 
-            # Pose 1
-            pose_goal = Pose()
-            pose_goal.orientation.x = q[0]
-            pose_goal.orientation.y = q[1]
-            pose_goal.orientation.z = q[2]
-            pose_goal.orientation.w = q[3]
-            pose_goal.position.x = t[0]
-            pose_goal.position.y = t[1]
-            pose_goal.position.z = t[2] + 0.1
-            waypoints.append(pose_goal)
-            self.execute(pose_goal)
+    def r1_twist(self, t, q):
 
-            time.sleep(0.5)
+        # Pose 1: pre-grasp
+        pose_goal = Pose()
+        pose_goal.orientation.x = q[0]
+        pose_goal.orientation.y = q[1]
+        pose_goal.orientation.z = q[2]
+        pose_goal.orientation.w = q[3]
+        pose_goal.position.x = t[0]
+        pose_goal.position.y = t[1]
+        pose_goal.position.z = t[2] + 0.1
+        self.execute(pose_goal)
+        time.sleep(0.2)
 
-            # Pose 2
-            pose_goal.position.z = 0.05
-            waypoints.append(pose_goal)
-            self.execute(pose_goal)
-            response = self.gripper_client("c")
+        # Pose 2: grasp
+        pose_goal.position.z = 0.04
+        self.execute(pose_goal)
+        self.gripper_client("c")
+        time.sleep(0.2)
 
-            time.sleep(0.5)
+        # Pose 3: pre-twist
+        pose_goal.position.x -= 0.05
+        pose_goal.position.z += 0.1
+        self.execute(pose_goal)
 
-            # Pose 3
-            # pose_goal.position.x -= 0.05
-            pose_goal.position.z += 0.1
-            waypoints.append(pose_goal)
-            self.execute(pose_goal)
+        # Pose 4: twist (for twisting RI)
+        rotation_quaternion = Quaternion(axis=[0, 0, 1], angle=-math.pi)
+        pose_quat = Quaternion(w=pose_goal.orientation.w, x=pose_goal.orientation.x, y=pose_goal.orientation.y, z=pose_goal.orientation.z)
+        rotated = rotation_quaternion*pose_quat
+        print("rotation_quaternion", rotation_quaternion)
+        print("pose_quat: ", pose_quat)
+        print("rotated: ", rotated)
+        pose_goal.orientation.x = rotated.x
+        pose_goal.orientation.y = rotated.y
+        pose_goal.orientation.z = rotated.z
+        pose_goal.orientation.w = rotated.w
+        self.execute(pose_goal)
 
-            # Pose 4:
-            # For twisting RI: 
-            # rotation_quaternion = Quaternion(axis=[0, 0, 1], angle=-math.pi)
-            # pose_quat = Quaternion(w=pose_goal.orientation.w, x=pose_goal.orientation.x, y=pose_goal.orientation.y, z=pose_goal.orientation.z)
-            # rotated = rotation_quaternion*pose_quat
-            # print("rotation_quaternion", rotation_quaternion)
-            # print("pose_quat: ", pose_quat)
-            # print("rotated: ", rotated)
-            # pose_goal.orientation.x = rotated.x
-            # pose_goal.orientation.y = rotated.y
-            # pose_goal.orientation.z = rotated.z
-            # pose_goal.orientation.w = rotated.w
-            # waypoints.append(pose_goal)
-            # self.execute(pose_goal)
-
-            # Pose 5:
-            pose_goal.position.x -= 0.05
-            pose_goal.position.z -= 0.05
-            waypoints.append(pose_goal)
-            self.execute(pose_goal)
-            response = self.gripper_client("o")
+        # Pose 5: place
+        pose_goal.position.x += 0.05
+        pose_goal.position.z -= 0.05
+        self.execute(pose_goal)
+        self.gripper_client("o")
 
     def execute(self, pose_goal):
 
