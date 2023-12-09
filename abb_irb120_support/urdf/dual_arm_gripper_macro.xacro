@@ -357,11 +357,11 @@
         <xacro:material_abb_white />
       </collision>
     </link>
-    <link name="${prefix}cube">
+    <link name="${prefix}camera">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.002 0.003 0.003"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/d415.stl"/>
         </geometry>
         <xacro:material_abb_white />
       </visual>
@@ -488,9 +488,9 @@
       <child link="${prefix}gripper_tcp_m"/>
     </joint>
     <joint name="${prefix}camera_collision_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0.035 0 0"/>
+      <origin rpy="0 0 0" xyz="0.01801587 0.0156162 -0.03926776"/>
       <parent link="${prefix}link_6"/>
-      <child link="${prefix}cube"/>
+      <child link="${prefix}camera"/>
     </joint>
     <!-- World Joints -->
     <joint name="${prefix}world-base_link" type="fixed">
