@@ -2,6 +2,7 @@
 import time
 from pyquaternion import Quaternion
 import math
+import numpy as np
 
 import rospy
 from ros_numpy import numpify
@@ -28,21 +29,26 @@ class CalibrationChecker:
         self.broadcaster = tf2_ros.TransformBroadcaster()
         self.gripper_client = rospy.ServiceProxy('/onrobot_2fg7/set_command', SetCommand)
 
-    def functional(self):
+    def callback(self):
 
         self.group.set_start_state_to_current_state()
 
-        frames = ["grasp"]
+        t0, q0 = self.get_tf('idx_25')
+        t25, q25 = self.get_tf('idx_25')
+        t50, q50 = self.get_tf('idx_50')
+        t75, q75 = self.get_tf('idx_75')
+        t100, q100 = self.get_tf('idx_100')
+        tmid, qmid = self.get_tf('idx_mid')
 
-        for from_frame in frames:
-            target_pt_tf = self.buffer.lookup_transform('world', from_frame, rospy.Time(0), timeout=rospy.Duration(1))
-            t  = numpify(target_pt_tf.transform.translation)
-            q = numpify(target_pt_tf.transform.rotation)
-        
-        self.r1_twist(t, q)
+        self.r1_twist(t50, q50, tmid, qmid)
 
-    def r1_twist(self, t, q):
+    def get_tf(self, from_frame):
+        target_pt_tf = self.buffer.lookup_transform('world', from_frame, rospy.Time(0), timeout=rospy.Duration(1))
+        t  = numpify(target_pt_tf.transform.translation)
+        q = numpify(target_pt_tf.transform.rotation)
+        return t, q
 
+    def r1_twist(self, t, q, tmid, qmid):
         # Pose 1: pre-grasp
         pose_goal = Pose()
         pose_goal.orientation.x = q[0]
@@ -56,14 +62,15 @@ class CalibrationChecker:
         time.sleep(0.2)
 
         # Pose 2: grasp
-        pose_goal.position.z = 0.04
+        pose_goal.position.z = 0.043
         self.execute(pose_goal)
         self.gripper_client("c")
         time.sleep(0.2)
 
         # Pose 3: pre-twist
-        pose_goal.position.x -= 0.05
-        pose_goal.position.z += 0.1
+        pose_goal.position.x = tmid[0]
+        pose_goal.position.y = tmid[1]
+        pose_goal.position.z += 0.2
         self.execute(pose_goal)
 
         # Pose 4: twist (for twisting RI)
@@ -80,10 +87,14 @@ class CalibrationChecker:
         self.execute(pose_goal)
 
         # Pose 5: place
-        pose_goal.position.x += 0.05
-        pose_goal.position.z -= 0.05
+        pose_goal.position.x = t[0]
+        pose_goal.position.y = t[1]
+        pose_goal.position.z -= 0.2
         self.execute(pose_goal)
         self.gripper_client("o")
+
+        # Pose 6: default 
+        self.default()
 
     def execute(self, pose_goal):
 
@@ -92,14 +103,23 @@ class CalibrationChecker:
         self.group.stop()
         self.group.clear_pose_targets()
         print("Executed? ", success)
+    
+    def default(self):
+        joint_goal = [0, 0.0, 0, 0.0, math.pi/2, 0.0]
+        self.group.set_joint_value_target(joint_goal)
+        _, plan, _, _ = self.group.plan()
+        success = self.group.go(wait=True)
+        self.group.stop()
+        self.group.clear_pose_targets()
+        print("Executed? ", success)
 
 if __name__ == '__main__':
     group_name = "mp_m"
-    rospy.init_node(f'{group_name}_cartesian_planning')
+    rospy.init_node('grasp_point')
 
     c = CalibrationChecker(group_name)
     # while not rospy.is_shutdown():
     try:
-        c.functional()
+        c.callback()
     except KeyboardInterrupt:
         print("Shutting down")

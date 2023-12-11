@@ -6,14 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /MotionPlanning1
-        - /MotionPlanning1/Scene Robot1
-        - /MotionPlanning1/Planning Request1
-        - /MotionPlanning1/Planning Metrics1
-        - /MotionPlanning1/Planned Path1
-        - /TF1
-        - /TF1/Tree1
       Splitter Ratio: 0.7425600290298462
-    Tree Height: 399
+    Tree Height: 441
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -191,7 +185,7 @@ Visualization Manager:
       Planning Request:
         Colliding Link Color: 255; 0; 0
         Goal State Alpha: 0.10000000149011612
-        Goal State Color: 250; 128; 0
+        Goal State Color: 255; 255; 255
         Interactive Marker Size: 0.10000000149011612
         Joint Violation Color: 255; 0; 255
         Planning Group: dual_arm
@@ -199,7 +193,7 @@ Visualization Manager:
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 0.10000000149011612
-        Start State Color: 0; 255; 0
+        Start State Color: 255; 255; 255
       Planning Scene Topic: move_group/monitored_planning_scene
       Robot Description: robot_description
       Scene Geometry:
@@ -420,7 +414,7 @@ Visualization Manager:
         base_link_m:
           Value: false
         camera:
-          Value: true
+          Value: false
         camera_aligned_depth_to_color_frame:
           Value: false
         camera_color_frame:
@@ -438,6 +432,18 @@ Visualization Manager:
         gripper_m:
           Value: false
         gripper_tcp_m:
+          Value: true
+        idx_0:
+          Value: true
+        idx_100:
+          Value: true
+        idx_25:
+          Value: true
+        idx_50:
+          Value: true
+        idx_75:
+          Value: true
+        idx_mid:
           Value: true
         link_1:
           Value: false
@@ -502,6 +508,18 @@ Visualization Manager:
                           gripper_base_m:
                             gripper_tcp_m:
                               {}
+          idx_0:
+            {}
+          idx_100:
+            {}
+          idx_25:
+            {}
+          idx_50:
+            {}
+          idx_75:
+            {}
+          idx_mid:
+            {}
       Update Interval: 0
       Value: true
     - Class: rviz/InteractiveMarkers
@@ -529,7 +547,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.466329574584961
+      Distance: 1.2354247570037842
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -537,17 +555,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.5008981227874756
-        Y: 0.2216963768005371
-        Z: 6.729558208462549e-07
+        X: 0.5716132521629333
+        Y: -0.06444603204727173
+        Z: 1.3286069133755518e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5547964572906494
+      Pitch: 0.6547963619232178
       Target Frame: base_link
-      Yaw: 1.5667587518692017
+      Yaw: 1.5617587566375732
     Saved: ~
 Window Geometry:
   Displays:

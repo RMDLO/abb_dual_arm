@@ -11,7 +11,10 @@ from control_msgs.msg import FollowJointTrajectoryActionGoal
 
 def functional(config):
 
-    name = "dual_arm"
+    if config == "mp_m_initial":
+        name = "mp_m"
+    else:
+        name = "dual_arm"
     rospy.init_node(f'{name}_joint_planning')
     
     group= moveit_commander.MoveGroupCommander(f"{name}")
@@ -31,6 +34,9 @@ def functional(config):
             joint_goal = [-9.298604709329084e-05, 0.08021783083677292, -0.1256103366613388, 0.00012576385051943362, -0.23865161836147308, 0.0003152742865495384, 0, 0.0, 0, 0.0, pi/2, 0.0]
         elif config == "closeup":
             joint_goal = [0.26027172803878784, 0.396650493144989, 0.040516164153814316, 0.31667420268058777, -0.8686138391494751, -0.3101566433906555, -7.051671127555892e-05, -2.6221681764582172e-05, -5.3057505283504725e-05, 5.773369048256427e-05, 1.5707331895828247, 1.704614442132879e-05]
+        joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \
+            'joint_6', 'joint_7', 'joint_2_m', 'joint_3_m', \
+            'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
     elif name == "mp":
         joint_goal = [0.9268576502799988, 
                       0.2813063859939575, 
@@ -38,12 +44,12 @@ def functional(config):
                       1.145723581314087, 
                       -1.0036907196044922,
                       -0.9744566082954407]
+        joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6', 'joint_7']
+    elif name == "mp_m":
+        joint_goal = [0, 0.0, 0, 0.0, pi/2, 0.0]
+        joint_names = ['joint_2_m', 'joint_3_m', 'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
 
     print("Goal joint values: ", joint_goal)
-
-    joint_names = ['joint_2', 'joint_3', 'joint_4', 'joint_5', \
-                'joint_6', 'joint_7', 'joint_2_m', 'joint_3_m', \
-                'joint_4_m', 'joint_5_m', 'joint_6_m', 'joint_7_m']
     
     group.set_joint_value_target(joint_goal)
     _, plan, _, _ = group.plan()
@@ -54,7 +60,7 @@ def functional(config):
     joint_state.position = joint_start
 
     display_trajectory = DisplayTrajectory()
-    display_trajectory.model_id = 'dual_arm'
+    display_trajectory.model_id = name
     display_trajectory.trajectory.append(plan)
     display_trajectory.trajectory_start.joint_state = joint_state
 
@@ -70,7 +76,7 @@ def functional(config):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Desginate a standard joint configuration for group 'dual_arm'")
-    parser.add_argument("config", help="Indicate configuration: 'all_zero' or 'initial'")
+    parser.add_argument("config", help="Indicate configuration: 'all_zero' or 'initial' or 'mp_m_initial'")
 
     args = parser.parse_args()
 
