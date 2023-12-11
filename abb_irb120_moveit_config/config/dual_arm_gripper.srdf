@@ -58,7 +58,7 @@
     </group_state>
 
     <end_effector name="gripper_tcp_m" parent_link="gripper_base_m" group="mp_m"/>
-    <end_effector name="cube" parent_link="link_6" group="mp"/>
+    <end_effector name="camera" parent_link="link_6" group="mp"/>
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />
@@ -79,6 +79,7 @@
     <disable_collisions link1="link_4" link2="link_5" reason="Adjacent" />
     <disable_collisions link1="link_4" link2="link_6" reason="Default" />
     <disable_collisions link1="link_5" link2="link_6" reason="Adjacent" />
+    <disable_collisions link1="link_6" link2="camera" reason="Adjacent" />
     <!-- Second arm mirror -->
     <disable_collisions link1="world" link2="base_link_m" reason="Never" />
     <disable_collisions link1="base_link_m" link2="link_1_m" reason="Adjacent" />

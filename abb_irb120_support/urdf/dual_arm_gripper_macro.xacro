@@ -368,7 +368,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.002 0.003 0.003"/>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0012 0.0035 0.002"/>
         </geometry>
         <xacro:material_abb_white />
       </collision>
