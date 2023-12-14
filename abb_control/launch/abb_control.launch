@@ -8,11 +8,6 @@
   <arg name="tracking" default="false" />
   <arg name="node_start_delay" default="" />
 
-  <group if="$(arg camera)" >
-    <include file="$(find depthai_ros_driver)/launch/camera_lite.launch" >
-    </include>
-  </group>
-
   <group if="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_dual_arm.yaml" />
   </group>
@@ -81,5 +76,10 @@
     <arg name="tracking" value="$(arg tracking)"/>
     <arg name="node_start_delay" value="$(arg node_start_delay)" />
   </include>
+
+  <group if="$(arg camera)" >
+    <include file="$(find depthai_ros_driver)/launch/camera.launch" >
+    </include>
+  </group>
 
 </launch>
