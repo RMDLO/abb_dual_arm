@@ -76,7 +76,7 @@ def functional(config):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Desginate a standard joint configuration for group 'dual_arm'")
-    parser.add_argument("config", help="Indicate configuration: 'all_zero' or 'initial' or 'mp_m_initial'")
+    parser.add_argument("config", help="Indicate configuration: ['all_zero', 'initial1', 'initial2', 'closeup', 'mp_m_initial']")
 
     args = parser.parse_args()
 
