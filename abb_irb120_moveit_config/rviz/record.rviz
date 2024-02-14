@@ -6,13 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /MotionPlanning1
-        - /MotionPlanning1/Planning Request1
-        - /MotionPlanning1/Planning Metrics1
-        - /MotionPlanning1/Planned Path1
-        - /TF1/Tree1
-        - /TF1/Tree1/world1/base_link1/link_11
       Splitter Ratio: 0.7425600290298462
-    Tree Height: 399
+    Tree Height: 441
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -86,7 +81,7 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          cube:
+          camera:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -190,7 +185,7 @@ Visualization Manager:
       Planning Request:
         Colliding Link Color: 255; 0; 0
         Goal State Alpha: 0.10000000149011612
-        Goal State Color: 250; 128; 0
+        Goal State Color: 255; 255; 255
         Interactive Marker Size: 0.10000000149011612
         Joint Violation Color: 255; 0; 255
         Planning Group: dual_arm
@@ -198,7 +193,7 @@ Visualization Manager:
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 0.10000000149011612
-        Start State Color: 0; 255; 0
+        Start State Color: 255; 255; 255
       Planning Scene Topic: move_group/monitored_planning_scene
       Robot Description: robot_description
       Scene Geometry:
@@ -226,7 +221,7 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          cube:
+          camera:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -356,10 +351,6 @@ Visualization Manager:
         node_results_line_29: true
         node_results_line_3: true
         node_results_line_30: true
-        node_results_line_31: true
-        node_results_line_32: true
-        node_results_line_33: true
-        node_results_line_34: true
         node_results_line_4: true
         node_results_line_5: true
         node_results_line_6: true
@@ -391,10 +382,6 @@ Visualization Manager:
         node_results_node_29: true
         node_results_node_3: true
         node_results_node_30: true
-        node_results_node_31: true
-        node_results_node_32: true
-        node_results_node_33: true
-        node_results_node_34: true
         node_results_node_4: true
         node_results_node_5: true
         node_results_node_6: true
@@ -426,6 +413,8 @@ Visualization Manager:
           Value: false
         base_link_m:
           Value: false
+        camera:
+          Value: false
         camera_aligned_depth_to_color_frame:
           Value: false
         camera_color_frame:
@@ -438,15 +427,23 @@ Visualization Manager:
           Value: false
         camera_link:
           Value: false
-        cube:
-          Value: false
-        grasp:
-          Value: true
         gripper_base_m:
           Value: false
         gripper_m:
           Value: false
         gripper_tcp_m:
+          Value: true
+        idx_0:
+          Value: true
+        idx_100:
+          Value: true
+        idx_25:
+          Value: true
+        idx_50:
+          Value: true
+        idx_75:
+          Value: true
+        idx_mid:
           Value: true
         link_1:
           Value: false
@@ -479,7 +476,7 @@ Visualization Manager:
       Name: TF
       Show Arrows: false
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
         world:
           base_link:
@@ -489,6 +486,8 @@ Visualization Manager:
                   link_4:
                     link_5:
                       link_6:
+                        camera:
+                          {}
                         camera_link:
                           camera_aligned_depth_to_color_frame:
                             camera_color_optical_frame:
@@ -498,8 +497,6 @@ Visualization Manager:
                           camera_depth_frame:
                             camera_depth_optical_frame:
                               {}
-                        cube:
-                          {}
           base_link_m:
             link_1_m:
               link_2_m:
@@ -511,7 +508,17 @@ Visualization Manager:
                           gripper_base_m:
                             gripper_tcp_m:
                               {}
-          grasp:
+          idx_0:
+            {}
+          idx_100:
+            {}
+          idx_25:
+            {}
+          idx_50:
+            {}
+          idx_75:
+            {}
+          idx_mid:
             {}
       Update Interval: 0
       Value: true
@@ -540,7 +547,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.3092228174209595
+      Distance: 1.2354247570037842
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -548,17 +555,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.5008981227874756
-        Y: 0.2216963768005371
-        Z: 6.729558208462549e-07
+        X: 0.5716132521629333
+        Y: -0.06444603204727173
+        Z: 1.3286069133755518e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2447965443134308
+      Pitch: 0.6547963619232178
       Target Frame: base_link
-      Yaw: 1.5467588901519775
+      Yaw: 1.5617587566375732
     Saved: ~
 Window Geometry:
   Displays:
@@ -574,7 +581,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000002e60000039efc0200000007fb000000100044006900730070006c006100790073000000003d000001cc000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000000a0049006d006100670065010000003d0000039e0000001600ffffff0000000200000452000001a5fc0100000002fb0000000a0049006d00610067006501000002ec000004520000005e00fffffffc0000054b000001f30000000000fffffffa000000000200000003fb0000000a0049006d0061006700650100000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670000000000ffffffff0000017d00fffffffb0000000a0049006d006100670065010000003d0000018b000000000000000000000452000001f300000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000002000000000000034f0000039efc0200000007fb000000100044006900730070006c006100790073000000003d000001cc000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000000a0049006d006100670065010000003d0000039e0000001600ffffff00000002000003e9000001a5fc0100000001fc00000355000003e9000001f300fffffffa000000000200000004fb0000000a0049006d0061006700650100000000ffffffff0000001600fffffffb0000000a0049006d0061006700650100000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000000ffffffff0000017d00fffffffb0000000a0049006d006100670065010000003d0000018b0000000000000000000003e9000001f300000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1854
