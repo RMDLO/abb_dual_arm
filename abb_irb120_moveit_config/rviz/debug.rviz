@@ -1,14 +1,16 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 84
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
         - /MotionPlanning1
-        - /MotionPlanning1/Planned Path1
-      Splitter Ratio: 0.7425600290298462
-    Tree Height: 383
+        - /MotionPlanning1/Scene Robot1
+        - /TF1
+        - /MarkerArray3
+      Splitter Ratio: 0.5061296224594116
+    Tree Height: 865
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -186,15 +188,15 @@ Visualization Manager:
       Planning Request:
         Colliding Link Color: 255; 0; 0
         Goal State Alpha: 0.10000000149011612
-        Goal State Color: 250; 128; 0
+        Goal State Color: 255; 255; 255
         Interactive Marker Size: 0.10000000149011612
         Joint Violation Color: 255; 0; 255
         Planning Group: dual_arm
-        Query Goal State: true
+        Query Goal State: false
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 0.10000000149011612
-        Start State Color: 0; 255; 0
+        Start State Color: 255; 255; 255
       Planning Scene Topic: move_group/monitored_planning_scene
       Robot Description: robot_description
       Scene Geometry:
@@ -306,14 +308,272 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-        Robot Alpha: 0.5
+        Robot Alpha: 1
         Show Robot Collision: false
-        Show Robot Visual: true
+        Show Robot Visual: false
       Value: true
       Velocity_Scaling_Factor: 0.1
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /oak/rgb/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /trackdlo/results_marker
+      Name: MarkerArray
+      Namespaces:
+        node_results_line_1: true
+        node_results_line_10: true
+        node_results_line_11: true
+        node_results_line_12: true
+        node_results_line_13: true
+        node_results_line_14: true
+        node_results_line_15: true
+        node_results_line_16: true
+        node_results_line_17: true
+        node_results_line_18: true
+        node_results_line_19: true
+        node_results_line_2: true
+        node_results_line_20: true
+        node_results_line_21: true
+        node_results_line_22: true
+        node_results_line_23: true
+        node_results_line_24: true
+        node_results_line_25: true
+        node_results_line_26: true
+        node_results_line_27: true
+        node_results_line_28: true
+        node_results_line_29: true
+        node_results_line_3: true
+        node_results_line_30: true
+        node_results_line_4: true
+        node_results_line_5: true
+        node_results_line_6: true
+        node_results_line_7: true
+        node_results_line_8: true
+        node_results_line_9: true
+        node_results_node_0: true
+        node_results_node_1: true
+        node_results_node_10: true
+        node_results_node_11: true
+        node_results_node_12: true
+        node_results_node_13: true
+        node_results_node_14: true
+        node_results_node_15: true
+        node_results_node_16: true
+        node_results_node_17: true
+        node_results_node_18: true
+        node_results_node_19: true
+        node_results_node_2: true
+        node_results_node_20: true
+        node_results_node_21: true
+        node_results_node_22: true
+        node_results_node_23: true
+        node_results_node_24: true
+        node_results_node_25: true
+        node_results_node_26: true
+        node_results_node_27: true
+        node_results_node_28: true
+        node_results_node_29: true
+        node_results_node_3: true
+        node_results_node_30: true
+        node_results_node_4: true
+        node_results_node_5: true
+        node_results_node_6: true
+        node_results_node_7: true
+        node_results_node_8: true
+        node_results_node_9: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /trackdlo/results_img
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        base_link:
+          Value: false
+        base_link_m:
+          Value: false
+        camera:
+          Value: false
+        camera_aligned_depth_to_color_frame:
+          Value: false
+        camera_color_frame:
+          Value: false
+        camera_color_optical_frame:
+          Value: false
+        camera_depth_frame:
+          Value: false
+        camera_depth_optical_frame:
+          Value: false
+        camera_link:
+          Value: false
+        gripper_base_m:
+          Value: false
+        gripper_m:
+          Value: false
+        gripper_tcp_m:
+          Value: false
+        idx_0:
+          Value: true
+        idx_10:
+          Value: false
+        idx_20:
+          Value: true
+        idx_30:
+          Value: false
+        idx_40:
+          Value: true
+        idx_50:
+          Value: false
+        idx_60:
+          Value: true
+        idx_70:
+          Value: false
+        idx_80:
+          Value: true
+        idx_90:
+          Value: false
+        idx_mid1:
+          Value: false
+        link_1:
+          Value: false
+        link_1_m:
+          Value: false
+        link_2:
+          Value: false
+        link_2_m:
+          Value: false
+        link_3:
+          Value: false
+        link_3_m:
+          Value: false
+        link_4:
+          Value: false
+        link_4_m:
+          Value: false
+        link_5:
+          Value: false
+        link_5_m:
+          Value: false
+        link_6:
+          Value: false
+        link_6_m:
+          Value: false
+        world:
+          Value: false
+      Marker Alpha: 1
+      Marker Scale: 0.20000000298023224
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: false
+      Tree:
+        camera_link:
+          camera_aligned_depth_to_color_frame:
+            {}
+          camera_color_frame:
+            {}
+          camera_depth_frame:
+            camera_depth_optical_frame:
+              {}
+        world:
+          base_link:
+            link_1:
+              link_2:
+                link_3:
+                  link_4:
+                    link_5:
+                      link_6:
+                        camera:
+                          {}
+                        camera_color_optical_frame:
+                          {}
+          base_link_m:
+            link_1_m:
+              link_2_m:
+                link_3_m:
+                  link_4_m:
+                    link_5_m:
+                      link_6_m:
+                        gripper_m:
+                          gripper_base_m:
+                            gripper_tcp_m:
+                              {}
+          idx_0:
+            {}
+          idx_10:
+            {}
+          idx_20:
+            {}
+          idx_30:
+            {}
+          idx_40:
+            {}
+          idx_50:
+            {}
+          idx_60:
+            {}
+          idx_70:
+            {}
+          idx_80:
+            {}
+          idx_90:
+            {}
+          idx_mid1:
+            {}
+      Update Interval: 0
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: false
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: true
+      Show Visual Aids: false
+      Update Topic: /interactive_marker_server/update
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /knotdlo/curve_points
+      Name: MarkerArray
+      Namespaces:
+        /knotdlo/curve_points: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /knotdlo/curve_tangents
+      Name: MarkerArray
+      Namespaces:
+        /knotdlo/curve_tangents: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
-    Background Color: 211; 215; 207
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: base_link
     Frame Rate: 30
@@ -327,7 +587,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.5585774183273315
+      Distance: 0.48338937759399414
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -335,17 +595,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.5008981227874756
-        Y: 0.2216963768005371
-        Z: 6.729558208462549e-07
+        X: 0.6419833898544312
+        Y: 0.049387671053409576
+        Z: 1.1795953014370752e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.36479663848876953
+      Pitch: 1.5697963237762451
       Target Frame: base_link
-      Yaw: 1.6167585849761963
+      Yaw: 3.1467597484588623
     Saved: ~
 Window Geometry:
   Displays:
@@ -355,11 +615,13 @@ Window Geometry:
     collapsed: false
   Hide Left Dock: false
   Hide Right Dock: false
+  Image:
+    collapsed: false
   MotionPlanning:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000001f30000039efc0200000007fb000000100044006900730070006c006100790073010000003d00000210000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000253000001880000018800ffffff000005450000039e00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000002000000000000023d0000039efc0200000007fb000000100044006900730070006c006100790073010000003d0000039e000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb0000000a0049006d006100670065000000003d0000039e000000000000000000000002000004fb000001a5fc0100000001fc00000243000004fb000001f300fffffffa000000010200000004fb0000000a0049006d0061006700650100000000ffffffff0000001600fffffffb0000000a0049006d0061006700650100000000ffffffff0000001600fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000000ffffffff0000017d00fffffffb0000000a0049006d006100670065010000003d0000018b0000000000000000000004fb000001f300000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1854

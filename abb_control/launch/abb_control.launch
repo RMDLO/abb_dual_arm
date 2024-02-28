@@ -71,12 +71,6 @@
     </include>
   </group>
 
-  <include file="$(find abb_irb120_moveit_config)/launch/moveit_rviz.launch">
-    <arg name="camera" value="$(arg camera)"/>
-    <arg name="tracking" value="$(arg tracking)"/>
-    <arg name="node_start_delay" value="$(arg node_start_delay)" />
-  </include>
-
   <group if="$(arg camera)" >
     <include file="$(find depthai_ros_driver)/launch/camera.launch" >
     </include>
