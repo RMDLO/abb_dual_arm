@@ -27,7 +27,7 @@ rosdep update
 Clone the ABB robot ROS package into the `src` folder of a catkin workspace.
 
 ```bash
-git clone git@github.com:RMDLO/abb_dual_arm.git --recurse-submodules
+git clone git@github.com:RMDLO/abb_dual_arm.git
 ```
 
 ## Install ROS Dependencies and Build the Package

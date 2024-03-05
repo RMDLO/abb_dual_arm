@@ -8,7 +8,7 @@ The current configuration was tested on an x86 host computer running Ubuntu 20.0
 
 1. **Download ABB_DUAL_ARM**
 ```bash
-git clone https://github.com/RMDLO/abb_dual_arm.git --recurse-submodules abb_dual_arm
+git clone https://github.com/RMDLO/abb_dual_arm.git abb_dual_arm
 ```
 
 2. **Build the Docker Image**
