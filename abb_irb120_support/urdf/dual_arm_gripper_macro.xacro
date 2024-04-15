@@ -373,6 +373,22 @@
         <xacro:material_abb_white />
       </collision>
     </link>
+    <link name="${prefix}camera_mount">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/camera_mount.stl"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://abb_irb120_support/meshes/irb120_3_58/visual/cube.stl" scale="0.0001 0.0003 0.0001"/>
+        </geometry>
+        <xacro:material_abb_white />
+      </collision>
+    </link>
     <!-- Arm 1 Joints -->
     <joint name="${prefix}joint_2" type="revolute">
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -456,7 +472,8 @@
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}joint_6_m" type="revolute">
-      <origin rpy="0 ${radians(-90)} 0" xyz="-0.302 0 0"/>
+      <!-- <origin rpy="0 ${radians(-90)} 0" xyz="-0.302 0 0"/> -->
+      <origin rpy="0 0 0" xyz="-0.302 0 0"/>
       <parent link="${prefix}link_4_m"/>
       <child link="${prefix}link_5_m"/>
       <limit effort="0" lower="-2.094395" upper="2.094395" velocity="5.58505"/>
@@ -487,8 +504,13 @@
       <parent link="${prefix}gripper_base_m"/>
       <child link="${prefix}gripper_tcp_m"/>
     </joint>
+    <joint name="${prefix}camera_mount_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}camera_mount"/>
+    </joint>
     <joint name="${prefix}camera_collision_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0.01801587 0.0156162 -0.03926776"/>
+      <origin rpy="0 0 0" xyz="0.01 0 -0.0373"/>
       <parent link="${prefix}link_6"/>
       <child link="${prefix}camera"/>
     </joint>
