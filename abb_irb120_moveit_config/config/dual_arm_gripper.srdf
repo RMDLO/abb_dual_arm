@@ -18,6 +18,7 @@
         <joint name="joint_6" />
         <joint name="joint_7" />
         <joint name="camera_collision_joint" />
+        <chain base_link="base_link" tip_link="camera" />
     </group>
 
     <group name="mp_m">
@@ -30,6 +31,7 @@
         <joint name="gripper_joint_m" />
         <joint name="gripper_base_joint_m" />
         <joint name="gripper_tcp_joint_m" />
+        <chain base_link="base_link_m" tip_link="gripper_tcp_m" />
     </group>
 
     <group name="dual_arm">
@@ -39,7 +41,7 @@
 
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     
-    <group_state name="all_zero" group="mp">
+    <group_state name="all_zero_mp" group="mp">
         <joint name="joint_2" value="0" />
         <joint name="joint_3" value="0" />
         <joint name="joint_4" value="0" />
@@ -48,12 +50,60 @@
         <joint name="joint_7" value="0" />
     </group_state>
     
-    <group_state name="all_zero" group="mp_m">
+    <group_state name="all_zero_mp_m" group="mp_m">
         <joint name="joint_2_m" value="0" />
         <joint name="joint_3_m" value="0" />
         <joint name="joint_4_m" value="0" />
         <joint name="joint_5_m" value="0" />
-        <joint name="joint_6_m" value="0" />
+        <joint name="joint_6_m" value="1.571" />
+        <joint name="joint_7_m" value="0" />
+    </group_state>
+
+    <group_state name="all_zero" group="dual_arm">
+        <joint name="joint_2" value="0" />
+        <joint name="joint_3" value="0" />
+        <joint name="joint_4" value="0" />
+        <joint name="joint_5" value="0" />
+        <joint name="joint_6" value="0" />
+        <joint name="joint_7" value="0" />
+        <joint name="joint_2_m" value="0" />
+        <joint name="joint_3_m" value="0" />
+        <joint name="joint_4_m" value="0" />
+        <joint name="joint_5_m" value="0" />
+        <joint name="joint_6_m" value="1.571" />
+        <joint name="joint_7_m" value="0" />
+    </group_state>
+
+    <group_state name="initial_mp" group="mp">
+        <joint name="joint_2" value="0" />
+        <joint name="joint_3" value="0.626" />
+        <joint name="joint_4" value="-0.801" />
+        <joint name="joint_5" value="0" />
+        <joint name="joint_6" value="-0.111" />
+        <joint name="joint_7" value="0" />
+    </group_state>
+
+    <group_state name="initial_mp_m" group="mp_m">
+        <joint name="joint_2_m" value="0" />
+        <joint name="joint_3_m" value="0" />
+        <joint name="joint_4_m" value="0" />
+        <joint name="joint_5_m" value="0" />
+        <joint name="joint_6_m" value="1.571" />
+        <joint name="joint_7_m" value="0" />
+    </group_state>
+
+    <group_state name="initial" group="dual_arm">
+        <joint name="joint_2" value="0" />
+        <joint name="joint_3" value="0.626" />
+        <joint name="joint_4" value="-0.801" />
+        <joint name="joint_5" value="0" />
+        <joint name="joint_6" value="-0.111" />
+        <joint name="joint_7" value="0" />
+        <joint name="joint_2_m" value="0" />
+        <joint name="joint_3_m" value="0" />
+        <joint name="joint_4_m" value="0" />
+        <joint name="joint_5_m" value="0" />
+        <joint name="joint_6_m" value="1.571" />
         <joint name="joint_7_m" value="0" />
     </group_state>
 
@@ -62,8 +112,6 @@
 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="world" />
-    <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="base_link" />
-    <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="base_link_m" />
 
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="world" link2="base_link" reason="Never" />

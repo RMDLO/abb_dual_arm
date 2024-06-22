@@ -1,7 +1,7 @@
 # Simulation settings for using moveit_sim_controllers with gripper
 moveit_sim_hw_interface:
   joint_model_group: dual_arm
-  joint_model_group_pose: all_zero
+  joint_model_group_pose: initial
 controller_list:
   - name: mp
     type: interpolate

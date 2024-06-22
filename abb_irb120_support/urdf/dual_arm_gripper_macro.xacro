@@ -514,12 +514,12 @@
       <child link="${prefix}camera"/>
     </joint>
     <!-- World Joints -->
-    <joint name="${prefix}world-base_link" type="fixed">
+    <joint name="${prefix}world_joint" type="fixed">
       <origin xyz="-0.552 0 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link"/>
     </joint>
-    <joint name="${prefix}world-base_link_m" type="fixed">
+    <joint name="${prefix}world_joint_m" type="fixed">
       <origin xyz="0.552 0.02 0.01" rpy="0 0 0"/>
       <parent link="${prefix}world"/>
       <child link="${prefix}base_link_m"/>
