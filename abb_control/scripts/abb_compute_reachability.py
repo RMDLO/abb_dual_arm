@@ -6,7 +6,6 @@ import numpy as np
 import json
 import os
 import sys
-import argparse
 from geometry_msgs.msg import Pose
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
@@ -32,7 +31,7 @@ def create_marker_array(points, min_frac=0.0, frame_id="world"):
         marker.scale.x = 0.02
         marker.scale.y = 0.02
         marker.scale.z = 0.02
-        marker.color.a = 1.0
+        marker.color.a = 0.3
         # Interpolate color based on planning fraction value
         red = 1 - (point[3] - min_frac) / (1.0 - min_frac)
         green = 0
@@ -52,28 +51,27 @@ def publish_config_points(config_file):
         print("Error parsing JSON data.")
         return None
     marker_array = create_marker_array(reachability["fractions"][:-1], min_frac=reachability["min_frac"])
-    reachable_pub = rospy.Publisher('/abb_control/reachability', MarkerArray, queue_size=10)
     
-    while not rospy.is_shutdown():
-        reachable_pub.publish(marker_array)
+    return marker_array
 
 def main():
 
-    parser = argparse.ArgumentParser(description="Compute reachable workspace")
-    parser.add_argument("path", help="Indicate config folder path")
-    parser.add_argument("config", help="Indicate true to publish existing config")
-
-    args = parser.parse_args()
+    path = rospy.get_param('/reachability/abb_dual_arm_path')
+    config = rospy.get_param('/reachability/load_reachability_config')
 
     rospy.init_node('reachability', anonymous=True)
 
-    file_path = f"{args.path}" + "/abb_control/config/config.json"
+    file_path = f"{path}" + "/config/config.json"
 
-    if args.config == "true":
-        publish_config_points(file_path)
+    if config:
+        marker_array = publish_config_points(file_path)
+
+        reachable_pub = rospy.Publisher('/abb_control/reachability', MarkerArray, queue_size=10)
+        while not rospy.is_shutdown():
+            reachable_pub.publish(marker_array)
     else:
         try: 
-            os.mkdir(f"{args.path}/abb_control/config/")
+            os.mkdir(f"{path}/config/")
         except FileExistsError:
             print("config directory already exists!")
 
@@ -85,8 +83,8 @@ def main():
         group = moveit_commander.MoveGroupCommander("mp_m")
 
         # Define the workspace boundaries and resolution in world frame
-        bounds = [-0.5, 0.5, -0.3, 0.4, 0.0, 0.6]
-        resolution = 0.05
+        bounds = [-0.3, 0.5, -0.3, 0.4, 0.0, 0.6]
+        resolution = 0.1
         x_vals = np.arange(bounds[0], bounds[1], resolution)
         y_vals = np.arange(bounds[2], bounds[3], resolution)
         z_vals = np.arange(bounds[4], bounds[5], resolution)
