@@ -11,7 +11,7 @@ from geometry_msgs.msg import Pose
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
 
-def create_marker_array(points, color, min_frac=0.0, frame_id="world"):
+def create_marker_array(points, color=[0, 0, 0], min_frac=0.0, frame_id="world"):
     marker_array = MarkerArray()
     marker_id = 0
     for point in points:
@@ -49,12 +49,12 @@ def create_marker_array(points, color, min_frac=0.0, frame_id="world"):
 def publish_config_points(config_file):
     try:
         with open(config_file, 'r') as file:
-            data = json.load(file)
+            reachability = json.load(file)
     except json.JSONDecodeError:
         print("Error parsing JSON data.")
         return None
-    marker_array = create_marker_array(data["fractions"])
-    reachable_pub = rospy.Publisher('/abb_control/reachability_config', MarkerArray, queue_size=10)
+    marker_array = create_marker_array(reachability["fractions"][:-1], [0,0,0], min_frac=reachability["min_frac"])
+    reachable_pub = rospy.Publisher('/abb_control/reachability', MarkerArray, queue_size=10)
     
     while not rospy.is_shutdown():
         reachable_pub.publish(marker_array)
@@ -96,9 +96,9 @@ def main():
 
         reachability = {"reachable_points" : [],
                         "unreachable_points": [],
-                        "fractions": []}
+                        "fractions": [],
+                        "min_frac": 1.0}
 
-        min_frac = 1.0
         for point in grid_points:
             pose_target = Pose()
             pose_target.position.x = point[0]
@@ -113,8 +113,8 @@ def main():
             if plan and fraction == 1.0:
                 reachability["reachable_points"].append(point.tolist())
             else:
-                if fraction < min_frac:
-                    min_frac = fraction
+                if fraction < reachability["min_frac"]:
+                    reachability["min_frac"] = fraction
                 reachability["unreachable_points"].append(point.tolist())
             point_list = point.tolist()
             point_list.append(fraction)
@@ -123,12 +123,12 @@ def main():
         with open(file_path, 'w') as json_file:
             json.dump(reachability, json_file, indent=4)
 
-        # Create a marker array for visualization
-        marker_array_1 = create_marker_array(reachability["reachable_points"],[0,0,1])
-        marker_array_2 = create_marker_array(reachability["unreachable_points"],[1,0,0])
-        marker_array_3 = create_marker_array(reachability["fractions"][:-1], [0,0,0], min_frac=min_frac)
+        # Create marker arrays for visualization
+        marker_array_1 = create_marker_array(reachability["reachable_points"], [0,0,1])
+        marker_array_2 = create_marker_array(reachability["unreachable_points"], [1,0,0])
+        marker_array_3 = create_marker_array(reachability["fractions"][:-1], [0,0,0], min_frac=reachability["min_frac"])
 
-        # Publish the marker array to RViz
+        # Publish marker arrays to RViz
         reachable_pub = rospy.Publisher('/abb_control/reachable_points', MarkerArray, queue_size=10)
         unreachable_pub = rospy.Publisher('/abb_control/unreachable_points', MarkerArray, queue_size=10)
         scaled_pub = rospy.Publisher('/abb_control/reachability', MarkerArray, queue_size=10)
