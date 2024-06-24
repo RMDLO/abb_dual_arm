@@ -121,7 +121,7 @@ def main():
         # Publish marker arrays to RViz
         reachable_pub = rospy.Publisher('/abb_control/reachability', MarkerArray, queue_size=10)
         while not rospy.is_shutdown():
-            reachable_pub.publish(marker_array_3)
+            reachable_pub.publish(marker_array)
             rospy.sleep(1)
 
         moveit_commander.roscpp_shutdown()
