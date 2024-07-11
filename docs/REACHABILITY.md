@@ -14,7 +14,7 @@ Terminal 2:
 
 ```bash
 rosparam set /reachability/load_reachability_config true
-rosparam set /reachability/abb_dual_arm_path /path/to/abb_control_pkg
+rosparam set /reachability/abb_dual_arm_control_path /path/to/abb_control_pkg
 rosrun abb_control abb_compute_reachability.py $ABB true
 ```
 

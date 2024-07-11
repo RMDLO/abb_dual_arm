@@ -56,7 +56,7 @@ def publish_config_points(config_file):
 
 def main():
 
-    path = rospy.get_param('/reachability/abb_dual_arm_path')
+    path = rospy.get_param('/reachability/abb_dual_arm_control_path')
     config = rospy.get_param('/reachability/load_reachability_config')
 
     rospy.init_node('reachability', anonymous=True)
