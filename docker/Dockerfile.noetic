@@ -29,7 +29,6 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     ros-noetic-desktop-full \
     ros-noetic-xacro \
     ros-noetic-catkin \
-    ros-noetic-catkin-tools \
     ros-noetic-rviz \
     ros-noetic-rospy \
     ros-noetic-industrial-core \
