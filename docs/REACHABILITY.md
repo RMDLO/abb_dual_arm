@@ -13,16 +13,16 @@ Next, run the node which computes reachability in a second new terminal. To visu
 Terminal 2:
 
 ```bash
-rosparam set /reachability/load_reachability_config true
-rosparam set /reachability/abb_dual_arm_control_path /path/to/abb_control_pkg
-rosrun abb_control abb_compute_reachability.py $ABB true
+rosparam set /abb_compute_reachability/load_reachability_config true
+rosparam set /abb_compute_reachability/abb_control_path /path/to/abb_control_pkg
+rosrun abb_control reachability
 ```
 
 To compute a new workspace reachability `config.json` file, run
 
 ```bash
-rosparam set /reachability/load_reachability_config false
-rosrun abb_control abb_compute_reachability.py
+rosparam set /abb_compute_reachability/load_reachability_config false
+rosrun abb_control reachability
 ```
 
 This is the visualized dual-arm setup from the repository [`config.json`](https://github.com/RMDLO/abb_dual_arm/blob/master/config/config.json):

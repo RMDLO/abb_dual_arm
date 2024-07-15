@@ -24,10 +24,12 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     git \
     python3-pip \
     python3-catkin-tools \
+    nlohmann-json3-dev \
     # Install required ROS components
     ros-noetic-desktop-full \
     ros-noetic-xacro \
     ros-noetic-catkin \
+    ros-noetic-catkin-tools \
     ros-noetic-rviz \
     ros-noetic-rospy \
     ros-noetic-industrial-core \
@@ -38,7 +40,9 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     ros-noetic-moveit-ros-move-group \
     ros-noetic-moveit-simple-controller-manager \
     ros-noetic-moveit-ros-visualization \
+    ros-noetic-moveit-ros-planning-interface \
     ros-noetic-joint-state-publisher \
+    ros-noetic-ros-base \
     ros-noetic-abb-driver \
     ros-noetic-industrial-robot-client \
     ros-noetic-control-msgs \
@@ -58,11 +62,10 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 # Install required Python components
 RUN python3 -m pip install -r /tmp/requirements.txt
 
-RUN rosdep install --from-paths ${SRC} --ignore-packages-from-source --rosdistro noetic
-
 # Source ROS noetic
 RUN . /opt/ros/noetic/setup.sh && \
-    ./tmp/init_workspace.sh
+    ./tmp/init_workspace.sh && \
+    rosdep install --from-paths ${SRC} --ignore-packages-from-source --rosdistro noetic
 
 # Set Display variables
 ENV DISPLAY=:0
