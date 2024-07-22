@@ -8,6 +8,9 @@
   <arg name="tracking" default="false" />
   <arg name="node_start_delay" default="" />
 
+  <param name="/abb_compute_reachability/load_reachability_config" value="false"/>
+  <param name="/abb_compute_reachability/abb_control_path" value="$(find abb_control)"/>
+
   <group if="$(arg multi)" >
     <rosparam command="load" file="$(find abb_irb120_support)/config/joint_names_dual_arm.yaml" />
   </group>

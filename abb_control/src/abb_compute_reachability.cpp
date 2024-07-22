@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
         moveit::planning_interface::MoveGroupInterface move_group("mp_m");
         move_group.setPlannerId("RRTConnectkConfigDefault");
 
-        std::vector<double> bounds = {-0.3, 0.5, -0.3, 0.4, 0.0, 0.6};
+        std::vector<double> bounds = {-0.3, 0.5, -0.4, 0.4, 0.0, 0.6};
         double resolution = 0.1;
         std::vector<std::vector<double>> grid_points;
         double min_frac = 1.0;
