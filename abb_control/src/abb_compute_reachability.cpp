@@ -40,8 +40,10 @@ int main(int argc, char** argv) {
     }
 
     std::string config_path = path + "/config";
-    std::string file_path = config_path + "/config.json";
-    ROS_INFO("Config file path: %s", file_path.c_str());
+    std::string config_file_path = config_path + "/config.json";
+    std::string reachable_file_path = config_path + "/reachable.json";
+    ROS_INFO("Config file path: %s", config_file_path.c_str());
+    ROS_INFO("Reachable file path: %s", reachable_file_path.c_str());
 
     visualization_msgs::MarkerArray marker_array;
 
@@ -51,7 +53,7 @@ int main(int argc, char** argv) {
     if (config_file) {
         ros::Publisher reachable_pub = nh.advertise<visualization_msgs::MarkerArray>("/abb_compute_reachability/reachability", 10);
         while (ros::ok()) {
-            visualization_msgs::MarkerArray marker_array = publishConfigPoints(file_path);
+            visualization_msgs::MarkerArray marker_array = publishConfigPoints(config_file_path);
             reachable_pub.publish(marker_array);
             ros::Duration(1.0).sleep();
         }
@@ -78,6 +80,7 @@ int main(int argc, char** argv) {
         std::vector<double> bounds = {-0.3, 0.5, -0.4, 0.4, 0.0, 0.6};
         double resolution = 0.1;
         std::vector<std::vector<double>> grid_points;
+        std::vector<std::vector<double>> reachable_points;
         double min_frac = 1.0;
 
         for (double x = bounds[0]; x < bounds[1]; x += resolution) {
@@ -104,41 +107,68 @@ int main(int argc, char** argv) {
                     }
 
                     std::vector<double> point_list = {x, y, z, fraction};
-                    grid_points.push_back(point_list);
 
-                    if (fraction == 1.0) {
+                    if (fraction == 1.0){
+                        reachable_points.push_back(point_list);
                         ROS_INFO("Cartesian path computed successfully.");
                     } else {
-                        ROS_ERROR("Failed to compute Cartesian path");
+                        ROS_WARN("Failed to compute Cartesian path");
                     }
+
+                    grid_points.push_back(point_list);
+
                 }
             }
         }
 
-        // Save reachability data to JSON file
-        std::ofstream json_file(file_path);
-        if (!json_file.is_open()) {
-            std::cerr << "Failed to open file: " << file_path << std::endl;
+        // Save config data to JSON file
+        std::ofstream config_json_file(config_file_path);
+        if (!config_json_file.is_open()) {
+            ROS_ERROR("Failed to open file: %s", config_file_path);
         }
         try {
-            json_file << "{\n";
-            json_file << "    \"fractions\": [\n";
+            config_json_file << "{\n";
+            config_json_file << "    \"fractions\": [\n";
             for (size_t i = 0; i < grid_points.size(); ++i) {
                 auto& point = grid_points[i];
-                json_file << "        [" << point[0] << ", " << point[1] << ", " << point[2] << ", " << point[3] << "]";
+                config_json_file << "        [" << point[0] << ", " << point[1] << ", " << point[2] << ", " << point[3] << "]";
                 if (i != grid_points.size() - 1) {
-                    json_file << ",";
+                    config_json_file << ",";
                 }
-                json_file << "\n";
+                config_json_file << "\n";
             }
-            json_file << "    ],\n";
-            json_file << "    \"min_frac\": " << min_frac << "\n";
-            json_file << "}\n";
+            config_json_file << "    ],\n";
+            config_json_file << "    \"min_frac\": " << min_frac << "\n";
+            config_json_file << "}\n";
         } catch (const std::exception& e) {
-            std::cerr << "Error writing to JSON file: " << e.what() << std::endl;
+            ROS_ERROR("Error writing to JSON file: %s", e.what());
         }
 
-        json_file.close();
+        config_json_file.close();
+
+        // Save reachability data to JSON file
+        std::ofstream reachable_json_file(reachable_file_path);
+        if (!reachable_json_file.is_open()) {
+            ROS_ERROR("Failed to open file: %s", reachable_file_path);
+        }
+        try {
+            reachable_json_file << "{\n";
+            reachable_json_file << "    \"points\": [\n";
+            for (size_t i = 0; i < reachable_points.size(); ++i) {
+                auto& point = reachable_points[i];
+                reachable_json_file << "        [" << point[0] << ", " << point[1] << ", " << point[2] << "]";
+                if (i != reachable_points.size() - 1) {
+                    reachable_json_file << ",";
+                }
+                reachable_json_file << "\n";
+            }
+            reachable_json_file << "    ],\n";
+            reachable_json_file << "}\n";
+        } catch (const std::exception& e) {
+            ROS_ERROR("Error writing to JSON file: %s", e.what());
+        }
+
+        reachable_json_file.close();
 
         // Create marker array for visualization
         marker_array = createMarkerArray(grid_points, 1.0, "world");
