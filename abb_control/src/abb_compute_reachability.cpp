@@ -162,7 +162,7 @@ int main(int argc, char** argv) {
                 }
                 reachable_json_file << "\n";
             }
-            reachable_json_file << "    ],\n";
+            reachable_json_file << "    ]\n";
             reachable_json_file << "}\n";
         } catch (const std::exception& e) {
             ROS_ERROR("Error writing to JSON file: %s", e.what());
