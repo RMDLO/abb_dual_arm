@@ -44,6 +44,7 @@ Visualization Manager:
     - Acceleration_Scaling_Factor: 0.1
       Class: moveit_rviz_plugin/MotionPlanning
       Enabled: true
+      JointsTab_Use_Radians: false
       Move Group Namespace: ""
       MoveIt_Allow_Approximate_IK: false
       MoveIt_Allow_External_Program: false
@@ -510,15 +511,14 @@ Visualization Manager:
                               {}
       Update Interval: 0
       Value: true
-    - Class: rviz/InteractiveMarkers
-      Enable Transparency: true
-      Enabled: false
-      Name: InteractiveMarkers
-      Show Axes: false
-      Show Descriptions: true
-      Show Visual Aids: false
-      Update Topic: /interactive_marker_server/update
-      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /abb_control/reachability
+      Name: MarkerArray
+      Namespaces:
+        reachable_points: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255

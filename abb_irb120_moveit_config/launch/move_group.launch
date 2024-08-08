@@ -1,5 +1,6 @@
 <launch>
-
+  
+  <arg name="planner" default="ompl" />
   <arg name="pointer" default="false" />
 
   <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch">
@@ -26,7 +27,7 @@
 
   <!-- Planning Functionality -->
   <include ns="move_group" file="$(find abb_irb120_moveit_config)/launch/planning_pipeline.launch.xml">
-    <arg name="pipeline" value="ompl" />
+    <arg name="pipeline" value="$(arg planner)" />
   </include>
 
   <!-- Trajectory Execution Functionality -->

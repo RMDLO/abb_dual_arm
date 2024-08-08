@@ -64,6 +64,9 @@
       <arg name="publish_monitored_planning_scene" value="true" />
       <arg name="fake_execution" value="true" />
       <arg name="pointer" value="$(arg pointer)"/>
+      <arg name="allow_trajectory_execution" value="true"/>
+      <arg name="info" value="true"/>
+      <arg name="planner" value="ompl" />
     </include>
   </group>
 
@@ -71,6 +74,9 @@
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
       <arg name="publish_monitored_planning_scene" value="true" />
       <arg name="pointer" value="$(arg pointer)"/>
+      <arg name="allow_trajectory_execution" value="true"/>
+      <arg name="info" value="true"/>
+      <arg name="planner" value="ompl" />
     </include>
   </group>
 
