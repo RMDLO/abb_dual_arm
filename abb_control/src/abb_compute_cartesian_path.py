@@ -4,8 +4,6 @@ import rospy
 import moveit_commander
 from sensor_msgs.msg import JointState
 from moveit_msgs.msg import DisplayTrajectory
-from control_msgs.msg import FollowJointTrajectoryActionGoal
-from geometry_msgs.msg import Pose, Quaternion
 import copy
 
 def functional():
@@ -15,7 +13,6 @@ def functional():
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
 
-    pub = rospy.Publisher(f'/{group_name}/joint_trajectory_action/goal', FollowJointTrajectoryActionGoal, queue_size=1)
     display_pub = rospy.Publisher('/move_group/display_planned_path', DisplayTrajectory, queue_size=10)
 
     joint_start = group.get_current_joint_values()
@@ -56,16 +53,17 @@ def functional():
     display_trajectory.trajectory.append(plan)
     display_trajectory.trajectory_start.joint_state = joint_state
 
-    message = FollowJointTrajectoryActionGoal()
-    message.goal.trajectory = plan
-
-    pub.publish(message)
     display_pub.publish(display_trajectory)
-    execution = group.execute(plan, wait=True)
-    print("Executed? ", execution)
-    print("End Pose: ", group.get_current_pose().pose)
-    group.stop()
-    group.clear_pose_targets()
+
+    command_input = input("Execute plan? y or n: ")
+
+    if command_input == "y":
+        success = group.execute(plan, wait=True)
+        group.stop()
+        group.clear_pose_targets()
+        print("Executed? ", success)
+    else:
+        print("Trajectory execution on robot aborted.")
 
 if __name__ == '__main__':
 
