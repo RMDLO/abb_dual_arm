@@ -325,7 +325,7 @@ Visualization Manager:
       Value: true
       Velocity_Scaling_Factor: 0.1
     - Class: rviz/Image
-      Enabled: true
+      Enabled: false
       Image Topic: /oak/rgb/image_raw
       Max Value: 1
       Median window: 5
@@ -335,7 +335,7 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
-      Value: true
+      Value: false
     - Class: rviz/Image
       Enabled: true
       Image Topic: /knotdlo/reachability_img
@@ -390,18 +390,7 @@ Visualization Manager:
         node_results_line_15: true
         node_results_line_16: true
         node_results_line_17: true
-        node_results_line_18: true
-        node_results_line_19: true
         node_results_line_2: true
-        node_results_line_20: true
-        node_results_line_21: true
-        node_results_line_22: true
-        node_results_line_23: true
-        node_results_line_24: true
-        node_results_line_25: true
-        node_results_line_26: true
-        node_results_line_27: true
-        node_results_line_28: true
         node_results_line_3: true
         node_results_line_4: true
         node_results_line_5: true
@@ -419,18 +408,7 @@ Visualization Manager:
         node_results_node_15: true
         node_results_node_16: true
         node_results_node_17: true
-        node_results_node_18: true
-        node_results_node_19: true
         node_results_node_2: true
-        node_results_node_20: true
-        node_results_node_21: true
-        node_results_node_22: true
-        node_results_node_23: true
-        node_results_node_24: true
-        node_results_node_25: true
-        node_results_node_26: true
-        node_results_node_27: true
-        node_results_node_28: true
         node_results_node_3: true
         node_results_node_4: true
         node_results_node_5: true
@@ -475,19 +453,15 @@ Visualization Manager:
           Value: false
         idx_20:
           Value: false
+        idx_30:
+          Value: false
+        idx_45:
+          Value: false
         idx_50:
           Value: false
         idx_80:
           Value: false
-        idx_mid7:
-          Value: false
         idx_r1_1:
-          Value: false
-        idx_r2_1:
-          Value: false
-        idx_r2_2:
-          Value: false
-        idx_r2_3:
           Value: false
         idx_reset_1:
           Value: true
@@ -495,10 +469,6 @@ Visualization Manager:
           Value: true
         idx_reset_3:
           Value: true
-        idx_x_1:
-          Value: false
-        idx_x_2:
-          Value: false
         link_1:
           Value: false
         link_1_m:
@@ -567,19 +537,15 @@ Visualization Manager:
                               {}
           idx_20:
             {}
+          idx_30:
+            {}
+          idx_45:
+            {}
           idx_50:
             {}
           idx_80:
             {}
-          idx_mid7:
-            {}
           idx_r1_1:
-            {}
-          idx_r2_1:
-            {}
-          idx_r2_2:
-            {}
-          idx_r2_3:
             {}
           idx_reset_1:
             {}
@@ -587,14 +553,10 @@ Visualization Manager:
             {}
           idx_reset_3:
             {}
-          idx_x_1:
-            {}
-          idx_x_2:
-            {}
       Update Interval: 0
       Value: true
     - Class: rviz/Image
-      Enabled: true
+      Enabled: false
       Image Topic: /knotdlo/initial
       Max Value: 1
       Median window: 5
@@ -604,7 +566,7 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 211; 215; 207
@@ -621,7 +583,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.5585774183273315
+      Distance: 1.4021058082580566
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -629,17 +591,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.5008981227874756
-        Y: 0.2216963768005371
-        Z: 6.729558208462549e-07
+        X: 0.5505499839782715
+        Y: 0.09607267379760742
+        Z: 4.941418865200831e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.3247957229614258
+      Pitch: 0.5397965312004089
       Target Frame: base_link
-      Yaw: 1.5417615175247192
+      Yaw: 1.5467615127563477
     Saved: ~
 Window Geometry:
   Displays:
@@ -655,7 +617,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000002000000000000027c0000039efc0200000008fc0000003d00000167000000e60100001cfa000000000100000003fb0000000a0049006d0061006700650100000000ffffffff0000007600fffffffb0000000a0049006d0061006700650000000000ffffffff0000000000000000fb000000100044006900730070006c0061007900730100000000000002bb0000015600fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067000000010c0000017d0000017d00fffffffb0000000a0049006d00610067006501000001aa000002310000001600ffffff00000002000004bc0000018bfc0100000002fb0000000a0049006d0061006700650100000282000003100000007600fffffffb0000000a0049006d0061006700650100000598000001a60000007600ffffff000004bc0000020d00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000002000000000000027c0000039efc0200000008fc0000003d00000167000000e60100001cfa000000020100000003fb0000000a0049006d0061006700650100000000ffffffff0000007600fffffffb0000000a0049006d0061006700650000000000ffffffff0000007600fffffffb000000100044006900730070006c0061007900730100000000000002bb0000015600fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067000000010c0000017d0000017d00fffffffb0000000a0049006d00610067006501000001aa000002310000001600ffffff00000002000004bc0000018bfc0100000002fb0000000a0049006d0061006700650100000282000004bc0000007600fffffffb0000000a0049006d0061006700650100000598000001a60000000000000000000004bc0000020d00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1854

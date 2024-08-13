@@ -4,8 +4,7 @@ import rospy
 import moveit_commander
 from sensor_msgs.msg import JointState
 from moveit_msgs.msg import DisplayTrajectory
-from control_msgs.msg import FollowJointTrajectoryActionGoal
-from geometry_msgs.msg import Pose, Quaternion
+from geometry_msgs.msg import Pose
 
 def functional():
 
@@ -14,16 +13,16 @@ def functional():
     group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
 
-    pub = rospy.Publisher(f'/{group_name}/joint_trajectory_action/goal', FollowJointTrajectoryActionGoal, queue_size=1)
     display_pub = rospy.Publisher('/move_group/display_planned_path', DisplayTrajectory, queue_size=10)
 
-    joint_start = group.get_current_joint_values()
     waypoints = []
     waypoints.append(group.get_current_pose().pose)
 
     pose_goal = Pose()
-    pose_goal.orientation.y = -0.7071068
-    pose_goal.orientation.w = 0.7071068
+    pose_goal.orientation.x = 0
+    pose_goal.orientation.y = 0
+    pose_goal.orientation.z = 0
+    pose_goal.orientation.w = 1
     pose_goal.position.x = 0.2
     pose_goal.position.y = 0
     pose_goal.position.z = 0.3
@@ -45,24 +44,19 @@ def functional():
     joint_state = JointState()
     joint_state.header.stamp = rospy.Time.now()
     joint_state.name = joint_names
-    joint_state.position = joint_start
+    joint_state.position = group.get_current_joint_values()
 
     display_trajectory = DisplayTrajectory()
     display_trajectory.model_id = group_name
-    display_trajectory.trajectory.append(plan)
     display_trajectory.trajectory_start.joint_state = joint_state
+    display_trajectory.trajectory.append(plan)
 
-    message = FollowJointTrajectoryActionGoal()
-    message.goal.trajectory = plan
-
-    pub.publish(message)
     display_pub.publish(display_trajectory)
     
     command_input = input("Execute plan? y or n: ")
 
     if command_input == "y":
-        group.set_pose_target(pose_goal)
-        success = group.go(wait=True)
+        success = group.execute(plan, wait=True)
         group.stop()
         group.clear_pose_targets()
         print("Executed? ", success)
