@@ -31,7 +31,8 @@ controller_list:
       - joint_4 
       - joint_5
       - joint_6 
-      - joint_7 
+      - joint_7
+      - camera_collision_joint
   - name: mp_m
     action_ns: joint_trajectory_action
     type: FollowJointTrajectory

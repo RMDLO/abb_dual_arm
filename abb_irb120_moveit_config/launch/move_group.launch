@@ -2,6 +2,7 @@
   
   <arg name="planner" default="ompl" />
   <arg name="pointer" default="false" />
+  <param name="/move_group/octomap_resolution" value="0.1"/>
 
   <include file="$(find abb_irb120_moveit_config)/launch/planning_context.launch">
     <arg name="pointer" value="$(arg pointer)" />

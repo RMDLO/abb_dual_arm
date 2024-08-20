@@ -7,16 +7,18 @@ from moveit_msgs.msg import DisplayTrajectory
 from geometry_msgs.msg import Pose
 
 def functional():
-
-    group_name = "mp_m"
+    robot = moveit_commander.RobotCommander()
+    group_name = "mp_m"  # or "dual_arm" if that is the intended group
+    group = robot.get_group(group_name)
     rospy.init_node(f'{group_name}_cartesian_planning')
-    group= moveit_commander.MoveGroupCommander(group_name)
     group.set_start_state_to_current_state()
 
     display_pub = rospy.Publisher('/move_group/display_planned_path', DisplayTrajectory, queue_size=10)
 
+    # Note: group.get_current_pose().pose implementation is buggy! Have to call it so that
+    # See here: https://github.com/moveit/moveit/issues/2715
+    start_pose = group.get_current_pose().pose
     waypoints = []
-    waypoints.append(group.get_current_pose().pose)
 
     pose_goal = Pose()
     pose_goal.orientation.x = 0
@@ -64,7 +66,6 @@ def functional():
         print("Trajectory execution on robot aborted.")
 
 if __name__ == '__main__':
-
     try:
         functional()
     except rospy.ROSInterruptException:
