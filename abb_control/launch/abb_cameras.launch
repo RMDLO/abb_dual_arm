@@ -1,0 +1,51 @@
+<launch>
+
+    <arg name="serial_no_camera1" value="017322075060" />
+    <arg name="serial_no_camera2" value="130322270317" />
+    <arg name="camera1" default="d435"/>
+    <arg name="camera2"	default="d405"/>
+    <arg name="camera3"	default="oak"/>
+    <arg name="tf_prefix_camera1" default="$(arg camera1)"/>
+    <arg name="tf_prefix_camera2" default="$(arg camera2)"/>
+    <arg name="tf_prefix_camera3" default="$(arg camera3)"/>
+
+  <group ns="$(arg camera1)">
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="serial_no" value="$(arg serial_no_camera1)"/>
+      <arg name="tf_prefix" value="$(arg tf_prefix_camera1)"/>
+        <arg name="json_file_path" value="$(find abb_control)/config/d435_camera_config.json" />
+        <arg name="filters" value="pointcloud,temporal,decimation" />
+        <arg name="depth_fps" value="10" />
+        <arg name="depth_height" value="720" />
+        <arg name="depth_width" value="1280" />
+        <arg name="color_fps" value="10" />
+        <arg name="color_height" value="720" />
+        <arg name="color_width" value="1280" />
+        <arg name="align_depth" value="true" />
+        <arg name="ordered_pc" value="true" />
+    </include>
+  </group>
+
+  <group ns="$(arg camera2)">
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="serial_no" value="$(arg serial_no_camera2)"/>
+      <arg name="tf_prefix" value="$(arg tf_prefix_camera2)"/>
+        <arg name="json_file_path" value="$(find abb_control)/config/d405_camera_config.json" />
+        <arg name="filters" value="pointcloud,temporal,decimation" />
+        <arg name="depth_fps" value="10" />
+        <arg name="depth_height" value="720" />
+        <arg name="depth_width" value="1280" />
+        <arg name="color_fps" value="10" />
+        <arg name="color_height" value="720" />
+        <arg name="color_width" value="1280" />
+        <arg name="align_depth" value="true" />
+        <arg name="ordered_pc" value="true" />
+    </include>
+  </group>
+    
+  <group ns="$(arg camera3)">
+    <include file="$(find depthai_ros_driver)/launch/camera.launch" >
+    </include>
+  </group>
+
+</launch>
