@@ -3,7 +3,7 @@
   <arg name="multi" default="true" />
   <arg name="sim" default="true" />
   <arg name="robot_ip" default="192.168.125.1" unless="$(arg sim)"/>
-  <arg name="camera" default="false" />
+  <arg name="cameras" default="false" />
   <arg name="pointer" default="false" />
   <arg name="tracking" default="false" />
   <arg name="node_start_delay" default="" />
@@ -80,8 +80,8 @@
     </include>
   </group>
 
-  <group if="$(arg camera)" >
-    <include file="$(find depthai_ros_driver)/launch/camera.launch" >
+  <group if="$(arg cameras)" >
+    <include file="$(find abb_control)/launch/abb_cameras.launch" >
     </include>
   </group>
 
