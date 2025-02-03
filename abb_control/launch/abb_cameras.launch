@@ -52,7 +52,7 @@
     </include>
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_m_to_oak_rgb_camera_optical_frame_tf" args="-0.343573 0.50373 0.551695​ -0.0456 0.9259 -0.3731 -0.0382 base_link_m oak_rgb_camera_optical_frame 10" /> -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="oak_depth_to_color" args="-0.037 -0.001 0​ 0.006 -0.001 0.001 1.000 oak_right_camera_optical_frame oak_rgb_camera_optical_frame 10" /> -->
-    <node pkg="tf" type="static_transform_publisher" name="base_link_m_to_oak_frame_tf" args="-0.343573 0.50373 0.551695​ -0.4142 -0.0206 0.1814 0.9474 base_link_m oak-d-base-frame 10" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_m_to_oak_frame_tf" args="-0.348229 0.482274 0.547362 -0.2564457865355233 -0.3150786323298423 0.686331990864345 -0.6032490466909314 base_link_m oak-d-base-frame 10" />
   </group>
 
 </launch>
