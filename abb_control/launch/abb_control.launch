@@ -57,9 +57,8 @@
   </group>
 
   <!-- publish the robot state (tf transforms) -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
-    <param name="publish_rate" value="100" />
-  <node/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+  </node>
 
   <group if="$(arg sim)">
     <include file="$(find abb_irb120_moveit_config)/launch/move_group.launch">
